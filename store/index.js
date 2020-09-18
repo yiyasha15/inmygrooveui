@@ -1,0 +1,1 @@
+/*just adding this index.js file inside the store directory enables vuex in nuxt */
