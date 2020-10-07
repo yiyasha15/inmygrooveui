@@ -13,9 +13,9 @@
             <!-- <v-layout align-center justify-center >
                 <v-flex> -->
                     <div>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/`">About</v-btn>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/work`"> Work </v-btn>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/each1teach1`">Each 1 Teach 1 </v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/`">About</v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
                     </div>
                     <!--Conditional Template Rendering-->
                     <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
@@ -46,7 +46,7 @@
                 <!-- xs = 600px full screen (12) -->
                 <!-- md = 600px or more. half of the screen (6) -->
                 <v-layout class="d-flex flex-wrap">
-                    <v-flex xs6 md6 v-for="gallery in artist.gallery" :key = "gallery.index">
+                    <v-flex xs6 md6 v-for="gallery in gallery" :key = "gallery.index">
                         <v-dialog v-model="dialog" width="500">
                             <template v-slot:activator="{ on, attrs }">
                             <div v-if = gallery.g_upload_photo v-bind="attrs" v-on="on">
@@ -76,13 +76,13 @@ export default {
       }
     },
     //layout: 'idlayout',
-    props: ["id"],
+    //props: ["id"],
     components:{
         GalleryCard,
     },
     head() {
         return {
-            title: this.artist.id,     //do not miss "this"
+            title: this.artist.artist_name,     //do not miss "this"
             meta: [
                 {
                     hid: 'description',
@@ -94,9 +94,11 @@ export default {
     },
     async asyncData({error, params}) {
       try {
-        let artist_response = await EventService.getArtist(params.id)
+        let artist_response = await EventService.getArtist(params.username)
+        let gallery_response = await EventService.getGalleries(params.username)
         return {
             artist: artist_response.data,  //event ...... NOT events here , dont miss this one..
+            gallery: gallery_response.data,
         }
       } catch (err) {
         error({statusCode:503,  message: err.message})

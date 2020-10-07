@@ -13,9 +13,9 @@
                 <!-- <v-layout align-center justify-center >
                     <v-flex> -->
                         <div>
-                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/`">About</v-btn>
-                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/work`"> Work </v-btn>
-                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/artists/${artist.id}/each1teach1`">Each 1 Teach 1 </v-btn>
+                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/`">About</v-btn>
+                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                          <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
                         </div>
                         <!--Conditional Template Rendering-->
                         <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
@@ -28,7 +28,10 @@
          <v-row>
             <!--<v-col cols="6" md="4" align="left" justify="center"></v-col>-->
             <v-col cols="12" md="8" >                    
-                    <div class="mb-5 font-weight-bold" v-if="artist.milestone.length > 0">
+                    
+                <h4>milestones</h4>
+                    <!--
+                        <div class="mb-5 font-weight-bold" v-if="artist.milestone.length > 0">
                         Milestones 
                     </div>  
                     <div v-else>
@@ -39,11 +42,13 @@
                             <MilestoneCard :milestone = "milestone"></MilestoneCard>
                         </div>
                     </div>
+                    -->
             </v-col>
         </v-row>
         </v-container>
     </v-app>
 </template>
+
 <script>
 import MilestoneCard from "@/components/MilestoneCard.vue"
 
