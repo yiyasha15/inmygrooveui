@@ -1,19 +1,18 @@
 <template>
-<v-card 
-      class="ma-2 "
-      :to="'/artists/'+ myteacher.s_student + '/teachers'" 
-      max-width="190" >
-      <div v-if = myteacher.s_photo>
-        <v-img :src="myteacher.s_photo" class="centerImage" width="180px" height="180px"/>
-        <v-card-title v-if = myteacher.s_photo>
-        {{ myteacher.s_student }}
-        </v-card-title>
-        <!-- <v-card-subtitle v-if = milestone.m_context>
-          {{milestone.m_context}}
-        </v-card-subtitle> -->
-        <v-card-actions>
-        </v-card-actions>
-      </div>        
+  <!--<v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" :to="`/${artist.username}` + `/${each1teach1.id}`" >-->
+  <!--<v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" :to="'/' + artist.username + '/each1teach1/' + each1teach1.index">-->
+  <v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" >
+  
+    <v-container>
+      
+        <div>
+          <v-img :src="share.s_photo" class="centerImage" height="100px" width="100px"/>
+          <div class="text font-weight-light" v-for = "s_student in share.s_student" :key = "s_student.index">
+              {{s_student.username}},{{s_student.country}}              
+          </div>
+        </div>
+
+    </v-container>
   </v-card>
 </template>
 
@@ -21,7 +20,8 @@
     export default {
       name: 'StudentsCard',
       props: {
-        myteacher: Object,
+        //artist: Object,
+        share: Object
       },
       
     }
