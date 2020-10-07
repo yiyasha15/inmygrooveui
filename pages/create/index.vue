@@ -42,8 +42,7 @@
                         <v-btn
                           color="primary"
                           text
-                          @click="dialog = false"
-                        >
+                          @click="dialog = false">
                           Cool
                         </v-btn>
                       </v-card-actions>

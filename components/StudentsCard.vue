@@ -1,16 +1,19 @@
 <template>
-  <v-card class = "ma-1 pa-1" ><!--hover @mousedown.stop :elevation="5" :to="'/artists/' + artist.id" >--><!-- dark -->
-    <v-container>
-      
-        <div>
-          <img :src="myteacher.s_photo" class="centerImage">
-          <br>
-          <v-btn color="orange" x-small>
-            {{ myteacher.s_student }}
-          </v-btn>
-        </div>
-
-    </v-container>
+<v-card 
+      class="ma-2 "
+      :to="'/artists/'+ myteacher.s_student + '/teachers'" 
+      max-width="190" >
+      <div v-if = myteacher.s_photo>
+        <v-img :src="myteacher.s_photo" class="centerImage" width="180px" height="180px"/>
+        <v-card-title v-if = myteacher.s_photo>
+        {{ myteacher.s_student }}
+        </v-card-title>
+        <!-- <v-card-subtitle v-if = milestone.m_context>
+          {{milestone.m_context}}
+        </v-card-subtitle> -->
+        <v-card-actions>
+        </v-card-actions>
+      </div>        
   </v-card>
 </template>
 

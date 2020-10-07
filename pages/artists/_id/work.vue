@@ -33,7 +33,7 @@
                     </div>  
                     <div v-else>
                         <v-btn class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Add Work </v-btn>
-                    </div>   
+                    </div>
                     <div class="d-flex flex-wrap" >
                         <div v-for = "milestone in artist.milestone" :key = "milestone.index" >
                             <MilestoneCard :milestone = "milestone"></MilestoneCard>

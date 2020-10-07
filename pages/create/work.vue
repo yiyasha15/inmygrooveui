@@ -6,9 +6,10 @@
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/each1teach1/`">Each 1 Teach 1 </v-btn>
         </div>
+            <v-divider class="mx-8" ></v-divider>
         <v-container class="ma-24 ">
             <v-row>
-                <v-col  class="white outlined pa-8 elevation-0  mx-4">
+                <v-col cols="12" md="6" class="pl-sm-6">
                     <v-form v-on:submit.prevent="submit">
                         <v-row>
                             <v-col cols="12" md="9">
@@ -22,6 +23,17 @@
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
+                                <div class = "form-group">
+                                        <v-text-field @click= "onPick" label="Upload image"></v-text-field>
+                                        <input 
+                                        type="file" 
+                                        name = "milestone.m_photo" 
+                                        style="display:none" 
+                                        ref="fileInput" 
+                                        accept="image/*"
+                                        required
+                                        @change="onFileChange">
+                                    </div>
                                 <v-textarea
                                     v-model = "milestone.m_context"
                                     label= "Share your experience"
@@ -51,25 +63,13 @@
                                         <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
                                     </v-date-picker>
                                     </v-menu>
-                                <div class = "form-group">
-                                    <v-btn class="flat elevation-0 my-4 ml-0  pa-2 grey lighten-5" @click= "onPick">Upload an image </v-btn>
-                                    <input 
-                                    type="file" 
-                                    name = "milestone.m_photo" 
-                                    style="display:none" 
-                                    ref="fileInput" 
-                                    accept="image/*"
-                                    required
-                                    @change="onFileChange">
-                                </div>
-                                
                                 <v-btn class="blue rounded-pill" @click="submit">submit</v-btn>
                                 <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </v-col>
                         </v-row>
                     </v-form>
                 </v-col>
-                <v-col class="white lighten-5 outlined pa-8 ml-12 hidden-md-and-down elevation-0">
+                <v-col cols="12" md="6" class="pl-sm-6">
                         <v-col>
                         <v-row class="pb-6 justify-center text-center">
                             <h2> {{milestone.m_what_happend}}</h2>

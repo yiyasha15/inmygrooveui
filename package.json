@@ -28,6 +28,7 @@
     "vue-country-select": "^0.2.2",
     "vue-kinesis": "^1.1.5",
     "vue-observe-visibility": "^0.4.6",
+    "vue-select": "^3.10.8",
     "vue2-editor": "^2.10.2",
     "vue2-google-maps": "^0.10.7"
   },

@@ -17,30 +17,30 @@
             </v-col>
         </v-row>
         <div v-if="artist.mystudent.length == 0">
-            <div class="text font-weight-light mt-12">
+            <div class="text font-weight-light mt-12 mb-4">
                 This is a page to connect with your teachers and students
+                <hr>
             </div>
         </div>
-        <div v-if="artist.myteacher.length == 0">
-            <v-btn class="elevation-0 text-decoration-none mt-4" :to= "`/create/each1teach1/`">Add Teacher </v-btn>
+        <div>
+            <v-btn class="elevation-0 text-decoration-none mt-4 mb-4" :to= "`/create/each1teach1/`">Add Teacher </v-btn>
         </div>
         <div v-if="artist.mystudent.length > 0">
-            <div class="text font-weight-light">
+            <div class="text font-weight-light mb-6">
                 People who have taught me/influenced me 
                 <hr>
             </div>
             <div class="d-flex flex-wrap">
                 <div v-for = "mystudent in artist.mystudent" :key = "mystudent.index">
                     <TeachersCard :mystudent="mystudent" ></TeachersCard>
-                    <!--bind the prop, "teacher" object (in studentCard component) with teacher iterator in for loop--> 
+                    <!--bind the prop, "teacher" object (in TeacherCard component) with teacher iterator in for loop--> 
                 </div>
             </div>
         </div>
         <br>
         <div v-if="artist.myteacher.length > 0">
-            <div class="text font-weight-light">
+            <div class="text font-weight-light mb-6">
                 My students
-                <hr>
             </div>
         
             <div class="d-flex flex-wrap">

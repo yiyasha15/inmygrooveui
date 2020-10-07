@@ -6,6 +6,7 @@
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/each1teach1/`">Each 1 Teach 1 </v-btn>
         </div>
+        <v-divider class="mx-8" ></v-divider>
         <v-container class="ma-24" >
             <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
@@ -18,7 +19,7 @@
                                     :maxlength="20">
                                 </v-text-field>
                                 <div class = "form-group">
-                                    <v-btn class="flat elevation-0 my-4 ml-0  pa-2 grey lighten-5" @click= "onPick">Upload four images </v-btn>
+                                    <v-text-field @click= "onPick" label="Upload image"></v-text-field>
                                     <input 
                                     type="file" 
                                     name = "g_upload_photo" 
@@ -26,7 +27,6 @@
                                     ref="fileInput" 
                                     accept="image/*"
                                     required
-                                    multiple
                                     @change="onFileChange">
                                 </div>
                                 <v-btn class="blue rounded-pill" @click="submit">submit</v-btn>
@@ -35,8 +35,9 @@
                         </v-row>
                     </v-form>
                 </v-col>
-                <v-col cols="12" md="6">
-                    <v-flex>
+                <v-col cols="12" md="6" class="pl-sm-6">
+                    <v-img :src="imageData" height="300px" width="500px"></v-img>
+                    <!-- <v-flex>
                         <v-container v-bind="{ [`grid-list-${sm}`]: true }" fluid>
                             <v-layout row wrap justify-end align-end>
                             <v-flex v-for="(image, key) in images" :key="key">
@@ -44,14 +45,13 @@
                             </v-flex>
                             </v-layout>
                         </v-container>
-                    </v-flex>
+                    </v-flex> -->
                     </v-col>
             </v-row>
         </v-container>
     </v-app>
 </template>
 <script>
-
 import EventService from '@/services/EventService.js'
 export default {
     data(){
@@ -60,33 +60,44 @@ export default {
                g_artist: "",
                g_upload_photo: ""
            },
-            images: [],
+           imageData: "",
+            // images: [],
         }
     },
     methods: {
-        removeImage(){
-            this.images = []
-            },
+        // removeImage(){
+        //     this.images = []
+        //     },
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()
         },
         onFileChange(e) {
-            let vm = this;
-            var selectedFiles = e.target.files;
-            for (let i = 0; i < 4; i++) {
-                console.log(selectedFiles[i]);
-                this.images.push(selectedFiles[i]);
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                    // Read image as base64 and set to imageData
+                    this.imageData = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.artist.g_upload_photo = files[0];
             }
+            // for (let i = 0; i < 4; i++) {
+            //     console.log(selectedFiles[i]);
+            //     this.images.push(selectedFiles[i]);
+            // }
 
-            for (let i = 0; i < this.images.length; i++) {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                this.$refs.image[i].src = reader.result;
-                };
-                reader.readAsDataURL(this.images[i]);
-            }
-            this.artist.g_upload_photo = selectedFiles[0];
+            // for (let i = 0; i < this.images.length; i++) {
+                // let reader = new FileReader();
+                // reader.onload = (e) => {
+                // this.$refs.image[i].src = reader.result;
+                // };
+                // reader.readAsDataURL(this.images[i]);
+            // }
+            // this.artist.g_upload_photo = selectedFiles[0];
             },
         async submit() {
             const config = {
@@ -100,14 +111,18 @@ export default {
                     break;
                 }
                 else{
-                    console.log("data ca be saved ");
-                    console.log(data);
                     formData.append(data, this.artist[data]);
                 }
             }
             try {
-                let response = await this.$axios.$post("/v1/gallery/", formData, config);
-                this.$router.push("/create/work");
+                if(a==0){
+                    let response = await this.$axios.$post("/v1/gallery/", formData, config);
+                    this.$router.push("/create/gallery");
+                }
+                else{
+                    let response = await this.$axios.$post("/v1/gallery/", formData, config);
+                    this.$router.push("/create/work");
+                    }
             } catch (e) {
                 console.log(e);
             }
