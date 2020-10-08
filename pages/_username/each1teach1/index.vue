@@ -4,18 +4,25 @@
             <nuxt-child :sharing="sharing"/>
             <v-main>
               <v-container fill-height>
-                  <div class="text-center font-weight-bold">{{artist.artist_name}}</div>
-                <v-layout align-center justify-center>
-                    <v-flex xs6>
-
-                        <div class="text-xs-center" align="center">
-                          <v-btn rounded outlined class="text-capitalize" :to= "`/${artist.username}/`">About</v-btn>
-                          <v-btn rounded outlined class="text-capitalize" :to= "`/${artist.username}/work`"> Work </v-btn>
-                          <v-btn rounded outlined class="text-capitalize" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                        </div>
-                        
-                    </v-flex>
-                </v-layout>
+                <v-row>
+                    <v-col cols="12" sm="4" >
+                        <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}}</div>
+                    </v-col>
+                    <!-- <v-spacer></v-spacer> -->
+                    <v-col class="px-0 d-flex align-end justify-end pr-4">
+                        <!-- <v-layout align-center justify-center >
+                            <v-flex> -->
+                                <div>
+                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/`">About</v-btn>
+                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+                                </div>
+                                <!--Conditional Template Rendering-->
+                                <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
+                            <!-- </v-flex>
+                        </v-layout> -->
+                    </v-col>
+                </v-row>
               </v-container>
             </v-main>
             
