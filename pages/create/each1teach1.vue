@@ -1,10 +1,13 @@
 <template>
     <v-app>
         <div class="text-xs-center ma-6" align = "center">
+            connect with your teachers.
+            <!--
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
             <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/each1teach1/`">Each 1 Teach 1 </v-btn>
+            -->
         </div>
         <v-divider class="mx-8" ></v-divider>
         <v-container class="ma-24 ">

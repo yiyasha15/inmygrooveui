@@ -1,23 +1,76 @@
 <template>
   <v-app>
     <v-container>
-      <div align="center" justify="center" class="mx-12 my-6" width="40%">
-        <img src = "~/assets/pencil_art2.png"  width="30%" alt="In My Groove logo">
-      </div>
-      <div align="center" justify="center" class="mx-12 mb-6" align-content="center">
-        <div class="font-weight-light text-center ma-0"> "In My Groove" is a community platform to celebrate the "each 1 teach 1" legacy of the HipHop culture.
-          <br>
-            Every student can appreciate her/his teachers who shared their knowledge and every teacher can find all of their students at one place.
-          <br>
-            Let's connect HipHop a little more, share it a little more...together.
-        </div>
-      </div>
+      <v-row>
+        <v-col >
+          <div align="center" justify="center" class="mx-12 my-8" width="50%">
+            <img src = "~/assets/pencil_art2.png"  width="100%" alt="In My Groove logo">
+          </div>
+        </v-col>
+        <v-col md="6" offset-md="-4">
+          <div align="center" justify="center" class="mx-12 mb-6" align-content="center">
+              <div class="mb-5 font-weight-bold">Pass The HipHop (PATH)</div>
+              <hr><br><br><br>
+              <div class="font-weight-light text-center ma-0">
+                "Pass The HipHop" a.k.a PATH, is a community platform to celebrate the "Each 1 Teach 1" legacy of the HipHop culture.
+                 Here we can acknowledge all those HipHop artists who passed their knowledge, skill and experience to make us better 
+                 at our own craft. You can tag and appreciate your teachers & peers and let them know how much their words and teachings meant to you in your own journey.
+                 similarly you will have a complete database of all your students and peers who learned something from you when they tag you.              
+                 Let's connect HipHop a little more, share it a little more...Together.
+              </div>
+          </div>
+        </v-col>
+      </v-row>
+      
+      <v-row>
+        <v-col align="center" justify="center" >
+              <v-row no-gutters>            
+                    <v-col md="10" offset-md="3">
+                      <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
+                        <img src = "~/assets/art1.jpeg"  width="100%" alt="portfolio logo"></img>
+                      </v-card>
+                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>Artists & Community</v-btn>                                     
+                    </v-col>            
+              </v-row>                    
+        </v-col>
+        <v-col align="center" justify="center" >
+              <v-row no-gutters>            
+                    <v-col md="10" offset-md="3">
+                      <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
+                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo"></img>
+                      </v-card>   
+                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/create'>create your website</v-btn>                                  
+                    </v-col>            
+              </v-row>                    
+          </v-col>
+        <v-col align="center" justify="center" >
+              <v-row no-gutters>            
+                    <v-col md="10" offset-md="3">
+                      <v-card>
+                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo"></img>
+                      </v-card>
+                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium :to= "`/create/each1teach1/`">Connect with your peers</v-btn>                                     
+                    </v-col>            
+              </v-row>                    
+        </v-col>
+        <v-col align="center" justify="center" >
+              <v-row no-gutters>            
+                    <v-col md="10" offset-md="3">
+                      <v-card>
+                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo"></img>
+                      </v-card>
+                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>culture blogs</v-btn>                                     
+                    </v-col>            
+              </v-row>                    
+          </v-col>
+      </v-row>
+
       <div align="center" justify="center" class="mb-6"> 
-        <div class="text-center xs12">                                                                                                                                                                                                                                                                                                                                         
+        <!--<div class="text-center xs12">                                                                                                                                                                                                                                                                                                                                         
             <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>find artists</v-btn>
             <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/create'>create your own website</v-btn>
             <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/blogs'>community blogs</v-btn>
-        </div>                                                             
+        </div>-->                                                            
       </div>    
       <v-divider set="inset"></v-divider>
     </v-container>
