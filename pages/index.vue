@@ -27,7 +27,7 @@
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
                       <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
-                        <img src = "~/assets/art1.jpeg"  width="100%" alt="portfolio logo"></img>
+                        <img src = "~/assets/art1.jpeg"  width="100%" alt="portfolio logo">
                       </v-card>
                       <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>Artists & Community</v-btn>                                     
                     </v-col>            
@@ -37,7 +37,7 @@
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
                       <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
-                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo"></img>
+                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo">
                       </v-card>   
                       <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/create'>create your website</v-btn>                                  
                     </v-col>            
@@ -47,7 +47,7 @@
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
                       <v-card>
-                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo"></img>
+                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo">
                       </v-card>
                       <v-btn  class="mx-3 text-decoration-none white elevation-0" medium :to= "`/create/each1teach1/`">Connect with your peers</v-btn>                                     
                     </v-col>            
@@ -57,7 +57,7 @@
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
                       <v-card>
-                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo"></img>
+                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo">
                       </v-card>
                       <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>culture blogs</v-btn>                                     
                     </v-col>            

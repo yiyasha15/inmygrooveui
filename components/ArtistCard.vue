@@ -15,7 +15,7 @@
             </p>
             <v-spacer></v-spacer>
             <v-btn icon class="text-decoration-none" >
-              <country-flag :country= 'flag' />
+              <country-flag :country= 'artist.country' />
             </v-btn>
             </v-card-actions>
           <!-- <span>{{ event.attendees.length }} attending</span> -->
@@ -37,16 +37,6 @@ import CountryFlag from 'vue-country-flag'
       components: {
         CountryFlag
     },
-    data() {
-      return {
-        flag: this.artist.country
-      }
-    },
-    // computed:{
-    //   flag: function(){
-    //     return this.artist.country
-    //   }
-    // }
     }
 </script>
 

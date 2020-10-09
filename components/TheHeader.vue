@@ -28,7 +28,7 @@ export default {
     data() {
     return {
         items: [
-          { title: 'Login', url:'' },
+          { title: 'Login', url:'/login' },
           { title: 'Sign Up' , url:''},
         ],
       
