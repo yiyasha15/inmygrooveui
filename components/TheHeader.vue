@@ -15,6 +15,8 @@
             <v-list-item
             v-for="(item, index) in items"
             :key="index"
+            :to="item.url"
+            class="text-decoration-none"
             >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -28,11 +30,22 @@ export default {
     data() {
     return {
         items: [
-          { title: 'Login', url:'/login' },
-          { title: 'Sign Up' , url:''},
+            //if not logged in
+            // { title: 'Log In', url:'' }, 
+            // { title: 'Create account', url:'' },
+            //if logged in
+            { title: 'Profile', url:'' }, //username
+            { title: 'Notifications', url:'/notifications' },
+            { title: 'Login', url:'/login' },
+            { title: 'Sign Out' , url:''},
         ],
       
     }
-}
+},
+ methods: {
+    handleClick(index) {
+      this.items[index].click.call(this)
+    }
+  },
 }
 </script>
