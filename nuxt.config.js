@@ -14,7 +14,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans+Condensed:wght@300&display=swap' }
     ]
   },
   /*
@@ -25,7 +26,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
+  css: ["~/assets/style.css"
   ],
   /*
   ** Plugins to load before mounting the App
@@ -74,7 +75,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -114,6 +116,19 @@ export default {
   build: {
     transpile: [/^vue2-google-maps($|\/)/]
   },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/v1/user/token/', method: 'post', propertyName: 'token' },
+          logout: { url: '/v1/user/token/', method: 'delete' },
+          user: { url: '/v1/user/token', method: 'get', propertyName: 'data.attributes' }
+        },
+        // tokenRequired: true,
+        tokenType: ''
+      }
+    }
+  }
 }
 
 const path = require('path')

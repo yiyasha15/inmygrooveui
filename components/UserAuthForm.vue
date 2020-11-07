@@ -1,6 +1,5 @@
 <template>
-	<!-- <UserAuthForm buttonText="Join the Community" :submitForm="loginUser"/> -->
-	<v-card width="500" class="mx-auto mt-6 ">
+<v-card width="500" class="mx-auto mt-6 ">
 		<v-card-title class="justify-center">
 			<h1 class="headline font-weight-black">Welcome to InMyGroove</h1>
 		</v-card-title>
@@ -19,7 +18,7 @@
 			</v-form>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">Join the community</v-btn>
+			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">{{ buttonText }}</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -29,25 +28,9 @@
 </template>
 
 <script>
-// import UserAuthForm from '@components/UserAuthForm'
-export default {
-	// components:{
-	// 	UserAuthForm
-	// },
-	methods:{
-		async submitForm(userInfo){
-        try {
-          await this.$auth.loginWith('local', {
-            data: userInfo
-          })
-        //   this.$store.dispatch('snackbar/setSnackbar', {text: `Thanks for signing in, ${this.$auth.user.name}`})
-          this.$router.push('/')
-        } catch {
-        //   this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'There was an issue signing in.  Please try again.'})
-		}
-		}
-	},
-	data() {
+//   import validations from "@/utils/validations";
+  export default {
+    data() {
       return {
         showPassword: false,
         hasName: false,
@@ -58,6 +41,6 @@ export default {
         // ...validations
       }
     },
-	name: 'WelcomePage',
-}
+    props: ["submitForm", "buttonText", "hasName"]
+  }
 </script>

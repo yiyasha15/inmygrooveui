@@ -1,18 +1,30 @@
 <template>
-    <v-app>
-        <div class="text-xs-center ma-6" align = "center">
-            connect with your teachers.
-            <!--
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/each1teach1/`">Each 1 Teach 1 </v-btn>
-            -->
-        </div>
-        <v-divider class="mx-8" ></v-divider>
-        <v-container class="ma-24 ">
+<v-container class="ma-24 ">
+        <v-row>
+            <v-col>
+                <v-container>
+                    <h2 align="center" justify="center">Each One Teach One</h2>
+                    <div class="text-xs-center ma-6" align = "center">
+                        Here we can acknowledge all those HipHop artists who passed their knowledge,
+                        skill and experience to make us better at our own craft. You can tag and appreciate 
+                        your teachers & peers and let them know how much their words and teachings meant to 
+                        you in your own journey. Similarly you will have a complete database of all your 
+                        students and peers who learned something from you when they tag you.
+                        <!--
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/about/`">About</v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/each1teach1/`">Each 1 Teach 1 </v-btn>
+                        -->
+                    </div>
+                </v-container>
+            </v-col>
+        </v-row>      
         <v-row>
           <v-col cols="12" md="6" class="pl-sm-6">
+              <h5>
+                  Share your experience
+              </h5>
               <!-- <v-autocomplete
               v-model= "sharing.s_teacher"
                 prepend-inner-icon="mdi-magnify"
@@ -36,7 +48,7 @@
                 </v-text-field>
                 <v-textarea
                     v-model = "sharing.s_appreciation"
-                    label= "Experience with your teacher"
+                    label= "Your learning"
                     >
                 </v-textarea>
                 <v-textarea
@@ -101,7 +113,8 @@
                         required
                         @change="onFileChange2">
                     </div> -->
-                    <v-btn class="blue rounded-pill" @click="submit">submit</v-btn>
+                    <v-btn class="text-decoration-none" rounded color="indigo" dark
+                                 @click="submit">submit</v-btn>
                     </v-col>
                     </v-row>
                 </v-form>   
@@ -123,7 +136,6 @@
             </v-col>
         </v-row>
     </v-container>
-    </v-app>
 </template>
 <script>
 import CountryFlag from 'vue-country-flag'

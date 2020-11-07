@@ -6,10 +6,10 @@
 		</v-card-title>
 		<v-card-text>
 			<v-form>
-                <!-- <v-text-field v-if="hasName" v-model="userInfo.name" label="Name" prepend-icon="mdi-account-circle" /> -->
-				<v-text-field v-model="userInfo.email" label="Email" prepend-icon="mdi-account-circle" />
+                <v-text-field v-model="registrationInfo.name" label="Name" prepend-icon="mdi-account-circle" />
+				<v-text-field v-model="registrationInfo.email" label="Email" prepend-icon="mdi-account-circle" />
 				<v-text-field       
-                    v-model="userInfo.password"
+                    v-model="registrationInfo.password"
 					:type="showPassword ? 'text' : 'password'"
 					label="Password"
 					prepend-icon="mdi-lock"
@@ -19,7 +19,7 @@
 			</v-form>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">Join the community</v-btn>
+			<v-btn @click="registerUser(registrationInfo)" class="ml-4" color="yellow">Join the community</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -34,26 +34,28 @@ export default {
 	// components:{
 	// 	UserAuthForm
 	// },
-	methods:{
-		async submitForm(userInfo){
+	methods: {
+      async registerUser(registrationInfo){
         try {
+          await this.$axios.post('v1/user/create/', registrationInfo)
           await this.$auth.loginWith('local', {
-            data: userInfo
-          })
-        //   this.$store.dispatch('snackbar/setSnackbar', {text: `Thanks for signing in, ${this.$auth.user.name}`})
-          this.$router.push('/')
+            data: registrationInfo
+		  })
+		  console.log("New user registered.");
+        //   this.$store.dispatch('snackbar/setSnackbar', {text: `Thanks for signing up, ${this.$auth.user.name}`})
+          this.$router.push('/');
         } catch {
-        //   this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'There was an issue signing in.  Please try again.'})
-		}
-		}
-	},
+        //   this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'There was an issue signing up.  Please try again.'})
+        }
+      }
+    },
 	data() {
       return {
         showPassword: false,
-        hasName: false,
-        userInfo: {
-          email: '',
-          password: ''
+        registrationInfo: {
+            name:'',
+            email: '',
+            password: ''
         },
         // ...validations
       }

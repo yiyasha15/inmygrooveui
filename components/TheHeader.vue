@@ -4,7 +4,20 @@
             <a href='/'> <img src="@/assets/inmygroove.png" height="80px" width="90px"></a>
             <!-- <v-btn medium class="ma-6 yellow text-decoration-none elevation-0" to='/'>InmyGroove</v-btn> -->
         <v-spacer></v-spacer>
-        <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
+        <div v-if="$auth.loggedIn">
+            <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" >Write a blog</v-btn>
+            {{$auth.user.name}}
+            <v-btn text @click="$auth.logout()">Log out</v-btn>
+            <!-- username
+            log out btn -->
+        </div>
+        <div v-else>
+            <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" text to="/login">Log in</v-btn>
+            <v-btn rounded color="indigo" dark class="mr-2 text-decoration-none" to="/register">Register</v-btn>
+            <!-- log in
+            register -->
+        </div>
+        <v-menu v-if="$auth.loggedIn" transition="slide-y-transition" open-on-hover offset-y bottom left>
         <template v-slot:activator="{ on, attrs }">
             <div v-bind="attrs"
             v-on="on">

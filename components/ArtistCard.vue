@@ -36,7 +36,7 @@ import CountryFlag from 'vue-country-flag'
       },
       components: {
         CountryFlag
-    },
-    }
+      },
+      }
 </script>
 

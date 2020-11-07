@@ -13,9 +13,9 @@
                         <!-- <v-layout align-center justify-center >
                             <v-flex> -->
                                 <div>
-                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/`">About</v-btn>
-                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
-                                  <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+                                    <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
+                                    <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                                    <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
                                 </div>
                                 <!--Conditional Template Rendering-->
                                 <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
@@ -25,7 +25,7 @@
                 </v-row>
               </v-container>
             </v-main>
-            
+            <v-container>
             <div>My Teachers</div>
             <hr>
             <div class="d-flex flex-wrap">
@@ -51,7 +51,7 @@
             </div>
 
             <v-btn text :to= "`/${artist.username}`"> back </v-btn>
-    
+            </v-container>
         </div>
     </v-app>
 </template>

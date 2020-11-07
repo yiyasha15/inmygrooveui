@@ -1,80 +1,77 @@
 <template>
-  <v-app>
     <v-container>
       <v-row>
-        <v-col >
-          <div align="center" justify="center" class="mx-12 my-8" width="50%">
-            <img src = "~/assets/pencil_art2.png"  width="100%" alt="In My Groove logo">
+        <v-col cols="12" md="6">
+          <div align="center" justify="center" class="mx-12 my-8">
+            <img src = "~/assets/pencil_art2.png"  width="80%" alt="In My Groove logo">
           </div>
         </v-col>
-        <v-col md="6" offset-md="-4">
+        <v-col cols="12" md="6" offset-md="-4">
           <div align="center" justify="center" class="mx-12 mb-6" align-content="center">
-              <div class="mb-5 font-weight-bold">Pass The HipHop (PATH)</div>
-              <hr><br><br><br>
+              <h1 class="my-6 font-weight-bold">Pass The HipHop (PATH)</h1>
+              <hr><br>
               <div class="font-weight-light text-center ma-0">
-                "Pass The HipHop" a.k.a PATH, is a community platform to celebrate the "Each 1 Teach 1" legacy of the HipHop culture.
-                 Here we can acknowledge all those HipHop artists who passed their knowledge, skill and experience to make us better 
-                 at our own craft. You can tag and appreciate your teachers & peers and let them know how much their words and teachings meant to you in your own journey.
-                 similarly you will have a complete database of all your students and peers who learned something from you when they tag you.              
-                 Let's connect HipHop a little more, share it a little more...Together.
+                 <h3>A community platform to celebrate the "Each 1 Teach 1" legacy of the HipHop culture.</h3>
               </div>
           </div>
         </v-col>
       </v-row>
-      
       <v-row>
-        <v-col align="center" justify="center" >
+        <v-col align="center" justify="center">
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
-                      <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
-                        <img src = "~/assets/art1.jpeg"  width="100%" alt="portfolio logo">
+                      <v-hover v-slot="{ hover }">
+                      <v-card :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }" 
+                        to = '/artists' class = "ma-1 pa-2 grey lighten-5 " mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        <img src = "~/assets/art1.jpeg" width="100%" alt="portfolio logo" height="140">
+                        <v-btn small class="text-decoration-none white elevation-0">Artists & Community</v-btn>                                                           
                       </v-card>
-                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>Artists & Community</v-btn>                                     
-                    </v-col>            
+                      </v-hover>
+                    </v-col>       
               </v-row>                    
         </v-col>
         <v-col align="center" justify="center" >
               <v-row no-gutters>            
-                    <v-col md="10" offset-md="3">
-                      <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0"  min-width="180" max-height="260">
-                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo">
-                      </v-card>   
-                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/create'>create your website</v-btn>                                  
+                    <v-col md="10" offset-md="3" >
+                      <v-hover v-slot="{ hover }">
+                      <v-card :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }" to = '/create' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="140">
+                      <v-btn small class="text-decoration-none white elevation-0 ">create your website</v-btn>                                  
+                      </v-card> 
+                      </v-hover>
                     </v-col>            
               </v-row>                    
           </v-col>
         <v-col align="center" justify="center" >
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
-                      <v-card>
-                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo">
+                      <v-hover v-slot="{ hover }">
+                      <v-card :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }" :to= "`/create/each1teach1/`" class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="140">
+                        <v-btn small class="text-decoration-none white elevation-0" >Connect with your peers</v-btn>    
                       </v-card>
-                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium :to= "`/create/each1teach1/`">Connect with your peers</v-btn>                                     
+                      </v-hover>
                     </v-col>            
               </v-row>                    
         </v-col>
         <v-col align="center" justify="center" >
               <v-row no-gutters>            
                     <v-col md="10" offset-md="3">
-                      <v-card>
-                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo">
-                      </v-card>
-                      <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>culture blogs</v-btn>                                     
+                      <v-hover v-slot="{ hover }">
+                      <v-card :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }" to = '/write_blog' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo" height="140">
+                        <v-btn small class="text-decoration-none white elevation-0">Culture blogs</v-btn>
+                      </v-card> 
+                      </v-hover>                                    
                     </v-col>            
               </v-row>                    
           </v-col>
       </v-row>
-
-      <div align="center" justify="center" class="mb-6"> 
-        <!--<div class="text-center xs12">                                                                                                                                                                                                                                                                                                                                         
-            <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/artists'>find artists</v-btn>
-            <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/create'>create your own website</v-btn>
-            <v-btn  class="mx-3 text-decoration-none white elevation-0" medium to = '/blogs'>community blogs</v-btn>
-        </div>-->                                                            
-      </div>    
-      <v-divider set="inset"></v-divider>
     </v-container>
-  </v-app>     
 </template>
 
 <script>
@@ -84,7 +81,7 @@ export default {
 
   head() {  //head function (a property of vue-meta), returns an object
     return {
-      title: 'Home Page',
+      title: 'InMyGroove Community',
 }
 }
 }
@@ -113,3 +110,5 @@ export default {
 
 */
 </script>
+<style scoped>
+</style>

@@ -1,13 +1,13 @@
 <template>
-    <v-app>
-        <div class="text-xs-center ma-6" align = "center">
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
-            
-        </div>
-            <v-divider class="mx-8" ></v-divider>
+    <v-app> 
         <v-container class="ma-24 ">
+        <div class="text-xs-center ma-6" align = "center">
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+        </div>
+            <v-divider class="mx-4" ></v-divider>
+            <h5 class="pl-3">Build your webpage</h5>
             <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <!-- <h1 class="pb-6 text-center">Create Your Website</h1>
@@ -22,7 +22,7 @@
                                 <v-text-field
                                     v-model = "artist_data.artist_name"
                                     label="Name"
-                                    :maxlength="20">
+                                    :maxlength="50">
                                 </v-text-field>
                                 <v-text-field
                                     v-model = "artist_data.username"
@@ -57,7 +57,8 @@
                                     label="Introduction"
                                     :maxlength="120">
                                 </v-textarea>
-                                <v-btn class="blue rounded-pill" @click="submit">submit</v-btn>
+                                <v-btn class="text-decoration-none" rounded color="indigo" dark
+                                 @click="submit">submit</v-btn>
                                 <v-snackbar v-model="snackbar" >
                                 {{ text }}
                                 <template v-slot:action="{ attrs }">
@@ -100,6 +101,7 @@
 <script>
 import CountryFlag from 'vue-country-flag'
 export default {
+    // middleware:['auth-admin'],
     components: {
         CountryFlag
     },
@@ -411,7 +413,9 @@ export default {
             }
             }
             else{
-                console.log("add image please");
+                <v-alert type="error">
+                Image required!
+                </v-alert>
                 alert("Image required!");
             }
         }        

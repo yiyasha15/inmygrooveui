@@ -1,13 +1,13 @@
 <template>
     <v-app>
+        <v-container class="ma-24" >
         <div class="text-xs-center ma-6" align = "center">
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn class="elevation-0 white text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
-            
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
         </div>
-            <v-divider class="mx-8" ></v-divider>
-        <v-container class="ma-24 ">
+            <v-divider class="mx-4" ></v-divider>
+            <h5 class="pl-3">Share your work</h5>
             <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <v-form v-on:submit.prevent="submit">
@@ -63,7 +63,8 @@
                                         <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
                                     </v-date-picker>
                                     </v-menu>
-                                <v-btn class="blue rounded-pill" @click="submit">submit</v-btn>
+                                    <v-btn class="text-decoration-none" rounded color="indigo" dark
+                                 @click="submit">submit</v-btn>
                                 <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                             </v-col>
                         </v-row>

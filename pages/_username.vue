@@ -13,9 +13,9 @@
             <!-- <v-layout align-center justify-center >
                 <v-flex> -->
                     <div>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/`">About</v-btn>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
-                        <v-btn class="elevation-0 white text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+                        <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
+                        <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                        <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
                     </div>
                     <!--Conditional Template Rendering-->
                     <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
@@ -37,48 +37,33 @@
                 <h3  class="mb-5 font-weight-light font-italic">
                     <br>
                     {{ artist.bio }}
-                </h3>              
-                <div class="text font-weight-thin justify-end"> -{{artist.artist_name}}, {{ artist.country }} </div>
-                
+                </h3>           
+                <div class="text font-weight-thin justify-end"> -{{artist.artist_name}}, <country-flag :country= 'artist.country' />   
+                </div>
         </v-col>
         <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}">
-            <v-container  grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
-                <!-- xs = 600px full screen (12) -->
-                <!-- md = 600px or more. half of the screen (6) -->
-                <v-layout class="d-flex flex-wrap">
-                    <v-flex xs6 md6 v-for="gallery in gallery" :key = "gallery.index">
-                        <v-dialog v-model="dialog" width="500">
-                            <template v-slot:activator="{ on, attrs }">
-                            <div v-if = gallery.g_upload_photo v-bind="attrs" v-on="on">
-                                <v-img :src="gallery.g_upload_photo" class="centerImage" width = "250px" height = "250px"/>
-                            </div>
-                            </template>
-                            <v-card>
-                                <v-img :src="gallery.g_upload_photo" class="centerImage"/>
-                            </v-card>
-                        </v-dialog>
-                    </v-flex>
-                </v-layout>
-            </v-container>
+            <gallery-card :gallery="gallery" ></gallery-card>
         </v-col>
     </v-row>
+    <!-- {{this.username}}here123 -->
   </v-app>
 </template>
 
 <script>
 import EventService from '@/services/EventService.js'
 import GalleryCard from '@/components/GalleryCard.vue'
-
+import CountryFlag from 'vue-country-flag'
 export default {
     data () {
       return {
         dialog: false,
       }
     },
-    //layout: 'idlayout',
+    // layout: 'username',
     //props: ["id"],
     components:{
         GalleryCard,
+        CountryFlag
     },
     head() {
         return {
