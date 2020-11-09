@@ -62,7 +62,7 @@
                     <v-col md="10" offset-md="3">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" to = '/write_blog' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        :class="{ 'on-hover': hover }" to = '/blogs' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
                         <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo" height="140">
                         <v-btn small class="text-decoration-none white elevation-0">Culture blogs</v-btn>
                       </v-card> 
