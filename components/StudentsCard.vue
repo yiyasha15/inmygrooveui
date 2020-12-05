@@ -1,13 +1,15 @@
 <template>
-  <v-card class = "ma-1 pa-1" ><!--hover @mousedown.stop :elevation="5" :to="'/artists/' + artist.id" >--><!-- dark -->
+  <!--<v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" :to="`/${artist.username}` + `/${each1teach1.id}`" >-->
+  <!--<v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" :to="'/' + artist.username + '/each1teach1/' + each1teach1.index">-->
+  <v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" >
+  
     <v-container>
       
         <div>
-          <img :src="myteacher.s_photo" class="centerImage">
-          <br>
-          <v-btn color="orange" x-small>
-            {{ myteacher.s_student }}
-          </v-btn>
+          <v-img :src="share.s_photo" class="centerImage" height="100px" width="100px"/>
+          <div class="text font-weight-light" v-for = "s_student in share.s_student" :key = "s_student.index">
+              {{s_student.username}},{{s_student.country}}              
+          </div>
         </div>
 
     </v-container>
@@ -18,7 +20,8 @@
     export default {
       name: 'StudentsCard',
       props: {
-        myteacher: Object,
+        //artist: Object,
+        share: Object
       },
       
     }

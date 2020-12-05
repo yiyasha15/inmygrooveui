@@ -14,7 +14,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans+Condensed:wght@300&display=swap' }
     ]
   },
   /*
@@ -25,7 +26,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
+  css: ["~/assets/style.css"
   ],
   /*
   ** Plugins to load before mounting the App
@@ -74,28 +75,17 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'http://127.0.0.1:8000/api',
+    // credentials: true
   },
-  /*
-  auth: {
-    endpoints: {
-      login: {
-        url: 'obtain_token',method: 'post', propertyName: 'meta.token'
-      },
-      user: {
-        url: 'obtain_token',method: 'get', propertyName: 'data'
-      },
-      logout: {}
-    }
-
-  }, */
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -114,6 +104,29 @@ export default {
   build: {
     transpile: [/^vue2-google-maps($|\/)/]
   },
+  //nuxt auth module for authenticating users.
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token:{
+          property : 'token',
+          maxAge : 1800
+        },
+        user: {
+          property: 'user',
+        },
+        endpoints: {
+          login: { url: '/v1/user/token/', method: 'post', propertyName: 'user' },
+          // refresh: { url: '/v1/user/token/refresh', method: 'post', propertyName: false },
+          logout: { url: '/v1/user/token/', method: 'delete' },
+          user: { url: '/v1/user/token', method: 'get', propertyName: 'user' }
+        },
+        // tokenRequired: true,
+        tokenType: ''
+      }
+    }
+  }
 }
 
 const path = require('path')

@@ -1,13 +1,22 @@
 <template>
     <v-footer class="ma-6 white">
-      <v-col>
-        <v-row>
-          <div>&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
+      <v-container>
+        <v-divider set="inset"></v-divider>
+      <v-col cols="12" >
+        <v-row align="center" justify="center">
+          <h2 class="pa-6">
+            Let's connect HipHop a little more, share it a little more...Together.
+          </h2>
         </v-row>
         <v-row>
-          <div>developed by the dancers for the dancers with lots of love.</div>
-        </v-row>
-      </v-col>
+          <v-col>
+            <v-row>
+              <div>&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
+            </v-row>
+            <v-row>
+              <div>developed by the dancers for the dancers with lots of love.</div>
+            </v-row>
+          </v-col>
       <v-spacer></v-spacer>
       <v-col>
         <v-row class="justify-end">
@@ -17,5 +26,8 @@
           <div><a href="">Contact</a></div>
         </v-row>
       </v-col>
+        </v-row>
+      </v-col>
+      </v-container>
     </v-footer>
 </template>

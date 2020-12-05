@@ -19,11 +19,19 @@ const apiClient1 = axios.create({
 })
 
 export default {
-    
     getArtists() {
         return apiClient1.get('/portfolio')
     },
-    getArtist(id) {
-        return apiClient1.get('/portfolio/' + id)
+    getArtist(username) {
+        return apiClient1.get('/portfolio/' + username)
     },
+    getGalleries(username) {
+        return apiClient1.get('/gallery/?search=' + username)
+    },
+    getMilestones(username) {
+        return apiClient1.get('/milestone/?search=' + username)
+    },
+    getEach1Teach1(username) {
+        return apiClient1.get('/sharing/?search=' + username)
+    }
 }

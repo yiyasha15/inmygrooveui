@@ -1,8 +1,8 @@
 <template>
 <v-hover>
   <template v-slot="{ hover }" >
-  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0" :to="'/artists/' + artist.id" min-width="180" max-height="260"> <!-- dark -->
-    <v-container align="center"  >
+  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" :to="'/' + artist.username" min-width="180" max-height="260"> <!-- dark -->
+    <v-container align="center">
         <div>
           <div v-if = artist.artist_image>
               <v-img :src = "artist.artist_image" width="180px" height="180px"/>
@@ -14,8 +14,8 @@
             {{ artist.artist_name }}
             </p>
             <v-spacer></v-spacer>
-            <v-btn icon class="text-decoration-none" v-if="artist.country" >
-              <country-flag country='np' />
+            <v-btn icon class="text-decoration-none" >
+              <country-flag :country= 'artist.country' />
             </v-btn>
             </v-card-actions>
           <!-- <span>{{ event.attendees.length }} attending</span> -->
@@ -36,7 +36,7 @@ import CountryFlag from 'vue-country-flag'
       },
       components: {
         CountryFlag
-    }
-    }
+      },
+      }
 </script>
 
