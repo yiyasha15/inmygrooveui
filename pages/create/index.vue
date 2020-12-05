@@ -42,7 +42,7 @@
       </v-row>
     <v-layout justify-center>
         <v-flex xs6>
-            <div class="text-xs-center" align = "center">
+            <div class="text-xs-center mt-6" align = "center">
               <v-btn rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
               <v-btn v-if="$auth.user" class="elevation-0 white text-decoration-none">Edit here</v-btn>
             </div>
@@ -53,7 +53,8 @@
 
 <script>
 export default {
- data () {
+    middleware : 'auth',
+    data () {
       return {
         dialog: false,
       }

@@ -1,8 +1,9 @@
 <template>
     <v-app> 
-          <v-container>
-        <h3>Notifications</h3>
-    </v-container>
+        <v-container>
+            <h3>Notifications</h3>
+            <div>No new notification.</div>
+        </v-container>
         <!-- <NotificationList /> -->
     </v-app>
 </template>

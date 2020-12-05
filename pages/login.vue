@@ -1,5 +1,4 @@
 <template>
-	<!-- <UserAuthForm buttonText="Join the Community" :submitForm="loginUser"/> -->
 	<v-card width="500" class="mx-auto mt-6 ">
 		<v-card-title class="justify-center">
 			<h1 class="headline font-weight-black">Welcome to InMyGroove</h1>
@@ -19,7 +18,8 @@
 			</v-form>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">Join the community</v-btn>
+			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">Log in</v-btn>
+			<v-btn to='/register' class="ml-4 text-decoration-none" color="primary" >Register</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -29,28 +29,32 @@
 </template>
 
 <script>
-// import UserAuthForm from '@components/UserAuthForm'
 export default {
-	// components:{
-	// 	UserAuthForm
-	// },
+	// middleware: 'guest',
 	methods:{
 		async submitForm(userInfo){
         try {
-          await this.$auth.loginWith('local', {
+          let res = await this.$auth.loginWith('local', {
             data: userInfo
-          })
-        //   this.$store.dispatch('snackbar/setSnackbar', {text: `Thanks for signing in, ${this.$auth.user.name}`})
-          this.$router.push('/')
+		  })
+		  console.log(res.data);
+		  console.log('youre logged in..',res.data.username);
+		  this.$auth.setUser(res.data)
+		  this.$auth.setUserToken(res.data.access)
+			this.$auth.setRefreshToken('local', res.data.refresh);
+		  console.log('auth user state',this.$auth.user);
+		  console.log('auth logged in state',this.$auth.loggedIn);
+			// this.$store.commit('SET_USER',res.data)
+        this.$router.push('/')
         } catch {
-        //   this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'There was an issue signing in.  Please try again.'})
-		}
+			alert('Hey sorry, but your credentials are incorrect. -Goku')
+        }
 		}
 	},
 	data() {
       return {
         showPassword: false,
-        hasName: false,
+		hasName: false,
         userInfo: {
           email: '',
           password: ''

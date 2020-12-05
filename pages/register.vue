@@ -1,5 +1,4 @@
 <template>
-	<!-- <UserAuthForm buttonText="Join the Community" :submitForm="loginUser"/> -->
 	<v-card width="500" class="mx-auto mt-6 ">
 		<v-card-title class="justify-center">
 			<h1 class="headline font-weight-black">Welcome to InMyGroove</h1>
@@ -20,6 +19,7 @@
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
 			<v-btn @click="registerUser(registrationInfo)" class="ml-4" color="yellow">Join the community</v-btn>
+			<v-btn to='/login' class="ml-4 text-decoration-none" color="primary" >Already registered</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -29,24 +29,40 @@
 </template>
 
 <script>
-// import UserAuthForm from '@components/UserAuthForm'
+import vuex from 'vuex'
 export default {
-	// components:{
-	// 	UserAuthForm
-	// },
+	auth : 'guest',
 	methods: {
       async registerUser(registrationInfo){
         try {
-          await this.$axios.post('v1/user/create/', registrationInfo)
-          await this.$auth.loginWith('local', {
-            data: registrationInfo
-		  })
-		  console.log("New user registered.");
-        //   this.$store.dispatch('snackbar/setSnackbar', {text: `Thanks for signing up, ${this.$auth.user.name}`})
-          this.$router.push('/');
-        } catch {
-        //   this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'There was an issue signing up.  Please try again.'})
-        }
+			console.log("clicked",registrationInfo);
+			if(registrationInfo.name =='' ){
+				alert('Guess you forgot typing yo name.. love, Goku.');
+			}
+			else if(registrationInfo.email == ''){
+				alert('Guess you forgot typing yo email.. love, Goku.');
+			}
+			else if(registrationInfo.password==''){
+				alert('Guess you forgot typing yo password.. love, Goku.');
+			}
+			else{
+				await this.$axios.post('v1/user/create/', registrationInfo)
+				let res = await this.$auth.loginWith('local', {
+					data: registrationInfo
+				})
+				this.$auth.setUser(res.data)
+				 this.$auth.setToken('local',res.data.access);
+				 this.$auth.setRefreshToken('local', res.data.refresh);
+				 console.log('status', this.$auth.$state);	 
+				 console.log('status', this.$auth.$storage.$state);
+				console.log(this.$auth.loggedIn);
+				console.log(this.$auth.user);
+				console.log("New user registered.", res.data.username);
+				this.$router.push('/');
+			}
+		} catch {
+		
+		}
       }
     },
 	data() {
@@ -57,7 +73,6 @@ export default {
             email: '',
             password: ''
         },
-        // ...validations
       }
     },
 	name: 'WelcomePage',

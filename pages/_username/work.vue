@@ -1,32 +1,22 @@
 <template>
     <v-app>
-        <div>
+        <!-- <div>
             <nuxt-child :artist="artist"/>
-        </div>
+        </div> -->
         <v-container>
-        <v-row>
+        <!-- <v-row>
             <v-col cols="12" sm="4" >
                 <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}}</div>
             </v-col>
-            <!-- <v-spacer></v-spacer> -->
             <v-col class="px-0 d-flex align-end justify-end pr-4">
-                <!-- <v-layout align-center justify-center >
-                    <v-flex> -->
-                        <div>
-                            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
-                            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
-                            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                        </div>
-                        <!--Conditional Template Rendering-->
-                        <!--https://forum.vuejs.org/t/check-if-variable-is-set-v-if/12738-->
-                    <!-- </v-flex>
-                </v-layout> -->
+                <div>
+                    <v-btn outlined rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
+                    <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn>
+                    <v-btn outlined rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+                </div>
             </v-col>
-        </v-row>
-        </v-container>
-        <v-container>
+        </v-row> -->
          <v-row>
-            <!--<v-col cols="6" md="4" align="left" justify="center"></v-col>-->
             <v-col cols="12" md="8" > 
                     <div class="mb-5 font-weight-bold" v-if="milestone.length > 0">
                         <h5 class=" ml-2 ">Milestones </h5>

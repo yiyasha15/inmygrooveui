@@ -2,9 +2,9 @@
     <v-app>
         <v-container class="ma-24" >
         <div class="text-xs-center ma-6" align = "center">
-            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+            <v-btn outlined rounded color="#e6d5b8" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn outlined rounded color="#e6d5b8" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
         </div>
             <v-divider class="mx-4" ></v-divider>
             <h5 class="pl-3">Share your work</h5>

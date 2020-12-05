@@ -1,7 +1,7 @@
 <template>
 <v-hover>
   <template v-slot="{ hover }" >
-  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 0" :to="'/' + artist.username" min-width="180" max-height="260"> <!-- dark -->
+  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" :to="'/' + artist.username" min-width="180" max-height="260"> <!-- dark -->
     <v-container align="center">
         <div>
           <div v-if = artist.artist_image>

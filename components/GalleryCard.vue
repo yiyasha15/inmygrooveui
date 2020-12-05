@@ -3,9 +3,10 @@
     <div>
       <v-layout class="flex-wrap">
           <v-flex xs6 md6 v-for="gallery in gallery" :key = "gallery.index">
-                  <div v-if = gallery.g_upload_photo>
-                      <v-img :src="gallery.g_upload_photo" width = "270px" height = "270px"/>
-                  </div>
+              <div v-if = gallery.g_upload_photo>
+                  <v-img :src="gallery.g_upload_photo" 
+                    width = "270px" height = "270px"/>
+              </div>
           </v-flex>
       </v-layout>
     </div>
@@ -13,11 +14,9 @@
 </template>
 
 <script>
-    export default {
-      name: 'GalleryCard',
-      props: {
-        gallery: Object,
-      },
-    }
+  export default {
+    name: 'GalleryCard',
+    props: ['gallery'],
+  }
 </script>
 

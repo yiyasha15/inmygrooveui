@@ -8,7 +8,10 @@
             <br>
             <vue-editor v-model="content"/>
             <!-- <VueEmoji @input="onInput" :value="myText" />  -->
-            <v-btn class="text-decoration-none" rounded color="indigo" dark>Post</v-btn>
+            <v-btn class="text-decoration-none mt-6" rounded color="indigo" dark >Post</v-btn>
+        </div>
+        <div>
+            {{content}}
         </div>
         </v-container>
     </v-app>
@@ -18,6 +21,7 @@
 // Basic Use - Covers most scenarios
 import { VueEditor } from "vue2-editor";
 import VueEmoji from 'emoji-vue'
+import vuex from 'vuex'
 export default {
     // layouts:'blogHeader'
     components: 
@@ -31,7 +35,7 @@ export default {
       }
   },
     data: () => ({
-    content: "<h1>Write a blog for the community.</h1>"
+    content: "Write a blog for the community."
     }) 
 }
 
