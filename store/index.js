@@ -1,5 +1,7 @@
 /*just adding this index.js file inside the store directory enables vuex in nuxt */
+import createPersistedState from "vuex-persistedstate";
 
+// export const plugins = [myPlugin]
 export const getters = {
     isAuthenticated(state) {
       return state.auth.loggedIn

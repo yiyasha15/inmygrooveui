@@ -57,7 +57,7 @@
             </v-menu>
         </div>
         <div v-else>
-            <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" @click="checkk" >Check</v-btn>
+            <!-- <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" @click="checkk" >Check</v-btn> -->
             <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" text to="/login">Log in</v-btn>
             <v-btn rounded color="indigo" dark class="mr-2 text-decoration-none" to="/register">Register</v-btn>
             <!-- log in
