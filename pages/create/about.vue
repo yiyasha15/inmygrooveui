@@ -24,11 +24,11 @@
                                     label="Name"
                                     :maxlength="50">
                                 </v-text-field>
-                                <v-text-field
+                                <!-- <v-text-field
                                     v-model = "artist_data.username"
                                     label="Username"
                                     :maxlength="20">
-                                </v-text-field>
+                                </v-text-field> -->
                                 <v-select label="Country" v-model= "artist_data.country"
                                     :items="countries"
                                     item-text="name"
@@ -101,6 +101,7 @@
 <script>
 import CountryFlag from 'vue-country-flag'
 export default {
+    middleware : 'auth',
     // middleware:['auth-admin'],
     components: {
         CountryFlag
@@ -352,9 +353,10 @@ export default {
                 {"name": "Zambia", "code": "ZM"},
                 {"name": "Zimbabwe", "code": "ZW"}
                 ],
+                // this is artist object
             artist_data: {
                 artist_name: "",
-                username: "",
+                username: this.$auth.user.username,
                 country: "",
                 style: "",
                 artist_image: "",
@@ -388,8 +390,11 @@ export default {
             }
         },
         async submit() {
+            this.username = this.$auth.user.username;
             const config = {
-                headers: {"content-type": "multipart/form-data"}
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access
+                }
             };
             let formData = new FormData();
             for (let data in this.artist_data) {
@@ -404,7 +409,7 @@ export default {
             }
             if(this.artist_data.artist_image){
             try {
-                let response = await this.$axios.$post("/v1/portfolio/", formData, config);
+                let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
                 console.log("Artist website created.");
                 this.snackbar = true;
                 this.$router.push("/create/gallery");

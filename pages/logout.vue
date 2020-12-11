@@ -10,6 +10,7 @@
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
+		{{this.$auth.user.access}}
 	</v-card>
 </template>
 

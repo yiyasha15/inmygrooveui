@@ -12,11 +12,11 @@
                 <v-form v-on:submit.prevent="submit">
                     <v-row>
                         <v-col cols="12" md="9">
-                            <v-text-field
+                            <!-- <v-text-field
                                 v-model = "artist.g_artist"
                                 label= "Artist ID"
                                 :maxlength="20">
-                            </v-text-field>
+                            </v-text-field> -->
                             <div class = "form-group">
                                 <v-text-field @click= "onPick" label="Upload image"></v-text-field>
                                 <input 
@@ -53,20 +53,20 @@
 <script>
 import EventService from '@/services/EventService.js'
 export default {
+    middleware : 'auth',
     data(){
         return {
            artist: {
-               g_artist: "",
+               g_artist: this.$auth.user.username,
                g_upload_photo: ""
            },
            imageData: "",
-            // images: [],
         }
     },
     methods: {
-        // removeImage(){
-        //     this.images = []
-        //     },
+        removeImage(){
+            this.imageData = ""
+            },
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()
@@ -100,7 +100,8 @@ export default {
             },
         async submit() {
             const config = {
-                headers: {"content-type": "multipart/form-data"}
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.artist) {
@@ -120,7 +121,7 @@ export default {
                 //     this.$router.push("/create/gallery");
                 // }
                 // else{
-                    let response = await this.$axios.$post("/v1/gallery/", formData, config);
+                    let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
                     this.$router.push("/create/work");
                     // }
             } catch (e) {

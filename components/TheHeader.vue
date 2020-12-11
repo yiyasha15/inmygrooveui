@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <div v-if="isAuthenticated">
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
-            <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" to="/" @click="check" >Check</v-btn>
+            <!-- <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" to="/" @click="check" >Check</v-btn> -->
             <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
@@ -46,6 +46,12 @@
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Write a Post</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                    :to="'/settings'"
+                    class="text-decoration-none pl-6 pr-12"
+                    >
+                    <v-list-item-title>Settings</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     :to="'/logout'"

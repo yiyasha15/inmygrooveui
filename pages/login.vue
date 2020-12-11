@@ -33,22 +33,31 @@ export default {
 	// middleware: 'guest',
 	methods:{
 		async submitForm(userInfo){
-        try {
           let res = await this.$auth.loginWith('local', {
             data: userInfo
-		  })
-		  console.log(res.data);
-		  console.log('youre logged in..',res.data.username);
-		  this.$auth.setUser(res.data)
-		  this.$auth.setUserToken(res.data.access)
+		  }).then(res => {
+			console.log(res.data);
+			this.$auth.setUser(res.data)
+			this.$auth.setUserToken(res.data.access)
 			this.$auth.setRefreshToken('local', res.data.refresh);
-		  console.log('auth user state',this.$auth.user);
-		  console.log('auth logged in state',this.$auth.loggedIn);
-			// this.$store.commit('SET_USER',res.data)
-        this.$router.push('/')
-        } catch {
-			alert('Hey sorry, but your credentials are incorrect. -Goku')
-        }
+				// this.$store.commit('SET_USER',res.data)
+			this.$router.push('/')
+		})
+        // try {
+        //   let res = await this.$auth.loginWith('local', {
+        //     data: userInfo
+		//   })
+		//   if(res.data){
+		// 	console.log(res.data);
+		// 	this.$auth.setUser(res.data)
+		// 	this.$auth.setUserToken(res.data.access)
+		// 	this.$auth.setRefreshToken('local', res.data.refresh);
+		// 		// this.$store.commit('SET_USER',res.data)
+		// 	this.$router.push('/')
+		// }
+        // } catch {
+		// 	alert('Hey sorry, but your credentials are incorrect. -Goku')
+        // }
 		}
 	},
 	data() {

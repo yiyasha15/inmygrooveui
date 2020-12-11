@@ -10,9 +10,9 @@
             <!-- <VueEmoji @input="onInput" :value="myText" />  -->
             <v-btn class="text-decoration-none mt-6" rounded color="indigo" dark >Post</v-btn>
         </div>
-        <div>
+        <!-- <div>
             {{content}}
-        </div>
+        </div> -->
         </v-container>
     </v-app>
 </template>

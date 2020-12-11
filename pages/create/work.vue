@@ -13,13 +13,13 @@
                     <v-form v-on:submit.prevent="submit">
                         <v-row>
                             <v-col cols="12" md="9">
-                                <v-text-field
+                                <!-- <v-text-field
                                     v-model = "milestone.m_artist"
                                     label= "Artist ID"
                                     :maxlength="20">
-                                </v-text-field>
+                                </v-text-field> -->
                                 <v-text-field
-                                    v-model = "milestone.m_what_happend"
+                                    v-model = "milestone.w_content"
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
@@ -27,7 +27,7 @@
                                         <v-text-field @click= "onPick" label="Upload image"></v-text-field>
                                         <input 
                                         type="file" 
-                                        name = "milestone.m_photo" 
+                                        name = "milestone.w_photo" 
                                         style="display:none" 
                                         ref="fileInput" 
                                         accept="image/*"
@@ -35,13 +35,12 @@
                                         @change="onFileChange">
                                     </div>
                                 <v-textarea
-                                    v-model = "milestone.m_context"
+                                    v-model = "milestone.w_context"
                                     label= "Share your experience"
                                     :maxlength="80">
                                 </v-textarea>
                                 <v-menu
                                     ref="menu"
-                                    v-model="menu"
                                     :close-on-content-click="false"
                                     :return-value.sync="date"
                                     transition="scale-transition"
@@ -50,14 +49,15 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="milestone.m_date"
+                                        v-model="milestone.w_datetime"
                                         label="Date"
+                                        prepend-icon="mdi-calendar"        
                                         readonly
                                         v-bind="attrs"
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="milestone.m_date" no-title scrollable>
+                                    <v-date-picker v-model="milestone.w_datetime" no-title scrollable>
                                         <v-spacer></v-spacer>
                                         <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                                         <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
@@ -73,13 +73,13 @@
                 <v-col cols="12" md="6" class="pl-sm-6">
                         <v-col>
                         <v-row class="pb-6 justify-center text-center">
-                            <h2> {{milestone.m_what_happend}}</h2>
+                            <h2> {{milestone.w_content}}</h2>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{milestone.m_context}}, {{milestone.m_date}}</h5>
+                            <h5 class="pb-6 text-center">{{milestone.w_context}}, {{milestone.w_datetime}}</h5>
                         </v-row>
                         </v-col>
                 </v-col>
@@ -89,15 +89,17 @@
 </template>
 <script>
 export default {
+    middleware : 'auth',
     data(){
         return {
+            date:"",
             imageData: "",
             milestone: {
-                m_artist: "",
-                m_what_happend: "",
-                m_context: "",
-                m_date: "",
-                m_photo: ""
+                w_artist: this.$auth.user.username,
+                w_content: "",
+                w_context: "",
+                w_datetime: "",
+                w_photo: ""
             }
         }
     },
@@ -117,17 +119,18 @@ export default {
                 }
                 fileReader.readAsDataURL(files[0]);
                 console.log(files[0]);
-                this.milestone.m_photo = files[0];
+                this.milestone.w_photo = files[0];
                 console.log(this.milestone);
             }
         },
         async submit() {
             const config = {
-                headers: {"content-type": "multipart/form-data"}
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.milestone) {
-                if(data == 'm_photo' && this.milestone[data] == null)
+                if(data == 'w_photo' && this.milestone[data] == null)
                 {
                     console.log("artist work is not there")
                     break;
@@ -138,7 +141,7 @@ export default {
             }
             console.log("form lastt", formData);
             try {
-                let response = await this.$axios.$post("/v1/milestone/", formData, config);
+                let response = await this.$axios.$post("/v1/artist/work/", formData, config);
                 console.log("Artist website created.");
                 this.$router.push("/create/each1teach1");
             } catch (e) {
