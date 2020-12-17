@@ -31,7 +31,10 @@ export default {
     getMilestones(username) {
         return apiClient1.get('/artist/work/?search=' + username)
     },
+    getEach1Teach1s(){
+        return apiClient1.get('/e1t1')
+    },
     getEach1Teach1(username) {
-        return apiClient1.get('/sharing/?search=' + username)
+        return apiClient1.get('/e1t1/?search=' + username)
     }
 }

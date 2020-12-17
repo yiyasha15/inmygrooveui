@@ -3,7 +3,7 @@
       <div>
         <v-main>
           <v-container fill-height>
-              <div class="text-center font-weight-bold">{{artist.artist_name}}</div>
+              <div class="text-center font-weight-bold">{{sharing}}</div>
             <v-layout align-center justify-center>
                 <v-flex xs6>
                   <div class="text-xs-center" align="center">

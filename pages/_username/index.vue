@@ -9,7 +9,7 @@
         <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" cols="12" md="6" lg="6" xl="6">
                 <h3  class="mb-5 font-weight-light font-italic">
                     <br>
-                    {{ artist.bio }}
+                    {{ artist.introduction }}
                 </h3>           
                 <div class="text font-weight-thin justify-end"> -{{artist.artist_name}}, <country-flag :country= 'artist.country' />   
                 </div>
@@ -22,7 +22,7 @@
          <v-row>
             <v-col cols="12" md="8" > 
                 <div class="mb-5 font-weight-bold" v-if="milestone.length > 0">
-                    <h3 class=" ml-2 mb-8 ">Work</h3>
+                    <h3 class=" ml-2 mb-8 mt-4 ">Work</h3>
                     <div class="d-flex flex-wrap" >
                         <div v-for = "milestone in milestone" :key = "milestone.index" >
                             <MilestoneCard :milestone = "milestone"></MilestoneCard>

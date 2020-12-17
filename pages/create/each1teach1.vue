@@ -42,31 +42,25 @@
                 v-model= "sharing.s_teacher"
                     label="Teacher name">
                 </v-text-field>
-                <v-text-field
-                v-model= "sharing.s_student"
-                    label="Your name">
-                </v-text-field>
                 <v-textarea
                     v-model = "sharing.s_appreciation"
                     label= "Your learning"
                     >
                 </v-textarea>
-                <v-textarea
-                    v-model = "sharing.s_where_u_met"
-                    label= "How did you meet?">
-                </v-textarea>
+                
                 <v-text-field
                     v-model = "sharing.s_location"
                     label= "Where did you meet?"
                     :maxlength="50">
                 </v-text-field>
                 <v-select 
-                        label="Country" 
-                        v-model= "sharing.s_country"
+                        label="Your teacher's country" 
+                        v-model= "sharing.s_teacher_country"
                         :items="countries"
                         item-text="name"
                         item-value="code"
-                    ></v-select>
+                    >
+                </v-select>
                 <v-menu
                     ref="menu"
                     v-model="menu"
@@ -106,7 +100,7 @@
                         <v-btn class="flat elevation-0 my-4 ml-0  pa-2 grey lighten-5" @click= "onPick">Upload photo comment </v-btn>
                         <input 
                         type="file" 
-                        name = "sharing.s_photo_comment" 
+                        name = "sharing.s_video_talk" 
                         style="display:none" 
                         ref="fileInput" 
                         accept="image/*"
@@ -123,15 +117,16 @@
             <v-row class="pb-6 justify-center text-center">
                 <h2> {{sharing.s_teacher}}</h2>
                 <v-spacer></v-spacer>
+                <h5>{{sharing.s_location}}</h5>
                 <v-btn icon class="text-decoration-none" >
-                    <country-flag :country= sharing.s_country />
+                    <country-flag :country= sharing.s_teacher_country />
                 </v-btn>
             </v-row>
             <v-row class="pb-6 justify-center text-center">
                 <v-img :src="imageData" height="300px" width="500px"></v-img>
             </v-row>
             <v-row class="pb-6 justify-center text-center">
-                <h5 class="pb-6 text-center">{{sharing.s_appreciation}} </h5>
+                <h5 class="pb-6 text-center">{{sharing.s_appreciation}}, {{sharing.s_date}} </h5>
             </v-row>
             </v-col>
         </v-row>
@@ -141,6 +136,7 @@
 import CountryFlag from 'vue-country-flag'
 import EventService from '@/services/EventService.js'
 export default {
+    middleware : 'auth',
   components: {
         CountryFlag
     },
@@ -392,17 +388,29 @@ export default {
                 {"name": "Zimbabwe", "code": "ZW"}
                 ],
        sharing: {
-         s_teacher: "",
-          s_photo: "",
-          s_appreciation: "",
-          s_where_u_met: "",
-          s_date: "",
-          s_country: "",
-          s_location: "",
-          s_photo_comment: "",
-          s_student: ""
+            s_teacher_name: "",
+            s_teacher_country: "",
+            s_photo: "",
+            s_appreciation: "",
+            s_video_talk: "",
+            s_video_dance: "",
+            s_date: "",
+            s_location: "",
+            s_student: this.$auth.user.username,
+            s_teacher: "",
+        //  s_teacher: "",
+        //   s_photo: "",
+        //   s_appreciation: "",
+        //   s_teacher_country: "",
+        //   s_date: "",
+        //   s_country: "",
+        //   s_location: "",
+        //   s_video_talk: "",
+        //   s_student: ""
            },
            imageData: "",
+           date: "",
+           menu: false
       }
   },
   async asyncData({error}) {
@@ -443,7 +451,7 @@ export default {
         //         }
         //         fileReader.readAsDataURL(files[0]);
         //         console.log(files[0]);
-        //         this.sharing.s_photo_comment = files[0];
+        //         this.sharing.s_video_talk = files[0];
         //         console.log(this.sharing);
         //     }
         // },
@@ -459,6 +467,7 @@ export default {
                     break;
                 }
                 else{
+                    this.s_teacher_name = this.s_teacher;
                     formData.append(data, this.sharing[data]);
                     console.log("form data is ",data);
                     console.log("form data is ",this.sharing[data]);
@@ -466,8 +475,8 @@ export default {
             }
             console.log("form lastt", formData);
             try {
-                let response = await this.$axios.$post("/v1/sharing/", formData, config);
-                console.log("Artist website created.");
+                let response = await this.$axios.$post("/v1/e1t1/", formData, config);
+                console.log("Teacher student relation.");
                 this.$router.push("/");
             } catch (e) {
                 console.log("cant post rn",e);

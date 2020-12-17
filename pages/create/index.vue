@@ -13,8 +13,8 @@
             <v-layout justify-center>
         <v-flex xs6>
             <div class="text-xs-center mt-6" align = "center">
-              <v-btn v-if="!$auth.user" rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
-              <v-btn v-if="$auth.user" rounded outlined color="#1c2b2d" class="elevation-0 white text-decoration-none">Edit here</v-btn>
+              <v-btn rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
+              <v-btn  rounded outlined color="#1c2b2d" class=" text-decoration-none mt-4" :to= "`/create/about/`">Edit here</v-btn>
             </div>
         </v-flex>
     </v-layout>
@@ -56,12 +56,24 @@
 </template>
 
 <script>
+import EventService from '@/services/EventService.js'
 export default {
     middleware : 'auth',
     data () {
       return {
         dialog: false,
       }
+    },
+    async asyncData({error, params}) {
+      try {
+        let artist_response = await EventService.getArtist(params.username)
+        console.log(artist_response);
+        return {
+            artist: artist_response.data[0],
+        }
+      } catch (err) {
+        error({statusCode:503,  message: err.message})
+        }
     },
 }
 </script>

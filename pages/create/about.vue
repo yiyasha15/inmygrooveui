@@ -53,7 +53,7 @@
                                     multiple>
                                 </v-select>
                                 <v-textarea
-                                    v-model= "artist_data.bio"
+                                    v-model= "artist_data.introduction"
                                     label="Introduction"
                                     :maxlength="120">
                                 </v-textarea>
@@ -90,7 +90,7 @@
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{artist_data.bio}} </h5>
+                            <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
                         </v-row>
                         </v-col>
                 </v-col>
@@ -360,7 +360,8 @@ export default {
                 country: "",
                 style: "",
                 artist_image: "",
-                bio: "",
+                introduction: "",
+                quote: ""
             },
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             // value: ['HipHop', 'House', 'Locking', 'Popping'],
