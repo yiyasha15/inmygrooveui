@@ -4,9 +4,10 @@
             <a href='/'> <img src="@/assets/inmygroove.png" height="80px" width="90px"></a>
             <!-- <v-btn medium class="ma-6 yellow text-decoration-none elevation-0" to='/'>InmyGroove</v-btn> -->
         <v-spacer></v-spacer>
+        <!-- {{userHasPortfolio}} -->
         <div v-if="isAuthenticated">
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
-            <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" to="/" @click="check" >Check</v-btn>
+            <!-- <v-btn  outlined rounded color="error" class="mr-2 text-decoration-none" to="/" @click="check" >Check</v-btn> -->
             <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
@@ -36,6 +37,12 @@
                     <v-list-item-title>@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>
                     <v-list-item
+                    :to="'/create/about'"
+                    class="text-decoration-none pl-6 pr-12"
+                    >
+                    <v-list-item-title>Create a portfolio</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
                     :to="'/notifications'"
                     class="text-decoration-none pl-6 pr-12"
                     >
@@ -46,6 +53,12 @@
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Write a Post</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                    :to="'/settings'"
+                    class="text-decoration-none pl-6 pr-12"
+                    >
+                    <v-list-item-title>Settings</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     :to="'/logout'"
@@ -68,36 +81,27 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import store from 'vuex'
 export default {
-//     data() {
-//     return {
-//         items: [
-//             { title: 'Profile', url:'/profile' }, 
-//             { title: 'Notifications', url:'/notifications' },
-//             { title: 'Write a blog', url:'/write_blog' },
-//             { title: 'Log Out' , url:'/logout'},
-//         ],
-      
-//     }
-// },
     methods: {
         handleClick(index) {
         this.items[index].click.call(this)
         },
         check()
         {
-            let key = this.$auth.getToken('local');
-            let key2 = this.$auth.getRefreshToken('local');
-            if(key)
-            {
-                console.log('you should be logged in');
+            // this.$store.dispatch('hi')
+            // let key = this.$auth.getToken('local');
+            // let key2 = this.$auth.getRefreshToken('local');
+            // if(key)
+            // {
+            //     console.log('you should be logged in');
                 
-            }
-            console.log('hi', key);
-            console.log('hi re', key2);
-            console.log('youclicked',this.$auth.user.username);
-            console.log('youclicked',this.$auth.$state);
-            console.log('youclicked',this.$auth);
+            // }
+            // console.log('hi', key);
+            // console.log('hi re', key2);
+            // console.log('youclicked',this.$auth.user.username);
+            // console.log('youclicked',this.$auth.$state);
+            // console.log('youclicked',this.$auth);
             // console.log('youclicked',this.$auth.getState.username);
             // console.log('youclicked',this.$auth.user.username);
             
@@ -126,7 +130,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['isAuthenticated', 'loggedInUser'])
+        ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio'])
     },
 }
 </script>

@@ -1,26 +1,38 @@
 <template>
   <v-container>
       <v-row no-gutters>
-        <v-col md='6'>
-          <img src = "~/assets/goku.png"  width="40%" alt="In My Groove logo">
+        <v-col md='9'>
+          <video width="90%" autoplay>
+            <source src="~/assets/goku_vid.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+          <!-- <img src = "~/assets/goku.png"  width="40%" alt="In My Groove logo"> -->
         </v-col>
-        <v-col md='6'>
+        <v-col md='3'>
           <div>
-            <div text class="mb-5 font-weight-bold" >Yo, What's up !! </div>
-            <div text class="mb-5">
-              I am Goku, 12 year old dancer and InMyGroove mascot.</div>
+            <v-layout justify-center>
+        <v-flex xs6>
+            <div class="text-xs-center mt-6" align = "center">
+              <v-btn rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
+              <v-btn  rounded outlined color="#1c2b2d" class=" text-decoration-none mt-4" :to= "`/create/about/`">Edit here</v-btn>
+            </div>
+        </v-flex>
+    </v-layout>
+            <!-- <h2 text class="mb-5 font-weight-bold" >Yo, What's up !! </h2> -->
+            <!-- <div text class="mb-5">
+              I am Goku, 12 year old dancer and InMyGroove mascot.</div> -->
             <!--<div text class="mb-5 font-weight-thin">
               I am young and learning, but I can dance well and even battle u,
               coz I am dope, because my teachers are the dopest.
             </div>-->
-            <div text class="mb-5">
+            <!-- <h5 text class="mb-5">
               You can join the InMyGroove community, and share your work/experience of
               your dance journey. 
               To build your own webpage just click on "Start Building" and get started!
-            </div>
+            </h5>
             <hr>
-            <div text class="mb-5 font-weight-bold">btw, let's get down sometime.</div>
-            <div >
+            <div text class="mb-5 font-weight-bold">btw, let's get down sometime.</div> -->
+            <!-- <div >
             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn dark rounded color="#e6d5b8" class="mr-2 text-decoration-none" v-bind="attrs" v-on="on"> Check me out </v-btn>
@@ -36,28 +48,32 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-          </div>
+          </div> -->
           </div>
         </v-col>
       </v-row>
-    <v-layout justify-center>
-        <v-flex xs6>
-            <div class="text-xs-center mt-6" align = "center">
-              <v-btn rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
-              <v-btn v-if="$auth.user" class="elevation-0 white text-decoration-none">Edit here</v-btn>
-            </div>
-        </v-flex>
-    </v-layout>
   </v-container>
 </template>
 
 <script>
+import EventService from '@/services/EventService.js'
 export default {
     middleware : 'auth',
     data () {
       return {
         dialog: false,
       }
+    },
+    async asyncData({error, params}) {
+      try {
+        let artist_response = await EventService.getArtist(params.username)
+        console.log(artist_response);
+        return {
+            artist: artist_response.data[0],
+        }
+      } catch (err) {
+        error({statusCode:503,  message: err.message})
+        }
     },
 }
 </script>

@@ -33,6 +33,9 @@ export default {
   */
   plugins: [{ src: "~/plugins/google-maps", ssr: true }
   ],
+  plugins: [
+    '~/plugins/local-storage',
+  ],
   /*
   ** Nuxt.js dev-modules
   */
@@ -117,10 +120,10 @@ export default {
           property: 'user',
         },
         endpoints: {
-          login: { url: '/v1/user/token/', method: 'post', propertyName: 'user' },
+          login: { url: '/v1/user/token/', method: 'post', propertyName: 'user]' },
           // refresh: { url: '/v1/user/token/refresh', method: 'post', propertyName: false },
           logout: { url: '/v1/user/token/', method: 'delete' },
-          user: { url: '/v1/user/token', method: 'get', propertyName: 'user' }
+          user: { url: '/v1/user/token/', method: 'get', propertyName: 'user' }
         },
         // tokenRequired: true,
         tokenType: ''

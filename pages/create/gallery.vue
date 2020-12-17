@@ -12,11 +12,6 @@
                 <v-form v-on:submit.prevent="submit">
                     <v-row>
                         <v-col cols="12" md="9">
-                            <v-text-field
-                                v-model = "artist.g_artist"
-                                label= "Artist ID"
-                                :maxlength="20">
-                            </v-text-field>
                             <div class = "form-group">
                                 <v-text-field @click= "onPick" label="Upload image"></v-text-field>
                                 <input 
@@ -48,25 +43,54 @@
                 </v-flex> -->
                 </v-col>
         </v-row>
+            <v-snackbar
+            v-model="snackbar"
+            >
+            You have already uploaded {{this.total_pics }} images.
+
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                color="pink"
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+                >
+                Close
+            </v-btn>
+      </template>
+    </v-snackbar>
     </v-container>
 </template>
 <script>
 import EventService from '@/services/EventService.js'
 export default {
+    middleware : 'auth',
     data(){
         return {
            artist: {
-               g_artist: "",
+               g_artist: this.$auth.user.username,
                g_upload_photo: ""
            },
            imageData: "",
-            // images: [],
+           total_pics : "",
+           snackbar: false,
         }
     },
+     async asyncData({error, store}) {
+            try {
+                let gallery_response = await EventService.getGalleries(store.$auth.user.username)
+                console.log("length",gallery_response.data.length);
+                return {
+                    total_pics: gallery_response.data.length
+                }
+            } catch (err) {
+                error({statusCode:503,  message: err.message})
+                }
+            },
     methods: {
-        // removeImage(){
-        //     this.images = []
-        //     },
+        removeImage(){
+            this.imageData = ""
+            },
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()
@@ -99,33 +123,72 @@ export default {
             // this.artist.g_upload_photo = selectedFiles[0];
             },
         async submit() {
-            const config = {
-                headers: {"content-type": "multipart/form-data"}
-            };
-            let formData = new FormData();
-            for (let data in this.artist) {
-                if(data == 'g_upload_photo' && this.artist[data] == null)
-                {
-                    console.log("artist_image is not there")
-                    
+            switch (this.total_pics) {
+                case 0:
+                case 1:
+                case 2:
+                      {
+                       const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access}
+                };
+                let formData = new FormData();
+                for (let data in this.artist) {
+                    if(data == 'g_upload_photo' && this.artist[data] == null)
+                    {
+                        console.log("artist_image is not there")
+                        
+                        break;
+                    }
+                    else{
+                        formData.append(data, this.artist[data]);
+                    }
+                }
+                try {
+                    let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
+                    this.$router.push("/create/gallery");
+                } 
+                catch (e) {
+                    console.log(e);
+                }
+                }
+                this.snackbar = true
+                break;
+                case 3:
+                   { 
+                       const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access}
+                };
+                let formData = new FormData();
+                for (let data in this.artist) {
+                    if(data == 'g_upload_photo' && this.artist[data] == null)
+                    {
+                        console.log("artist_image is not there")
+                        
+                        break;
+                    }
+                    else{
+                        formData.append(data, this.artist[data]);
+                    }
+                }
+                try {
+                    let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
+                    this.$router.push("/create/gallery");
+                } 
+                catch (e) {
+                    console.log(e);
+                }
+                }
+                break;
+                    case 4:
+                    default:
+                        {
+                            this.snackbar = true
+                        }
                     break;
+
                 }
-                else{
-                    formData.append(data, this.artist[data]);
-                }
-            }
-            try {
-                // if(a==0){
-                //     let response = await this.$axios.$post("/v1/gallery/", formData, config);
-                //     this.$router.push("/create/gallery");
-                // }
-                // else{
-                    let response = await this.$axios.$post("/v1/gallery/", formData, config);
-                    this.$router.push("/create/work");
-                    // }
-            } catch (e) {
-                console.log(e);
-            }
         }        
     }
 }

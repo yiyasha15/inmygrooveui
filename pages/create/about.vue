@@ -24,11 +24,11 @@
                                     label="Name"
                                     :maxlength="50">
                                 </v-text-field>
-                                <v-text-field
+                                <!-- <v-text-field
                                     v-model = "artist_data.username"
                                     label="Username"
                                     :maxlength="20">
-                                </v-text-field>
+                                </v-text-field> -->
                                 <v-select label="Country" v-model= "artist_data.country"
                                     :items="countries"
                                     item-text="name"
@@ -53,7 +53,7 @@
                                     multiple>
                                 </v-select>
                                 <v-textarea
-                                    v-model= "artist_data.bio"
+                                    v-model= "artist_data.introduction"
                                     label="Introduction"
                                     :maxlength="120">
                                 </v-textarea>
@@ -90,7 +90,7 @@
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{artist_data.bio}} </h5>
+                            <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
                         </v-row>
                         </v-col>
                 </v-col>
@@ -101,6 +101,7 @@
 <script>
 import CountryFlag from 'vue-country-flag'
 export default {
+    middleware : 'auth',
     // middleware:['auth-admin'],
     components: {
         CountryFlag
@@ -352,13 +353,15 @@ export default {
                 {"name": "Zambia", "code": "ZM"},
                 {"name": "Zimbabwe", "code": "ZW"}
                 ],
+                // this is artist object
             artist_data: {
                 artist_name: "",
-                username: "",
+                username: this.$auth.user.username,
                 country: "",
                 style: "",
                 artist_image: "",
-                bio: "",
+                introduction: "",
+                quote: ""
             },
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             // value: ['HipHop', 'House', 'Locking', 'Popping'],
@@ -388,8 +391,11 @@ export default {
             }
         },
         async submit() {
+            this.username = this.$auth.user.username;
             const config = {
-                headers: {"content-type": "multipart/form-data"}
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access
+                }
             };
             let formData = new FormData();
             for (let data in this.artist_data) {
@@ -404,7 +410,7 @@ export default {
             }
             if(this.artist_data.artist_image){
             try {
-                let response = await this.$axios.$post("/v1/portfolio/", formData, config);
+                let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
                 console.log("Artist website created.");
                 this.snackbar = true;
                 this.$router.push("/create/gallery");

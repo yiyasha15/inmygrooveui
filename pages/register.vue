@@ -47,18 +47,25 @@ export default {
 			}
 			else{
 				await this.$axios.post('v1/user/create/', registrationInfo)
+				.then(function (response) {
+					console.log(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 				let res = await this.$auth.loginWith('local', {
 					data: registrationInfo
 				})
-				this.$auth.setUser(res.data)
-				 this.$auth.setToken('local',res.data.access);
-				 this.$auth.setRefreshToken('local', res.data.refresh);
-				 console.log('status', this.$auth.$state);	 
-				 console.log('status', this.$auth.$storage.$state);
-				console.log(this.$auth.loggedIn);
-				console.log(this.$auth.user);
-				console.log("New user registered.", res.data.username);
-				this.$router.push('/');
+					this.$auth.setUser(res.data)
+					this.$auth.setToken('local',res.data.access);
+					this.$auth.setRefreshToken('local', res.data.refresh);
+					console.log('status', this.$auth.$state);	 
+					console.log('status', this.$auth.$storage.$state);
+					console.log(this.$auth.loggedIn);
+					console.log(this.$auth.user);
+					console.log("New user registered.", res.data.username);
+					this.$router.push('/');
+				
 			}
 		} catch {
 		
