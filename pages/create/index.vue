@@ -11,13 +11,14 @@
         <v-col md='3'>
           <div>
             <v-layout justify-center>
-        <v-flex xs6>
-            <div class="text-xs-center mt-6" align = "center">
-              <v-btn rounded outlined color="#1c2b2d" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
-              <v-btn  rounded outlined color="#1c2b2d" class=" text-decoration-none mt-4" :to= "`/create/about/`">Edit here</v-btn>
-            </div>
-        </v-flex>
-    </v-layout>
+                <v-flex xs6>
+                    <div class="text-xs-center mt-6" align = "center">
+                      <h5 v-if="!artist" >Let's build your portfolio first.</h5>
+                      <v-btn v-if="!artist" rounded outlined color="indigo" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
+                      <v-btn v-else rounded outlined color="indigo" class=" text-decoration-none mt-8" :to= "`/create/about/`">Edit here</v-btn>
+                    </div>
+                </v-flex>
+            </v-layout>
             <!-- <h2 text class="mb-5 font-weight-bold" >Yo, What's up !! </h2> -->
             <!-- <div text class="mb-5">
               I am Goku, 12 year old dancer and InMyGroove mascot.</div> -->
@@ -64,14 +65,15 @@ export default {
         dialog: false,
       }
     },
-    async asyncData({error, params}) {
+    async asyncData({error, store}) {
       try {
-        let artist_response = await EventService.getArtist(params.username)
-        console.log(artist_response);
+        let artist_response = await EventService.getArtist(store.$auth.user.username)
+        console.log("art",artist_response);
         return {
-            artist: artist_response.data[0],
+            artist: artist_response.data.length,
         }
       } catch (err) {
+        console.log(err);
         error({statusCode:503,  message: err.message})
         }
     },

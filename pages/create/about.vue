@@ -1,11 +1,11 @@
 <template>
-    <v-app> 
+    <v-app>
         <v-container class="ma-24 ">
-        <div class="text-xs-center ma-6" align = "center">
-            <v-btn dark rounded color="#e6d5b8" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn outlined rounded color="#e6d5b8" class=" mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn outlined rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
-        </div>
+            <div class="text-xs-center ma-6" align = "center">
+                <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+                <v-btn outlined rounded color="indigo" class=" mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+                <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+            </div>
             <v-divider class="mx-4" ></v-divider>
             <h5 class="pl-3">Build your webpage</h5>
             <v-row>
@@ -57,8 +57,37 @@
                                     label="Introduction"
                                     :maxlength="120">
                                 </v-textarea>
-                                <v-btn class="text-decoration-none" rounded color="indigo" dark
+                                <v-text-field
+                                    v-model= "artist_data.quote"
+                                    label="Favourite quote"
+                                    :maxlength="120">
+                                </v-text-field>
+                                <v-text-field
+                                    v-model= "artist_data.crew"
+                                    label="Crew"
+                                    :maxlength="120">
+                                </v-text-field>
+                                <v-text-field
+                                    v-model= "artist_data.ig"
+                                    label="Instagram"
+                                    :maxlength="120">
+                                </v-text-field>
+                                <v-text-field
+                                    v-model= "artist_data.fb"
+                                    label="Facebook"
+                                    :maxlength="120">
+                                </v-text-field>
+                                <v-text-field
+                                    v-model= "artist_data.personal"
+                                    label="Personal website"
+                                    :maxlength="120">
+                                </v-text-field>
+                                <v-btn v-if="!userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
                                  @click="submit">submit</v-btn>
+                                 <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
+                                 @click="update">Update</v-btn>
+                                 <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="error" dark
+                                 @click="deleted">Delete</v-btn>
                                 <v-snackbar v-model="snackbar" >
                                 {{ text }}
                                 <template v-slot:action="{ attrs }">
@@ -82,7 +111,7 @@
                         <v-row class="pb-6 justify-center text-center">
                             <h2> {{artist_data.artist_name}}</h2>
                             <v-spacer></v-spacer>
-                            <v-btn icon class="text-decoration-none" >
+                            <v-btn v-if="artist_data.country " icon class="text-decoration-none" >
                                 <country-flag :country= artist_data.country />
                             </v-btn>
                         </v-row>
@@ -92,6 +121,9 @@
                         <v-row class="pb-6 justify-center text-center">
                             <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
                         </v-row>
+                        <v-row class="pb-6 justify-center text-center">
+                            <h5 class="pb-6 text-center">{{artist_data.quote}} </h5>
+                        </v-row>
                         </v-col>
                 </v-col>
             </v-row>
@@ -100,11 +132,16 @@
 </template>
 <script>
 import CountryFlag from 'vue-country-flag'
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     middleware : 'auth',
     // middleware:['auth-admin'],
     components: {
         CountryFlag
+    },
+    computed: {
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
     },
     data(){
         return {
@@ -361,16 +398,27 @@ export default {
                 style: "",
                 artist_image: "",
                 introduction: "",
-                quote: ""
+                quote: "",
+                crew: "",
+                ig: "",
+                fb: "",
+                personal: ""
             },
             items: ['HipHop', 'House', 'Locking', 'Popping'],
-            // value: ['HipHop', 'House', 'Locking', 'Popping'],
             imageData: "",
             snackbar: false,
             text: 'Website created successfully.'
         }
     },
+    created (){
+        if(this.$store.state.hasPortfolio)
+        {
+            this.artist_data = Object.assign({}, this.$store.getters.usersPortfolio);
+            this.imageData = this.artist_data.artist_image;
+        }
+        },
     methods: {
+        ...mapActions(['check_user_portfolio']),
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()
@@ -399,7 +447,7 @@ export default {
             };
             let formData = new FormData();
             for (let data in this.artist_data) {
-                if(data == 'artist_image' && this.artist_data[data] == null)
+                if(!this.artist_data.artist_image)
                 {
                     console.log("artist_ image is not there")
                     break;
@@ -410,8 +458,12 @@ export default {
             }
             if(this.artist_data.artist_image){
             try {
+                console.log(formData);
                 let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
                 console.log("Artist website created.");
+                //update store
+                this.$store.dispatch("check_user_portfolio");
+                this.$store.dispatch("check_user_gallery");
                 this.snackbar = true;
                 this.$router.push("/create/gallery");
             } catch (e) {
@@ -424,11 +476,50 @@ export default {
                 </v-alert>
                 alert("Image required!");
             }
-        }        
+        },    
+        async update() {
+            // this.artist_data.username = this.$auth.user.username;
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access
+                }
+            };
+            let formDataa = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'artist_name')
+                {
+                    formDataa.append(data, this.artist_data[data]);
+                }
+            }
+                console.log("updated is",formDataa);
+            try {
+                let response = await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.id, formDataa, config)
+                console.log("Artist website updated.");
+                //update store
+                this.$store.dispatch("check_user_portfolio");
+                this.snackbar = true;
+                this.$router.push("/create/gallery");
+                } catch (e) {
+                        console.log(e);
+                    }
+        },
+        async deleted() {
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$auth.user.access
+                }
+            };
+            try {
+                let response = await this.$axios.$delete("/v1/artist/portfolio/"+this.usersPortfolio.id, config)
+                console.log("Artist portfolio deleted.");
+                //update store
+                this.$store.dispatch("remove_portfolio")
+                this.snackbar = true;
+                this.$router.push("/");
+            } catch (e) {
+                console.log(e);
+            }
+        }         
     }
 }
-//upload animation 
-//https://bezkoder.com/vue-axios-file-upload/
-//multiple file upload
-//https://gist.github.com/raisiqueira/49cf0646fc50da4370c54e1047a67dcd: so cool
 </script>

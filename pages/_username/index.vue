@@ -1,22 +1,41 @@
 <template>
     <div>
         <center>
-        <v-img :src = "artist.artist_image" width="100%" class="centerImage" maxHeight="520px">
-        </v-img>
-    </center>
+            <v-img :src = "artist.artist_image" width="100%" class="centerImage" maxHeight="520px">
+            </v-img>
+        </center>
     <br>
+    <h5 v-if="artist.quote" align="center" justify="center" class="mb-5 font-weight-light font-italic">
+        <br>
+        "{{ artist.quote }}"
+    </h5> 
     <v-row align="center"  no-gutters>
         <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" cols="12" md="6" lg="6" xl="6">
                 <h3  class="mb-5 font-weight-light font-italic">
                     <br>
                     {{ artist.introduction }}
-                </h3>           
-                <div class="text font-weight-thin justify-end"> -{{artist.artist_name}}, <country-flag :country= 'artist.country' />   
-                </div>
+                </h3>  
+                <div align="end" justify="end" class="text font-weight-thin"> 
+                    -{{artist.artist_name}} <country-flag :country= 'artist.country' />  
+                </div>         
+                <!-- <div align="end" justify="end" class="text font-weight-thin">
+                    <country-flag class="mt-4" :country= 'artist.country' />   
+                </div> -->
         </v-col>
         <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}">
             <gallery-card :gallery="gallery" ></gallery-card>
         </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+        <a class="text-decoration-none mx-4" href="artist.ig" target="_blank">
+            <v-icon>mdi-instagram</v-icon>
+        </a>
+        <a class="text-decoration-none mx-4" href="artist.fb" target="_blank">
+            <v-icon>mdi-facebook</v-icon>
+        </a>
+        <a class="text-decoration-none mx-4" href="www.gmail.com" target="_blank">
+            <v-icon>mdi-email</v-icon>
+        </a>
     </v-row>
     <v-container>
          <v-row>
@@ -29,8 +48,10 @@
                         </div>
                     </div>
                 </div>  
-                <div v-else>
+                <div v-if="userHasPortfolio">
+                    <div v-if="usersPortfolio.artist_name == artist.username">
                     <v-btn class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Add Work </v-btn>
+                    </div>
                 </div>
             </v-col>
         </v-row>
@@ -42,11 +63,15 @@ import EventService from '@/services/EventService.js'
 import GalleryCard from '@/components/GalleryCard.vue'
 import MilestoneCard from "@/components/MilestoneCard.vue"
 import CountryFlag from 'vue-country-flag'
+import { mapGetters } from 'vuex'
 export default {
     data () {
       return {
         dialog: false,
       }
+    },
+     computed: {
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
     },
     // layout: 'username',
     props: ["artist"],

@@ -19,7 +19,7 @@
       <v-row>
         <v-col align="center" justify="center">
               <v-row no-gutters>            
-                    <v-col md="10" offset-md="3">
+                    <v-col md="10" offset-md="3" cols="12">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
                         :class="{ 'on-hover': hover }" 
@@ -33,7 +33,7 @@
         </v-col>
         <v-col align="center" justify="center" >
               <v-row no-gutters>            
-                    <v-col md="10" offset-md="3" >
+                    <v-col md="10" offset-md="3" cols="12">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
                         :class="{ 'on-hover': hover }" to = '/create' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
@@ -45,8 +45,8 @@
               </v-row>                    
           </v-col>
         <v-col align="center" justify="center" >
-              <v-row no-gutters>            
-                    <v-col md="10" offset-md="3">
+              <v-row>            
+                    <v-col md="10" offset-md="3" cols="12">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
                         :class="{ 'on-hover': hover }" :to= "`/create/each1teach1/`" class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
@@ -59,7 +59,7 @@
         </v-col>
         <v-col align="center" justify="center" >
               <v-row no-gutters>            
-                    <v-col md="10" offset-md="3">
+                    <v-col md="10" offset-md="3" cols="12">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
                         :class="{ 'on-hover': hover }" to = '/blogs' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
@@ -75,15 +75,21 @@
 </template>
 
 <script>
-var i = 0;
-
+import {mapGetters} from 'vuex'
+import vuex from 'vuex' 
 export default {
-
   head() {  //head function (a property of vue-meta), returns an object
     return {
-      title: 'InMyGroove Community',
-}
-}
+        title: 'InMyGroove Community',
+        }
+      },
+  mounted() {
+    this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_gallery");
+  },
+   computed: {
+        ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio'])
+    },
 }
 //https://stackoverflow.com/questions/57800048/how-to-enable-dark-mode-with-custom-colors-in-light-theme-in-vuetify
 //You know that you have a groove that no other dancer has in this 

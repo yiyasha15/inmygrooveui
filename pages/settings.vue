@@ -4,8 +4,10 @@
             <h3>Settings</h3>
             <div class="mt-4">
                 Delete gallery image.<br>
-            <v-btn class="text-decoration-none" rounded color="indigo" dark
+            <v-btn class="text-decoration-none" rounded color="error" dark
                 @click="submit">Delete</v-btn>
+                <v-btn class="text-decoration-none" rounded color="indigo" dark
+                :to="'/'" >Cancel</v-btn>
             <v-snackbar v-model="snackbar" >
             {{ text }}
             <template v-slot:action="{ attrs }">
@@ -30,7 +32,7 @@ export default {
         return {
 
             snackbar: false,
-            text: 'Deleted successfully.'
+            text: 'One image deleted successfully.'
         }
     },
     methods: {
@@ -42,7 +44,7 @@ export default {
                 }
             };
             try {
-                let response = await this.$axios.$delete("/v1/artist/gallery/5", config)
+                let response = await this.$axios.$delete("/v1/artist/gallery/25", config)
                 console.log("Deleted successfully");
                 this.snackbar = true;
                 this.$router.push("/settings");

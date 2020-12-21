@@ -34,7 +34,10 @@ export default {
     getEach1Teach1s(){
         return apiClient1.get('/e1t1')
     },
-    getEach1Teach1(username) {
+    getEach1Teach1_user(username) {
         return apiClient1.get('/e1t1/?search=' + username)
+    },
+    getEach1Teach1(id) {
+        return apiClient1.get('/e1t1/' + id)
     }
 }

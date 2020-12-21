@@ -1,7 +1,11 @@
 <template>
    <v-container>
         <v-toolbar flat class="mt-6">
-            <a href='/'> <img src="@/assets/inmygroove.png" height="80px" width="90px"></a>
+            <nuxt-link :to="'/'" >
+            <!-- <a href='/'> -->
+             <img src="@/assets/inmygroove.png" height="80px" width="90px">
+             <!-- </a> -->
+            </nuxt-link>
             <!-- <v-btn medium class="ma-6 yellow text-decoration-none elevation-0" to='/'>InmyGroove</v-btn> -->
         <v-spacer></v-spacer>
         <!-- {{userHasPortfolio}} -->
@@ -31,16 +35,25 @@
                     <v-list-item-title>In My Groove</v-list-item-title>
                     </v-list-item>
                     <v-list-item
+                    v-if="userHasPortfolio"
                     :to="'/'+ loggedInUser.username"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>
                     <v-list-item
+                    v-if="!userHasPortfolio"
                     :to="'/create/about'"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Create a portfolio</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                    v-if="userHasPortfolio"
+                    :to="'/create/about'"
+                    class="text-decoration-none pl-6 pr-12"
+                    >
+                    <v-list-item-title>Edit your portfolio</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     :to="'/notifications'"
@@ -87,25 +100,6 @@ export default {
         handleClick(index) {
         this.items[index].click.call(this)
         },
-        check()
-        {
-            // this.$store.dispatch('hi')
-            // let key = this.$auth.getToken('local');
-            // let key2 = this.$auth.getRefreshToken('local');
-            // if(key)
-            // {
-            //     console.log('you should be logged in');
-                
-            // }
-            // console.log('hi', key);
-            // console.log('hi re', key2);
-            // console.log('youclicked',this.$auth.user.username);
-            // console.log('youclicked',this.$auth.$state);
-            // console.log('youclicked',this.$auth);
-            // console.log('youclicked',this.$auth.getState.username);
-            // console.log('youclicked',this.$auth.user.username);
-            
-        },
         checkk()
         {
             let key = this.$auth.getToken('local');
@@ -124,8 +118,6 @@ export default {
             console.log('hi', key);
             console.log('hi re', key2);
             console.log('youclicked',this.$auth);
-            // console.log('youclicked',this.$auth.getState.username);
-            // console.log('youclicked',this.$auth.user.username);
             
         }
     },

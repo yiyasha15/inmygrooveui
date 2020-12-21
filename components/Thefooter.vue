@@ -14,7 +14,7 @@
               <div>&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
             </v-row>
             <v-row>
-              <div>developed by the dancers for the dancers with lots of love.</div>
+              <div>developed by the dancers for the dancers.</div>
             </v-row>
           </v-col>
       <v-spacer></v-spacer>

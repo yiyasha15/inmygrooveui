@@ -5,7 +5,10 @@ import cookie from 'cookie'
 import EventService from '@/services/EventService.js'
 
 export const state = () => ({
-  portfolio: false
+  portfolio: null,
+  gallery: [],
+  hasPortfolio: false,
+  hasGallery: false
 })
 export const getters = {
     isAuthenticated(state) {
@@ -16,19 +19,84 @@ export const getters = {
       return state.auth.user
     },
     userHasPortfolio(state){
+      return state.hasPortfolio
+    },
+    usersPortfolio(state){
       return state.portfolio
+    },
+    usersGallery(state){
+      return state.gallery
+    },
+    userHasGallery(state){
+      return state.hasGallery
     }
   }
   export const actions = {
-    hi({commit}){
-      let name = this.$auth.user.username
-      console.log(name);
-          let artist_response = EventService.getArtist(name)
-          let artist = artist_response.data[0]
-          console.log(artist.username);
-          commit('userHasPortfolio', artist.username)
+    check_user_portfolio({commit, state}){
+      console.log(state);
+        if(state.auth.loggedIn) {
+            EventService.getArtist(state.auth.user.username).then(res =>
+            {
+              commit('usersPortfolio',res.data[0])
+            })
+          }
+          
       },
+      check_user_gallery({commit, state}){
+        console.log(state);
+          if(state.auth.loggedIn) {
+              EventService.getGalleries(state.auth.user.username).then(res =>
+              {
+                commit('usersGallery',res.data)
+              })
+            }
+            
+        },
+      remove_portfolio({commit, state})
+      {
+        if(state.auth.loggedIn){
+          commit('clearPortfolio')
+        }
+      },
+      remove_gallery({commit, state})
+      {
+        if(state.auth.loggedIn){
+          commit('clearGallery')
+        }
+      }
 
+    }
+    // Define Mutations
+export const mutations = {
+  usersPortfolio(state, artist)
+  {
+    if(artist)
+    {
+      state.portfolio = artist
+      state.hasPortfolio = true
+    }
+  },
+  usersGallery(state, gallery)
+  {
+    if(gallery.length)
+    {
+      state.gallery = gallery
+      state.hasGallery = true}
+  },
+  clearPortfolio(state) //if user has portfolio change state to true
+  {
+    state.portfolio = null
+    state.hasPortfolio = false
+  },
+  clearGallery(state) //if user has portfolio change state to true
+  {
+    state.gallery =[]
+    state.hasGallery = false
+  },
+
+    // authUserOnReload (state, user_id) {
+    //   state.auth.user.access = user_id
+        // perform login here and store user
     }
     // This one runs on the beginning of reload/refresh
     // nuxtServerInit ({ commit }, { req }) {
@@ -45,16 +113,3 @@ export const getters = {
     //     // perform login and store info on vuex store
     //     commit('authUserOnReload', user_id)
     // },
-
-// Define Mutations
-export const mutations = {
-  userHasPortfolio(state, username ) //if user has portfolio change state to true
-  {
-    if(username){
-      state.portfolio = true
-    }
-  },
-    // authUserOnReload (state, user_id) {
-    //   state.auth.user.access = user_id
-        // perform login here and store user
-    }
