@@ -2,9 +2,9 @@
     <v-app>
         <v-container class="ma-24" >
         <div class="text-xs-center ma-6" align = "center">
-            <v-btn outlined rounded color="#e6d5b8" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn outlined rounded color="#e6d5b8" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
         </div>
             <v-divider class="mx-4" ></v-divider>
             <h5 class="pl-3">Share your work</h5>
@@ -79,17 +79,33 @@
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{milestone.w_context}}, {{milestone.w_datetime}}</h5>
+                            <h5 class="pb-6 text-center">{{milestone.w_context}} {{milestone.w_datetime}}</h5>
                         </v-row>
                         </v-col>
+                </v-col>
+            </v-row>
+            <v-row v-if="userHasWork">
+                <v-col>
+                    <div class="d-flex flex-wrap" >
+                        <div v-for = "milestone in usersWork" :key = "milestone.index" >
+                            <MilestoneCard :milestone = "milestone"></MilestoneCard>
+                            <v-btn class="error" @click="remove(milestone.id)">Remove</v-btn>
+                        </div>
+                    </div>
                 </v-col>
             </v-row>
         </v-container>
     </v-app>
 </template>
 <script>
+import MilestoneCard from "@/components/MilestoneCard.vue"
+import EventService from '@/services/EventService.js'
+import { mapGetters } from 'vuex'
 export default {
     middleware : 'auth',
+    components: {
+      MilestoneCard
+    },
     data(){
         return {
             date:"",
@@ -103,7 +119,39 @@ export default {
             }
         }
     },
+    computed: {
+    ...mapGetters(['usersWork', 'userHasWork'])
+    },
+    mounted() {
+    this.$store.dispatch("check_user_work");
+    },
     methods: {
+        async remove(id){
+            const config = {
+            headers: {"content-type": "multipart/form-data",
+                "Authorization": "Bearer " + this.$auth.user.access}
+            };
+            try {
+                let response = await this.$axios.$delete("/v1/artist/work/"+id , config);
+                this.$store.dispatch("remove_work");
+                this.$store.dispatch("check_user_work");
+                // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
+                this.$router.push("/create/work");
+            } 
+            catch (e) {
+                console.log(e);
+            }
+            //remove particular gallery image by id
+        },
+        refresh(){
+            this.date ="";
+            this.imageData = "";
+            this.milestone.w_artist = this.$auth.user.username;
+            this.milestone.w_content= "";
+            this.milestone.w_context= "";
+            this.milestone.w_datetime= "";
+            this.milestone.w_photo= ""
+        },
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()
@@ -142,8 +190,10 @@ export default {
             console.log("form lastt", formData);
             try {
                 let response = await this.$axios.$post("/v1/artist/work/", formData, config);
-                console.log("Artist website created.");
-                this.$router.push("/create/each1teach1");
+                console.log("Artist work created.");
+                this.$store.dispatch("check_user_work");
+                this.refresh();
+                this.$router.push("/create/work");
             } catch (e) {
                 console.log(e);
             }

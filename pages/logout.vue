@@ -7,17 +7,19 @@
 		</v-card-title>
 		<v-card-actions class="mb-3 justify-center">
 			<v-btn class="ml-4" color="error" @click="signout">Sign Out</v-btn>
-			<!-- <v-spacer></v-spacer>
-			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
-		<!-- {{this.$auth.user.access}} -->
 	</v-card>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import vuex from 'vuex'
 export default {
 	methods:{
 		signout(){
+			this.$store.dispatch("remove_portfolio")
+			this.$store.dispatch("remove_gallery")
+			this.$store.dispatch("remove_work")
 			this.$auth.logout();
 		}
 	}

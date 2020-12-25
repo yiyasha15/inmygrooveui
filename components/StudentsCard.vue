@@ -4,7 +4,7 @@
   <!-- <v-card class = "ma-1 pa-1" hover @mousedown.stop :elevation="5" :to="'/'+share.s_student" > -->
   <v-hover>
   <template v-slot="{ hover }" >
-  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" :to="'/'+share.s_student"  min-width="180" max-height="260"> <!-- dark -->
+  <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" :to="'/e1t1/' + share.id"  min-width="180" max-height="260"> <!-- dark -->
     <v-container align="center">
         <div>
           <div v-if = "share.s_photo">

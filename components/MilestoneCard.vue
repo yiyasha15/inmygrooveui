@@ -8,9 +8,6 @@
         {{milestone.w_content}}
         {{milestone.w_context}}
         </v-card-title>
-        <!-- <v-card-subtitle v-if = milestone.w_context>
-          {{milestone.w_context}}
-        </v-card-subtitle> -->
         <v-card-actions>
           <v-btn color="purple" text @click="love = !love">Love</v-btn>
           <v-spacer></v-spacer>

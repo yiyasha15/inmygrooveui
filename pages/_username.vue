@@ -7,10 +7,10 @@
         </v-col>
         <v-col class="px-0 d-flex align-end justify-end pr-4">
             <div>
-                <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
+                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
                 <!-- <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/work`"> Work </v-btn> -->
-                <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                <v-btn dark rounded color="#e6d5b8" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/hiphop_wol`"> Way of Life</v-btn> 
+                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+                <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/hiphop_wol`"> Way of Life</v-btn>  -->
             </div>
         </v-col>
     </v-row>
@@ -37,8 +37,9 @@ export default {
     async asyncData({error, params}) {
       try {
         let artist_response = await EventService.getArtist(params.username)
+        console.log(artist_response.data);
         return {
-            artist: artist_response.data[0],
+            artist: artist_response.data,
         }
       } catch (err) {
         error({statusCode:503,  message: err.message})

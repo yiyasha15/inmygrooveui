@@ -11,7 +11,7 @@
           <!-- <v-card-title color = "black" x-small>{{event.title}}</v-card-title> -->
           <v-card-actions>
             <p class="text-decoration-none">
-            {{ artist.artist_name }}
+            {{ artist.username }}
             </p>
             <v-spacer></v-spacer>
             <v-btn icon class="text-decoration-none" >
