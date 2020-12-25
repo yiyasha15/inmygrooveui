@@ -126,7 +126,7 @@
                 <v-img :src="imageData" height="300px" width="500px"></v-img>
             </v-row>
             <v-row class="pb-6 justify-center text-center">
-                <h5 class="pb-6 text-center">{{sharing.s_appreciation}}, {{sharing.s_date}} </h5>
+                <h5 class="pb-6 text-center">{{sharing.s_appreciation}} {{sharing.s_date}} </h5>
             </v-row>
             </v-col>
         </v-row>
@@ -139,6 +139,10 @@ export default {
     middleware : 'auth',
     components: {
         CountryFlag
+    },
+    mounted() {
+    this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_gallery");
     },
     data(){
         return {

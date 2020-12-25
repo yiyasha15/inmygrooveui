@@ -30,28 +30,30 @@
                     </v-row>
                 </v-form>
             </v-col>
+            <!-- {{usersGallery}}{{userHasGallery}} -->
             <v-col cols="12" md="6" class="pl-sm-6">
-                <div v-if="!userHasGallery" >
-                    <v-img :src="imageData" height="300px" width="500px"></v-img>
-                </div>
-                <div v-else>
+                <div>
                     <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
                         <div>
                         <v-layout class="flex-wrap">
-                            <v-flex xs6 md6 v-for="gallery in gallery_img" :key = "gallery.index">
+                            <v-flex xs6 md6 v-for="gallery in usersGallery" :key = "gallery.index">
                                 <div v-if = gallery.g_upload_photo>
                                     <v-img :src="gallery.g_upload_photo" 
-                                        width = "270px" height = "270px"/><v-btn class="error" @click="remove(gallery.id)">Remove</v-btn>
+                                        width = "270px" height = "270px"/>
+                                        <v-btn class="error" @click="remove(gallery.id)">Remove</v-btn>
                                 </div>
                             </v-flex>
                         </v-layout>
+                        </div>
+                        <div>
+                            <v-img :src="imageData" height="270px" width="270px"></v-img>
                         </div>
                     </v-container> 
                 </div>
                 </v-col>
         </v-row>
         <v-snackbar v-model="snackbar">
-            You have uploaded {{usersGallery.length+1}} image(s).
+            You have uploaded {{usersGallery.length}} image(s).
             <template v-slot:action="{ attrs }">
                 <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
                     Close
@@ -72,7 +74,7 @@ export default {
                g_artist: this.$auth.user.username,
                g_upload_photo: ""
            },
-           gallery_img: [],
+        //    gallery_img: [],
            imageData: "",
            snackbar: false,
         }
@@ -80,9 +82,13 @@ export default {
     computed: {
         ...mapGetters(['usersGallery', 'userHasGallery'])
     },
-    created (){
-        this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
+    mounted() {
+    this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_gallery");
     },
+    // created (){
+    //     this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
+    // },
     methods: {
         async remove(id){
             const config = {
@@ -93,7 +99,7 @@ export default {
                 let response = await this.$axios.$delete("/v1/artist/gallery/"+id , config);
                 this.$store.dispatch("remove_gallery");
                 this.$store.dispatch("check_user_gallery");
-                this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
+                // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
                 this.$router.push("/create/gallery");
             } 
             catch (e) {
@@ -108,6 +114,10 @@ export default {
         {
             this.$refs.fileInput.click()
         },
+        // put_img(img)
+        // {
+        //     gallery_img.push(img);
+        // },
         onFileChange(e) {
             let files = e.target.files;
             if (files) {
@@ -120,7 +130,7 @@ export default {
                 fileReader.readAsDataURL(files[0]);
                 console.log(files[0]);
                 this.artist.g_upload_photo = files[0];
-                // this.gallery_img.push(files[0]);
+                // put_img(files[0]);
             }
             // for (let i = 0; i < 4; i++) {
             //     console.log(selectedFiles[i]);
@@ -158,8 +168,8 @@ export default {
                 console.log(formData);
                 let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
                 this.$store.dispatch("check_user_gallery");
-                this.$router.push("/create/gallery");
                 this.removeImage();
+                this.$router.push("/create/gallery");
                 } 
                 catch (e) {
                     console.log(e);
@@ -174,10 +184,15 @@ export default {
                         "Authorization": "Bearer " + this.$auth.user.access}
                     };
                 let formData = new FormData();
-                    formData.append(data, this.artist[data]);
+                for (let data in this.artist) {
+                    console.log(data);
+                    console.log(this.artist);
+                formData.append(data, this.artist[data]);
+                }
                 try {
                     let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
                     this.$store.dispatch("check_user_gallery");
+                    this.removeImage();
                     this.$router.push("/create/work");
                 } 
                 catch (e) {

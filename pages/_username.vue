@@ -37,8 +37,9 @@ export default {
     async asyncData({error, params}) {
       try {
         let artist_response = await EventService.getArtist(params.username)
+        console.log(artist_response.data);
         return {
-            artist: artist_response.data[0],
+            artist: artist_response.data,
         }
       } catch (err) {
         error({statusCode:503,  message: err.message})

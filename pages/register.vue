@@ -82,6 +82,6 @@ export default {
         },
       }
     },
-	name: 'WelcomePage',
+	name: 'Register Page',
 }
 </script>

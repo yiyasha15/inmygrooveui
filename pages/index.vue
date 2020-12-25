@@ -8,7 +8,7 @@
         </v-col>
         <v-col cols="12" md="6" offset-md="-4">
           <div align="center" justify="center" class="mx-12 mb-6" align-content="center">
-              <h1 class="my-6 font-weight-bold">In My Groove</h1>
+              <h1 class="my-6 font-weight-bold">In My Groove ❤️</h1>
               <hr><br>
               <div class="font-weight-light text-center ma-0">
                  <h3>A community platform to celebrate the "Each 1 Teach 1" legacy of the HipHop culture.</h3>
@@ -49,7 +49,7 @@
                     <v-col md="10" offset-md="3" cols="12">
                       <v-hover v-slot="{ hover }">
                       <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" :to= "`/create/each1teach1/`" class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
+                        :class="{ 'on-hover': hover }" :to= "`/e1t1/`" class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
                         <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="140">
                         <v-btn small class="text-decoration-none white elevation-0" >Connect with your peers</v-btn>    
                       </v-card>
@@ -86,6 +86,7 @@ export default {
   mounted() {
     this.$store.dispatch("check_user_portfolio");
     this.$store.dispatch("check_user_gallery");
+    this.$store.dispatch("check_user_work");
   },
    computed: {
         ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio'])

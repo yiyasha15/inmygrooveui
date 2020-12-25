@@ -143,6 +143,10 @@ export default {
     computed: {
         ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
     },
+    mounted() {
+    this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_gallery");
+    },
     data(){
         return {
             countries:[
@@ -407,6 +411,7 @@ export default {
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             imageData: "",
             snackbar: false,
+            update_text: 'Website updated successfully.',
             text: 'Website created successfully.'
         }
     },
@@ -479,26 +484,29 @@ export default {
         },    
         async update() {
             // this.artist_data.username = this.$auth.user.username;
+            let formDataa = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'artist_name'  || data == 'username' || data == 'country'
+                || data == 'style' || data == 'artist_image' || data == 'introduction'
+                || data == 'quote' || data == 'crew' || data == 'ig' || data == 'fb' 
+                || data == 'personal')
+                {
+                    console.log(data);
+                    formDataa.append(data, this.artist_data[data]);
+                }
+            }
+            // console.log(formDataa);
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$auth.user.access
                 }
             };
-            let formDataa = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'artist_name')
-                {
-                    formDataa.append(data, this.artist_data[data]);
-                }
-            }
-                console.log("updated is",formDataa);
             try {
-                let response = await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.id, formDataa, config)
-                console.log("Artist website updated.");
+                let response = await this.$axios.$put("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formDataa, config)
                 //update store
                 this.$store.dispatch("check_user_portfolio");
                 this.snackbar = true;
-                this.$router.push("/create/gallery");
+                this.$router.push("/create/about");
                 } catch (e) {
                         console.log(e);
                     }

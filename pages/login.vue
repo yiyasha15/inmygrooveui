@@ -40,7 +40,7 @@ export default {
 			this.$auth.setUser(res.data)
 			this.$auth.setUserToken(res.data.access)
 			this.$auth.setRefreshToken('local', res.data.refresh);
-				// this.$store.commit('SET_USER',res.data)
+			// this.$store.commit('SET_USER',res.data)
 			this.$router.push('/')
 		})
         // try {

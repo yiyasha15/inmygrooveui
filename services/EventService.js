@@ -23,7 +23,7 @@ export default {
         return apiClient1.get('/artist/portfolio')
     },
     getArtist(username) {
-        return apiClient1.get('/artist/portfolio/?search=' + username)
+        return apiClient1.get('/artist/portfolio/' + username)
     },
     getGalleries(username) {
         return apiClient1.get('/artist/gallery/?search=' + username)

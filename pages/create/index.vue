@@ -65,15 +65,17 @@ export default {
         dialog: false,
       }
     },
+    mounted() {
+    this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_gallery");
+  },
     async asyncData({error, store}) {
       try {
         let artist_response = await EventService.getArtist(store.$auth.user.username)
-        console.log("art",artist_response);
         return {
             artist: artist_response.data.length,
         }
       } catch (err) {
-        console.log(err);
         error({statusCode:503,  message: err.message})
         }
     },
