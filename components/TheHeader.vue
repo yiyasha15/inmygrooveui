@@ -30,6 +30,12 @@
                     :to="'/'"
                     class="text-decoration-none pl-6 pr-12"
                     >
+                    <v-avatar size="36">
+                    <img
+                        src="@/assets/goku.png"
+                        alt="img"
+                    >
+                    </v-avatar>
                     <v-list-item-title>In My Groove</v-list-item-title>
                     </v-list-item>
                     <v-list-item
@@ -49,13 +55,6 @@
                     <v-list-item
                     v-if="userHasPortfolio"
                     :to="'/create/about'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>Edit your portfolio</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
-                    v-if="userHasPortfolio"
-                    :to="'/create/edit'"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Edit your portfolio</v-list-item-title>
@@ -98,14 +97,13 @@
 import { mapGetters } from 'vuex'
 import store from 'vuex'
 export default {
-    mounted(){
-        if(this.$auth.getToken('local')){
-            this.$router.push("/login");
-        }
-        
-    },
+    // mounted(){
+    //     if(this.$auth.getToken('local')){
+    //         this.$router.push("/login");
+    //     }
+    // },
     computed: {
-        ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio'])
+        ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio','usersPortfolio'])
     },
 }
 </script>

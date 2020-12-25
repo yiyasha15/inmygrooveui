@@ -5,88 +5,93 @@ import cookie from 'cookie'
 import EventService from '@/services/EventService.js'
 
 export const state = () => ({
-  portfolio: null,
-  gallery: [],
-  work:[],
-  hasWork: false,
-  hasPortfolio: false,
-  hasGallery: false
+  portfolio: null, //store portfolio data of the logged in user
+  gallery: [], //store gallery data of the logged in user
+  work:[], //store work data of the logged in user
+  hasWork: false, //if user has work data
+  hasPortfolio: false, //if user has portfolio data
+  hasGallery: false, //if user has gallery data
+  img_artists: ''
 })
 export const getters = {
-    isAuthenticated(state) {
-      return state.auth.loggedIn
-    },
-  
-    loggedInUser(state) {
-      return state.auth.user
-    },
-    userHasPortfolio(state){
-      return state.hasPortfolio
-    },
-    usersPortfolio(state){
-      return state.portfolio
-    },
-    usersGallery(state){
-      return state.gallery
-    },
-    userHasGallery(state){
-      return state.hasGallery
-    },
-    usersWork(state){
-      return state.work
-    },
-    userHasWork(state){
-      return state.hasWork
-    }
+  isAuthenticated(state) {
+    return state.auth.loggedIn
+  },
+  loggedInUser(state) {
+    return state.auth.user
+  },
+  userHasPortfolio(state){
+    return state.hasPortfolio
+  },
+  usersPortfolio(state){
+    return state.portfolio
+  },
+  usersGallery(state){
+    return state.gallery
+  },
+  userHasGallery(state){
+    return state.hasGallery
+  },
+  usersWork(state){
+    return state.work
+  },
+  userHasWork(state){
+    return state.hasWork
+  },
+  img_artists(state){
+    return state.img_artists
   }
-  export const actions = {
-    check_user_portfolio({commit, state}){
-      console.log(state);
-        if(state.auth.loggedIn) {
-            EventService.getArtist(state.auth.user.username).then(res =>
-            {
-              commit('usersPortfolio',res.data)
-            })
-          }
-          
-      },
-    check_user_gallery({commit, state}){
-      console.log(state);
-        if(state.auth.loggedIn) {
-            EventService.getGalleries(state.auth.user.username).then(res =>
-            {
-              commit('usersGallery',res.data)
-            })
-        }
+}
+export const actions = {
+  check_artists({commit, state}){
+    EventService.getArtists().then(res =>
+    {
+      commit('img_community',res.data.length)
+    })
     },
-    check_user_work({commit, state}){
-      console.log(state);
-        if(state.auth.loggedIn) {
-            EventService.getMilestones(state.auth.user.username).then(res =>
-            {
-              commit('usersWork',res.data)
-            })
-        }
+  check_user_portfolio({commit, state}){
+      if(state.auth.loggedIn) {
+          EventService.getArtist(state.auth.user.username).then(res =>
+          {
+            commit('usersPortfolio',res.data)
+          })
+        }  
     },
-    remove_portfolio({commit, state})
-      {
-        if(state.auth.loggedIn){
-          commit('clearPortfolio')
-        }
-      },
-    remove_gallery({commit, state})
-      {
-        if(state.auth.loggedIn){
-          commit('clearGallery')
-        }
-      },
-    remove_work({commit, state})
+  check_user_gallery({commit, state}){
+      if(state.auth.loggedIn) {
+          EventService.getGalleries(state.auth.user.username).then(res =>
+          {
+            commit('usersGallery',res.data)
+          })
+      }
+  },
+  check_user_work({commit, state}){
+      if(state.auth.loggedIn) {
+          EventService.getMilestones(state.auth.user.username).then(res =>
+          {
+            commit('usersWork',res.data)
+          })
+      }
+  },
+  remove_portfolio({commit, state})
     {
       if(state.auth.loggedIn){
-        commit('clearWork')
+        commit('clearPortfolio')
       }
+    },
+  remove_gallery({commit, state})
+    {
+      if(state.auth.loggedIn){
+        commit('clearGallery')
+      }
+    },
+  remove_work({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clearWork')
     }
   }
+}
     // Define Mutations
 export const mutations = {
   usersPortfolio(state, artist)
@@ -125,6 +130,10 @@ export const mutations = {
   {
     {state.work =[]
     state.hasWork = false}
+  },
+  img_community(state, length) //if user has portfolio change state to true
+  {
+    {state.img_artists = length}
   },
 }
     // authUserOnReload (state, user_id) {

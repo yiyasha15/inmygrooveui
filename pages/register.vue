@@ -24,18 +24,29 @@
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
 		<v-divider></v-divider>
-		<p class="text-center">Inmygroove is currently a community of __ dancers.</p>
+		<p class="text-center">Inmygroove is currently a community of {{img_artists}} dancers.</p>
 	</v-card>
 </template>
 
 <script>
 import vuex from 'vuex'
+import { mapGetters } from 'vuex'
+import EventService from '@/services/EventService.js'
 export default {
 	auth : 'guest',
+	data() {
+      return {
+        showPassword: false,
+        registrationInfo: {
+            name:'',
+            email: '',
+            password: ''
+        },
+      }
+	},
 	methods: {
       async registerUser(registrationInfo){
         try {
-			console.log("clicked",registrationInfo);
 			if(registrationInfo.name =='' ){
 				alert('Guess you forgot typing yo name.. love, Goku.');
 			}
@@ -59,11 +70,9 @@ export default {
 					this.$auth.setUser(res.data)
 					this.$auth.setToken('local',res.data.access);
 					this.$auth.setRefreshToken('local', res.data.refresh);
-					console.log('status', this.$auth.$state);	 
-					console.log('status', this.$auth.$storage.$state);
-					console.log(this.$auth.loggedIn);
-					console.log(this.$auth.user);
-					console.log("New user registered.", res.data.username);
+					this.$store.dispatch("check_user_portfolio");
+					this.$store.dispatch("check_user_gallery");
+					this.$store.dispatch("check_user_work");
 					this.$router.push('/');
 				
 			}
@@ -71,17 +80,13 @@ export default {
 		
 		}
       }
-    },
-	data() {
-      return {
-        showPassword: false,
-        registrationInfo: {
-            name:'',
-            email: '',
-            password: ''
-        },
-      }
-    },
-	name: 'Register Page',
+	},
+	mounted() {
+	this.$store.dispatch("check_artists");
+	},
+	computed: {
+		...mapGetters(['img_artists'])
+	}
+	
 }
 </script>

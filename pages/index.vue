@@ -17,60 +17,43 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col align="center" justify="center">
-              <v-row no-gutters>            
-                    <v-col md="10" offset-md="3" cols="12">
-                      <v-hover v-slot="{ hover }">
-                      <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" 
-                        to = '/artists' class = "ma-1 pa-2 grey lighten-5 " mx-auto rounded-lg elevation-3 max-width="320" height="180">
-                        <img src = "~/assets/art1.jpeg" width="100%" alt="portfolio logo" height="140">
-                        <v-btn small class="text-decoration-none white elevation-0">Artists & Community</v-btn>                                                           
-                      </v-card>
-                      </v-hover>
-                    </v-col>       
-              </v-row>                    
+        <v-col cols="6" md="3" class="pa-md-8 pa-sm-4 pa-xs-0">
+            <v-hover v-slot="{ hover }">
+                <v-card :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }" to = '/artists'>
+                <img src = "~/assets/art1.jpeg" width="100%" alt="portfolio logo" height="140">
+                <p class="font-weight-light text-center "> Our community</p>
+                </v-card>
+            </v-hover>
+        </v-col >
+        <v-col cols="6" md="3"  class="pa-md-8 pa-sm-4 pa-xs-0">
+            <v-hover v-slot="{ hover }">
+                <v-card :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }" to = '/create'>
+                <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="140">
+                <p class="font-weight-light text-center"> Create a portfolio</p>
+                </v-card>
+            </v-hover>
         </v-col>
-        <v-col align="center" justify="center" >
-              <v-row no-gutters>            
-                    <v-col md="10" offset-md="3" cols="12">
-                      <v-hover v-slot="{ hover }">
-                      <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" to = '/create' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
-                        <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="140">
-                      <v-btn small class="text-decoration-none white elevation-0 ">create your website</v-btn>                                  
-                      </v-card> 
-                      </v-hover>
-                    </v-col>            
-              </v-row>                    
-          </v-col>
-        <v-col align="center" justify="center" >
-              <v-row>            
-                    <v-col md="10" offset-md="3" cols="12">
-                      <v-hover v-slot="{ hover }">
-                      <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" :to= "`/e1t1/`" class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
-                        <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="140">
-                        <v-btn small class="text-decoration-none white elevation-0" >Connect with your peers</v-btn>    
-                      </v-card>
-                      </v-hover>
-                    </v-col>            
-              </v-row>                    
+        <v-col cols="6" md="3"  class="pa-md-8 pa-sm-4 pa-xs-0">
+            <v-hover v-slot="{ hover }">
+                <v-card :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }" to = '/e1t1'>
+                <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="140">
+                <p class="font-weight-light text-center"> Each one Teach one</p>
+                </v-card>
+            </v-hover>
         </v-col>
-        <v-col align="center" justify="center" >
-              <v-row no-gutters>            
-                    <v-col md="10" offset-md="3" cols="12">
-                      <v-hover v-slot="{ hover }">
-                      <v-card :elevation="hover ? 16 : 2"
-                        :class="{ 'on-hover': hover }" to = '/blogs' class = "ma-1 pa-1 grey lighten-5" mx-auto rounded-lg elevation-3 max-width="320" height="180">
-                        <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo" height="140">
-                        <v-btn small class="text-decoration-none white elevation-0">Culture blogs</v-btn>
-                      </v-card> 
-                      </v-hover>                                    
-                    </v-col>            
-              </v-row>                    
-          </v-col>
-      </v-row>
+        <v-col cols="6" md="3"  class="pa-md-8 pa-sm-4 pa-xs-0">
+            <v-hover v-slot="{ hover }">
+                <v-card :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }" to = '/blogs'>
+                <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo" height="140">
+                <p class="font-weight-light text-center"> Blogs</p>
+                </v-card>
+            </v-hover>
+        </v-col>
+    </v-row>
     </v-container>
 </template>
 
@@ -83,11 +66,11 @@ export default {
         title: 'InMyGroove Community',
         }
       },
-  mounted() {
-    this.$store.dispatch("check_user_portfolio");
-    this.$store.dispatch("check_user_gallery");
-    this.$store.dispatch("check_user_work");
-  },
+  // mounted() {
+  //   this.$store.dispatch("check_user_portfolio");
+  //   this.$store.dispatch("check_user_gallery");
+  //   this.$store.dispatch("check_user_work");
+  // },
    computed: {
         ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio'])
     },

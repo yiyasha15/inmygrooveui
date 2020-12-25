@@ -3,6 +3,8 @@
     <v-row>
       <v-col cols="12" md="8"  class="justify-center">
         <div class ="pl-6 title xs12">Our Community</div>
+        
+        <v-btn rounded color="indigo" class="mt-4 ml-6 pl-4 text-decoration-none" dark to="/create/each1teach1">Add Each1Teach1</v-btn>
       </v-col>
       <v-col cols="12" md="4"  class= "pr-6 justify-end mb-2 px-6" >
           <v-text-field

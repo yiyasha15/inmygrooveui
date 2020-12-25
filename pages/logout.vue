@@ -19,6 +19,7 @@ export default {
 		signout(){
 			this.$store.dispatch("remove_portfolio")
 			this.$store.dispatch("remove_gallery")
+			this.$store.dispatch("remove_work")
 			this.$auth.logout();
 		}
 	}

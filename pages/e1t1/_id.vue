@@ -7,15 +7,17 @@
                 <v-col cols="12" md="8" align="center" justify="center">
                     <v-img :src = "e1t1.s_photo" width="50%" class="centerImage" maxHeight="520px"></v-img>
                 </v-col>
-                <v-col cols="12" md="4">
+                <v-col cols="12" md="4" class="pl-6">
                     <v-row>
+                        <p>{{e1t1.s_date}}</p>
+                    </v-row>
+                    <v-row class="rounded-lg grey lighten-2 d-inline-flex">
                         <v-col class="ma-0">
-                            <p>{{e1t1.s_date}}</p>
                             <nuxt-link :to="'/'+ e1t1.s_teacher">
                             <h3>{{e1t1.s_teacher}}</h3>
                             </nuxt-link>
                         </v-col>
-                        <v-col class="mt-8 pt-4">
+                        <v-col class="ma-0">
                             <country-flag :country= 'e1t1.s_teacher_country' />
                         </v-col>
                     </v-row>

@@ -24,13 +24,15 @@
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
 		<v-divider></v-divider>
-		<p class="text-center">Inmygroove is currently a community of __ dancers.</p>
+		<p class="text-center">Inmygroove is currently a community of {{img_artists}} dancers.</p>
 	</v-card>
 </template>
 
 <script>
+import vuex from 'vuex'
+import { mapGetters } from 'vuex'
+import EventService from '@/services/EventService.js'
 export default {
-	// middleware: 'guest',
 	methods:{
 		async submitForm(userInfo){
           let res = await this.$auth.loginWith('local', {
@@ -40,6 +42,10 @@ export default {
 			this.$auth.setUser(res.data)
 			this.$auth.setUserToken(res.data.access)
 			this.$auth.setRefreshToken('local', res.data.refresh);
+			this.$store.dispatch("check_user_portfolio");
+			this.$store.dispatch("check_user_gallery");
+			this.$store.dispatch("check_user_work");
+			
 			// this.$store.commit('SET_USER',res.data)
 			this.$router.push('/')
 		})
@@ -70,7 +76,12 @@ export default {
         },
         // ...validations
       }
-    },
-	name: 'WelcomePage',
+	},
+	mounted() {
+	this.$store.dispatch("check_artists");
+	},
+	computed: {
+		...mapGetters(['img_artists'])
+	}
 }
 </script>

@@ -13,8 +13,8 @@
             <v-layout justify-center>
                 <v-flex xs6>
                     <div class="text-xs-center mt-6" align = "center">
-                      <h5 v-if="!artist" >Let's build your portfolio first.</h5>
-                      <v-btn v-if="!artist" rounded outlined color="indigo" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
+                      <h5 v-if="!userHasPortfolio" >Let's build your portfolio first.</h5>
+                      <v-btn v-if="!userHasPortfolio" rounded outlined color="indigo" class=" text-decoration-none" :to= "`/create/about/`">Start Building</v-btn>
                       <v-btn v-else rounded outlined color="indigo" class=" text-decoration-none mt-8" :to= "`/create/about/`">Edit here</v-btn>
                     </div>
                 </v-flex>
@@ -58,6 +58,7 @@
 
 <script>
 import EventService from '@/services/EventService.js'
+import { mapGetters } from 'vuex'
 export default {
     middleware : 'auth',
     data () {
@@ -65,20 +66,12 @@ export default {
         dialog: false,
       }
     },
+    computed: {
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
+    },
     mounted() {
     this.$store.dispatch("check_user_portfolio");
-    this.$store.dispatch("check_user_gallery");
   },
-    async asyncData({error, store}) {
-      try {
-        let artist_response = await EventService.getArtist(store.$auth.user.username)
-        return {
-            artist: artist_response.data.length,
-        }
-      } catch (err) {
-        error({statusCode:503,  message: err.message})
-        }
-    },
 }
 </script>
 <style scoped>

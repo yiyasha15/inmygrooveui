@@ -86,21 +86,22 @@
                                  @click="submit">submit</v-btn>
                                  <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
                                  @click="update">Update</v-btn>
-                                 <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="error" dark
-                                 @click="deleted">Delete</v-btn>
-                                <v-snackbar v-model="snackbar" >
-                                {{ text }}
-                                <template v-slot:action="{ attrs }">
-                                    <v-btn
-                                    color="pink"
-                                    text
-                                    v-bind="attrs"
-                                    @click="snackbar = false"
-                                    >
-                                    Close
-                                    </v-btn>
+                                <v-dialog v-if="userHasPortfolio" v-model="dialog" width="500">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn dark rounded color="error" class="mr-2 text-decoration-none" v-bind="attrs" v-on="on">Delete my portfolio</v-btn>
                                 </template>
-                                </v-snackbar>
+                                <v-card class="pa-4">
+                                    Are you sure you want to delete your portfolio?
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="error" dark
+                                        @click="deleted">Delete</v-btn>
+                                    <v-btn color="indigo" class="text-decoration-none" rounded dark  @click="dialog = false">
+                                        Cancel
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </v-dialog>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -408,6 +409,7 @@ export default {
                 fb: "",
                 personal: ""
             },
+            dialog: false,
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             imageData: "",
             snackbar: false,
@@ -486,12 +488,13 @@ export default {
             // this.artist_data.username = this.$auth.user.username;
             let formDataa = new FormData();
             for (let data in this.artist_data) {
-                if(data == 'artist_name'  || data == 'username' || data == 'country'
-                || data == 'style' || data == 'artist_image' || data == 'introduction'
-                || data == 'quote' || data == 'crew' || data == 'ig' || data == 'fb' 
-                || data == 'personal')
+                if(data == 'artist_name' || data == 'username' || data == 'country'
+                // || data == 'style' || data == 'artist_image' 
+                // || data == 'introduction'
+                // || data == 'quote' || data == 'crew' || data == 'ig' || data == 'fb' 
+                // || data == 'personal'
+                )
                 {
-                    console.log(data);
                     formDataa.append(data, this.artist_data[data]);
                 }
             }
@@ -518,7 +521,7 @@ export default {
                 }
             };
             try {
-                let response = await this.$axios.$delete("/v1/artist/portfolio/"+this.usersPortfolio.id, config)
+                let response = await this.$axios.$delete("/v1/artist/portfolio/"+this.usersPortfolio.username, config)
                 console.log("Artist portfolio deleted.");
                 //update store
                 this.$store.dispatch("remove_portfolio")
