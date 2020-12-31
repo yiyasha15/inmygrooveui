@@ -1,10 +1,10 @@
 <template>
     <v-app>
         <v-container class="ma-24 ">
-            <div class="text-xs-center ma-6" align = "center">
+            <div class="text-xs-center mb-6" align = "center">
                 <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
                 <v-btn outlined rounded color="indigo" class=" mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-                <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+                <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
             </div>
             <v-divider class="mx-4" ></v-divider>
             <h5 class="pl-3">Build your webpage</h5>
@@ -35,7 +35,7 @@
                                     item-value="code"
                                 ></v-select>
                                 <div class = "form-group">
-                                    <v-text-field @click= "onPick" label="Upload image"></v-text-field>
+                                    <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
                                     <input 
                                     type="file" 
                                     name = "artist_image" 
@@ -54,8 +54,7 @@
                                 </v-select>
                                 <v-textarea
                                     v-model= "artist_data.introduction"
-                                    label="Introduction"
-                                    :maxlength="120">
+                                    label="Introduction">
                                 </v-textarea>
                                 <v-text-field
                                     v-model= "artist_data.quote"
@@ -84,11 +83,11 @@
                                 </v-text-field>
                                 <v-btn v-if="!userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
                                  @click="submit">submit</v-btn>
-                                 <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
+                                 <v-btn v-if="userHasPortfolio" class="mt-2 mr-2 text-decoration-none" rounded color="indigo" dark
                                  @click="update">Update</v-btn>
                                 <v-dialog v-if="userHasPortfolio" v-model="dialog" width="500">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn dark rounded color="error" class="mr-2 text-decoration-none" v-bind="attrs" v-on="on">Delete my portfolio</v-btn>
+                                    <v-btn dark rounded color="error" class="mt-2 mr-2 text-decoration-none" v-bind="attrs" v-on="on">Delete my portfolio</v-btn>
                                 </template>
                                 <v-card class="pa-4">
                                     Are you sure you want to delete your portfolio?
@@ -122,8 +121,17 @@
                         <v-row class="pb-6 justify-center text-center">
                             <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
                         </v-row>
-                        <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{artist_data.quote}} </h5>
+                        <v-row v-if="artist_data.quote" class="pb-6 justify-center text-center">
+                            <h5 class="pb-6 text-center font-italic">"{{artist_data.quote}}" </h5>
+                        </v-row>
+                        <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
+                            <h5 class="pb-6 text-center">Repping: {{artist_data.crew}}🙏 </h5>
+                        </v-row>
+                        <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
+                            <v-col v-if="artist_data.ig"><v-icon>mdi-instagram</v-icon></v-col>
+                            <v-col v-if="artist_data.fb"><v-icon>mdi-facebook</v-icon></v-col>
+                            <v-col v-if="artist_data.yt"><v-icon>mdi-youtube</v-icon></v-col>
+                            <v-col v-if="artist_data.personal"><v-icon>mdi-email</v-icon></v-col>
                         </v-row>
                         </v-col>
                 </v-col>
@@ -446,7 +454,7 @@ export default {
             }
         },
         async submit() {
-            this.username = this.$auth.user.username;
+            this.username = this.$auth.user.username; //adding the username
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$auth.user.access
@@ -485,34 +493,124 @@ export default {
             }
         },    
         async update() {
-            // this.artist_data.username = this.$auth.user.username;
-            let formDataa = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'artist_name' || data == 'username' || data == 'country'
-                // || data == 'style' || data == 'artist_image' 
-                // || data == 'introduction'
-                // || data == 'quote' || data == 'crew' || data == 'ig' || data == 'fb' 
-                // || data == 'personal'
-                )
-                {
-                    formDataa.append(data, this.artist_data[data]);
-                }
-            }
-            // console.log(formDataa);
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$auth.user.access
                 }
             };
-            try {
-                let response = await this.$axios.$put("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formDataa, config)
-                //update store
-                this.$store.dispatch("check_user_portfolio");
-                this.snackbar = true;
-                this.$router.push("/create/about");
-                } catch (e) {
-                        console.log(e);
-                    }
+            if(this.usersPortfolio.artist_name!=this.artist_data.artist_name) //checking if data has changed
+            {
+            let formName = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'artist_name' || data == 'username' )
+                {
+                    console.log("name has changed");
+                    formName.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formName, config)
+            }
+            if(this.usersPortfolio.artist_image!=this.artist_data.artist_image) //checking if data has changed
+            {
+            let formImage = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'artist_image' || data == 'username' )
+                {
+                    console.log("image has changed");
+                    formImage.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formImage, config)
+            }
+            if(this.usersPortfolio.country!=this.artist_data.country) //checking if data has changed
+            {
+            let formCountry = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'country' || data == 'username' )
+                {
+                    console.log("country has changed");
+                    formCountry.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCountry, config)
+            }
+            if(this.usersPortfolio.style!=this.artist_data.style) //checking if data has changed
+            {
+            let formStyle = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'style' || data == 'username' )
+                {
+                    console.log("style has changed");
+                    formStyle.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formStyle, config)
+            }
+            if(this.usersPortfolio.introduction!=this.artist_data.introduction) //checking if data has changed
+            {
+            let formIntro = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'introduction' || data == 'username' )
+                {
+                    console.log("style has changed");
+                    formIntro.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIntro, config)
+            }
+            if(this.usersPortfolio.quote!=this.artist_data.quote) //checking if data has changed
+            {
+            let formQuote = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'quote' || data == 'username' )
+                {
+                    console.log("quote has changed");
+                    formQuote.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formQuote, config)
+            }
+            if(this.usersPortfolio.crew!=this.artist_data.crew) //checking if data has changed
+            {
+            let formCrew = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'crew' || data == 'username' )
+                {
+                    console.log("crew has changed");
+                    formCrew.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCrew, config)
+            }
+            if(this.usersPortfolio.ig!=this.artist_data.ig) //checking if data has changed
+            {
+            let formIg = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'ig' || data == 'username' )
+                {
+                    console.log("ig has changed");
+                    formIg.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIg, config)
+            }
+            if(this.usersPortfolio.fb!=this.artist_data.fb) //checking if data has changed
+            {
+            let formfb = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'fb' || data == 'username' )
+                {
+                    console.log("fb has changed");
+                    formfb.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formfb, config)
+            }
+            if(this.usersPortfolio.personal!=this.artist_data.personal) //checking if data has changed
+            {
+            let formPersonal = new FormData();
+            for (let data in this.artist_data) {
+                if(data == 'personal' || data == 'username' )
+                {
+                    console.log("personal has changed");
+                    formPersonal.append(data, this.artist_data[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formPersonal, config)
+            }
+        this.$store.dispatch("check_user_portfolio");
+        this.snackbar = true;
+        this.$router.push("/create/about");
         },
         async deleted() {
             const config = {

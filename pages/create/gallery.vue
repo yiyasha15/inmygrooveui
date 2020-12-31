@@ -3,7 +3,7 @@
     <div class="text-xs-center ma-6" align = "center">
         <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
         <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-        <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+        <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
     </div>
     <v-divider class="mx-4" ></v-divider>
         <h5 class="pl-3">Share some images</h5>
@@ -13,7 +13,7 @@
                     <v-row>
                         <v-col cols="12" md="9">
                             <div class = "form-group">
-                                <v-text-field @click= "onPick" label="Upload image"></v-text-field>
+                                <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
                                 <input 
                                 type="file" 
                                 name = "g_upload_photo" 
@@ -40,7 +40,7 @@
                                 <div v-if = gallery.g_upload_photo>
                                     <v-img :src="gallery.g_upload_photo" 
                                         width = "270px" height = "270px"/>
-                                        <v-btn class="error" @click="remove(gallery.id)">Remove</v-btn>
+                                    <v-btn class="error" @click="remove(gallery.id)">Remove</v-btn>
                                 </div>
                             </v-flex>
                         </v-layout>
@@ -114,10 +114,6 @@ export default {
         {
             this.$refs.fileInput.click()
         },
-        // put_img(img)
-        // {
-        //     gallery_img.push(img);
-        // },
         onFileChange(e) {
             let files = e.target.files;
             if (files) {

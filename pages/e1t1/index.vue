@@ -3,8 +3,6 @@
     <v-row>
       <v-col cols="12" md="8"  class="justify-center">
         <div class ="pl-6 title xs12">Our Community</div>
-        
-        <v-btn rounded color="indigo" class="mt-4 ml-6 pl-4 text-decoration-none" dark to="/create/each1teach1">Add Each1Teach1</v-btn>
       </v-col>
       <v-col cols="12" md="4"  class= "pr-6 justify-end mb-2 px-6" >
           <v-text-field
@@ -16,6 +14,8 @@
             prepend-inner-icon="mdi-magnify"
             v-model="search"
           ></v-text-field>
+          <v-btn text color="indigo" class="mt-2 text-decoration-none justify-end" dark to="/create/each1teach1">
+    <v-icon>mdi-alien</v-icon>Share my experience</v-btn>
       </v-col>
     </v-row>
       <v-layout row wrap justify-center >
@@ -31,17 +31,17 @@
 <script>
 import TeachersCard from '@/components/TeachersCard.vue'
 import EventService from '@/services/EventService.js'
-
+import { mapGetters} from 'vuex'
 export default {
   head() {  //head function (a property of vue-meta), returns an object
     return {
-      title: 'Teachers List -InMyGroove',
+      title: 'Each One Teach One -InMyGroove',
       meta: [ 
         {
           hid: 'description',
           name: 'description',
           content: 
-              'List of teachers tagged - InMyGroove'
+              'List of teachers tagged - InMyGroove Community'
         }
       ]
     }
@@ -49,7 +49,6 @@ export default {
   async asyncData({error}) {
     try {
       const response = await EventService.getEach1Teach1s()
-      console.log(response.data);
       return {
         teachers: response.data
       }
@@ -66,12 +65,13 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isAuthenticated']),
     filteredteachers: function(){
       return this.teachers.filter((teacher) => {
         return teacher.s_teacher.toLowerCase().match(this.search.toLowerCase());
       });
-      
     }
-  }
+  },
+  // layout: 'e1t1'
 }
 </script>

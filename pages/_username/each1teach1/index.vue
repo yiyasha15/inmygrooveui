@@ -24,7 +24,7 @@
                     <!-- </div>                 -->
                 </div>
             </div>
-            <v-btn text :to= "`/${artist.username}`"> back </v-btn>
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">Back</v-btn>
             </v-container>
         </div>
     </v-app>
@@ -58,7 +58,6 @@ export default {
     async asyncData({error, params}) {
       try {
         let sharing_response = await EventService.getEach1Teach1_user(params.username)
-        console.log(sharing_response.data);
         return {
             sharing: sharing_response.data
         }
