@@ -1,22 +1,22 @@
 <template>
   <v-app>
-    <the-header/>
+    <e1t1-header/>
       <nuxt/>
     <the-footer />
   </v-app>
 </template>
 
 <script>
-import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
+import E1t1Header from '~/components/e1t1Header.vue'
 export default {
   components:{
-    TheHeader,
-    TheFooter
+    TheFooter,
+    E1t1Header
   },
   head() {  //head function (a property of vue-meta), returns an object
     return {
-      titleTemplate: '%s - InMyGroove',
+      titleTemplate: 'E1T1 - InMyGroove',
       meta: [
         {
           hid: 'description', //create page overrides the description, hid helps to stop redundancy

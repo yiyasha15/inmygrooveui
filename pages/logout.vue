@@ -20,6 +20,7 @@ export default {
 			this.$store.dispatch("remove_portfolio")
 			this.$store.dispatch("remove_gallery")
 			this.$store.dispatch("remove_work")
+			this.$store.dispatch("remove_artists_sharing")
 			this.$auth.logout();
 		}
 	}

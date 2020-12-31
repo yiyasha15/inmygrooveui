@@ -4,10 +4,10 @@
         <div class="text-xs-center ma-6" align = "center">
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/work/`"> Work </v-btn>
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
         </div>
             <v-divider class="mx-4" ></v-divider>
-            <h5 class="pl-3">Share your work</h5>
+            <h5 class="pl-3">Share your memories, work and highlights.</h5>
             <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <v-form v-on:submit.prevent="submit">
@@ -24,7 +24,7 @@
                                     :maxlength="30">
                                 </v-text-field>
                                 <div class = "form-group">
-                                        <v-text-field @click= "onPick" label="Upload image"></v-text-field>
+                                        <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
                                         <input 
                                         type="file" 
                                         name = "milestone.w_photo" 
@@ -36,12 +36,11 @@
                                     </div>
                                 <v-textarea
                                     v-model = "milestone.w_context"
-                                    label= "Share your experience"
-                                    :maxlength="80">
+                                    label= "Share your experience">
                                 </v-textarea>
                                 <v-menu
                                     ref="menu"
-                                    :close-on-content-click="false"
+                                    :close-on-content-click="true"
                                     :return-value.sync="date"
                                     transition="scale-transition"
                                     offset-y
@@ -49,7 +48,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model="milestone.w_datetime"
+                                        v-model= "milestone.w_datetime"
                                         label="Date"
                                         prepend-icon="mdi-calendar"        
                                         readonly
@@ -57,7 +56,7 @@
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="milestone.w_datetime" no-title scrollable>
+                                    <v-date-picker v-model= "milestone.w_datetime" no-title scrollable>
                                         <v-spacer></v-spacer>
                                         <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                                         <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
@@ -70,7 +69,7 @@
                         </v-row>
                     </v-form>
                 </v-col>
-                <v-col cols="12" md="6" class="pl-sm-6">
+                <v-col cols="12" md="4" class="pl-sm-6 justify-end">
                         <v-col>
                         <v-row class="pb-6 justify-center text-center">
                             <h2> {{milestone.w_content}}</h2>
@@ -180,14 +179,15 @@ export default {
             for (let data in this.milestone) {
                 if(data == 'w_photo' && this.milestone[data] == null)
                 {
-                    console.log("artist work is not there")
+                    console.log("add a photo")
                     break;
                 }
                 else{
+                    console.log("data: ", data);
+                    console.log(this.milestone[data]);
                     formData.append(data, this.milestone[data]);
                 }
             }
-            console.log("form lastt", formData);
             try {
                 let response = await this.$axios.$post("/v1/artist/work/", formData, config);
                 console.log("Artist work created.");

@@ -2,8 +2,7 @@
 <v-hover>
   <template v-slot="{ hover }" >
     <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" 
-    :to="'/e1t1/' + e1t1.id"
-    min-width="180" min-height="260">
+    :to="'/e1t1/' + e1t1.id" min-width="260" max-height="240" >
     
     <!-- <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" 
     :to="'/' + artist.username + '/each1teach1/' + e1t1.id"
@@ -11,19 +10,22 @@
       <v-container align="center">
           <div>
             <div v-if = "e1t1.s_photo">
-                <v-img :src = "e1t1.s_photo" width="120px" height="120px"/>
+                <v-img :src = "e1t1.s_photo" width="220px" height="160px"></v-img>
             </div>
             <div v-else>
-                <v-img :src = "artist.artist_image" width="180px" height="180px"/>
+                <v-img :src = "artist.artist_image" width="220px" height="160px"></v-img>
             </div>
-            <v-btn icon class="text-decoration-none" >
-                <country-flag :country= 'e1t1.s_teacher_country' />
-              </v-btn>
             <v-card-actions>
-              <p class="text-decoration-none">
+              <v-row class="text-decoration-none">
               {{e1t1.s_teacher}} -> {{e1t1.s_student}}
-              </p>
+              </v-row>
+              <v-row>
+                
               <v-spacer></v-spacer>
+                <v-btn icon class="text-decoration-none" >
+                  <country-flag :country= 'e1t1.s_teacher_country' />
+                </v-btn>
+              </v-row>
               </v-card-actions>
           </div>
       </v-container>

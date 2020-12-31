@@ -5,7 +5,7 @@
 		</v-card-title>
 		<v-card-text>
 			<v-form>
-                <v-text-field v-model="registrationInfo.name" label="Name" prepend-icon="mdi-account-circle" />
+                <v-text-field :maxlength="27" v-model="registrationInfo.name" label="Username" prepend-icon="mdi-account-circle" />
 				<v-text-field v-model="registrationInfo.email" label="Email" prepend-icon="mdi-account-circle" />
 				<v-text-field       
                     v-model="registrationInfo.password"

@@ -4,7 +4,7 @@
       <v-col cols="12" md="8"  class="justify-center">
         <div class ="pl-6 title xs12">Our Community</div>
       </v-col>
-      <v-col cols="12" md="4"  class= "pr-6 justify-end mb-2 px-6" >
+      <v-col cols="12" md="4" class= "pr-6 justify-end mb-2 px-6" >
           <v-text-field
             class="ma-0 pa-0"
             label="Search artists"
@@ -65,7 +65,7 @@ export default {
   computed: {
     filteredArtists: function(){
       return this.artists.filter((artist) => {
-        return artist.artist_name.toLowerCase().match(this.search.toLowerCase());
+        return artist.username.toLowerCase().match(this.search.toLowerCase());
       });
       
     }

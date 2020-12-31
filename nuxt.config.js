@@ -120,7 +120,7 @@ export default {
           property: 'user',
         },
         endpoints: {
-          login: { url: '/v1/user/token/', method: 'post', propertyName: 'user]' },
+          login: { url: '/v1/user/token/', method: 'post', propertyName: 'user' },
           // refresh: { url: '/v1/user/token/refresh', method: 'post', propertyName: false },
           logout: { url: '/v1/user/token/', method: 'delete' },
           user: { url: '/v1/user/token/', method: 'get', propertyName: 'user' }
