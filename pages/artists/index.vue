@@ -65,7 +65,7 @@ export default {
   computed: {
     filteredArtists: function(){
       return this.artists.filter((artist) => {
-        return artist.username.toLowerCase().match(this.search.toLowerCase());
+        return artist.artist_name.toLowerCase().match(this.search.toLowerCase());
       });
       
     }

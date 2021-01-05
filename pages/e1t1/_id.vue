@@ -14,7 +14,7 @@
                         </v-col>
                         <div v-if="loggedInUser">
                         <v-col class="ma-0" v-if="loggedInUser.username == e1t1.s_student" >
-                        <v-btn icon >
+                        <v-btn icon>
                             <v-icon color="indigo" @click="edit">mdi-circle-edit-outline</v-icon>
                         </v-btn>
                         <v-dialog v-if="loggedInUser" v-model="dialog" width="500">

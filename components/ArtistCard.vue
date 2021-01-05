@@ -12,9 +12,9 @@
           <!-- v-img covers larger area than only img tag -->
           <!-- <v-card-title color = "black" x-small>{{event.title}}</v-card-title> -->
           <v-card-actions>
-            <p class="text-decoration-none">
-            {{ artist.username }}
-            </p>
+            <div class="text-decoration-none" width="230px">
+            {{ artist.artist_name }}
+            </div>
             <v-spacer></v-spacer>
             <v-btn icon class="text-decoration-none" >
               <country-flag :country= 'artist.country' />

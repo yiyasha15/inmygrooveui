@@ -65,12 +65,7 @@
                     >
                     <v-list-item-title>Edit your portfolio</v-list-item-title>
                     </v-list-item>
-                    <v-list-item
-                    :to="'/e1t1'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>EachOneTeachOne</v-list-item-title>
-                    </v-list-item>
+                    
                     <v-list-item
                     :to="'/notifications'"
                     class="text-decoration-none pl-6 pr-12"

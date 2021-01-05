@@ -7,9 +7,16 @@
                 <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
             </div>
             <v-divider class="mx-4" ></v-divider>
-            <h5 class="pl-3">Build your webpage</h5>
-            <v-row>
+             <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
+                    <v-row>
+                <v-col>
+                    <h5 class="pl-3">Build your portfolio</h5>
+                </v-col>
+                <v-col>
+                    <v-btn icon><v-icon>mdi-information-outline</v-icon></v-btn>
+                </v-col>
+                </v-row>
                     <!-- <h1 class="pb-6 text-center">Create Your Website</h1>
                     <v-divider />
                     <div >We already have prepared an intuitive template for your webite. <br>
@@ -127,7 +134,7 @@
                         <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
                             <h5 class="pb-6 text-center">Repping: {{artist_data.crew}}🙏 </h5>
                         </v-row>
-                        <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
+                        <v-row class="pb-6 justify-center text-center">
                             <v-col v-if="artist_data.ig"><v-icon>mdi-instagram</v-icon></v-col>
                             <v-col v-if="artist_data.fb"><v-icon>mdi-facebook</v-icon></v-col>
                             <v-col v-if="artist_data.yt"><v-icon>mdi-youtube</v-icon></v-col>
