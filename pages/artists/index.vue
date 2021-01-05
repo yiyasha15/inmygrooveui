@@ -31,6 +31,7 @@ import ArtistCard from '@/components/ArtistCard.vue'
 import EventService from '@/services/EventService.js'
 
 export default {
+  scrollToTop: true,
   head() {  //head function (a property of vue-meta), returns an object
     return {
       title: 'Artistlist -InMyGroove',

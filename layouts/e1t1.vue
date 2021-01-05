@@ -8,11 +8,9 @@
 
 <script>
 import TheFooter from '@/components/TheFooter'
-import E1t1Header from '~/components/e1t1Header.vue'
 export default {
   components:{
     TheFooter,
-    E1t1Header
   },
   head() {  //head function (a property of vue-meta), returns an object
     return {
