@@ -7,6 +7,7 @@
 		</v-card-title>
 		<v-card-actions class="mb-3 justify-center">
 			<v-btn class="ml-4" color="error" @click="signout">Sign Out</v-btn>
+			<v-btn class="ml-4" color="indigo" @click="cancel">Cancel</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>
@@ -22,6 +23,9 @@ export default {
 			this.$store.dispatch("remove_work")
 			this.$store.dispatch("remove_artists_sharing")
 			this.$auth.logout();
+		},
+		cancel(){
+			this.$router.push("/");
 		}
 	}
 }

@@ -30,36 +30,83 @@
                     </v-row>
                 </v-form>
             </v-col>
-            <!-- {{usersGallery}}{{userHasGallery}} -->
             <v-col cols="12" md="6" class="pl-sm-6">
                 <div>
                     <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
                         <div>
                         <v-layout class="flex-wrap">
                             <v-flex xs6 md6 v-for="gallery in usersGallery" :key = "gallery.index">
-                                <div v-if = gallery.g_upload_photo>
+                                <div v-if = gallery.g_upload_photo class="pa-2 grey lighten-4">
                                     <v-img :src="gallery.g_upload_photo" 
                                         width = "270px" height = "270px"/>
-                                    <v-btn class="error" @click="remove(gallery.id)">Remove</v-btn>
+                                    <v-btn icon>
+                                        <v-icon color="indigo" @click="upd(gallery.id)">mdi-circle-edit-outline</v-icon>
+                                    </v-btn>
+                                    <input 
+                                    type="file" 
+                                    name = "g_upload_photo" 
+                                    style="display:none" 
+                                    ref="fileInputUpdate" 
+                                    accept="image/*"
+                                    required
+                                    @change="onFileChangeUpdate">
+                                    <v-dialog v-if="userHasGallery" v-model="dialog" width="500">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-btn icon>
+                                            <v-icon color="error" @click="func(gallery.id)" v-bind="attrs" v-on="on">mdi-delete</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <v-card class="pa-4">
+                                        Are you sure you want to delete this image?
+                                        <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn v-if="userHasGallery" class="text-decoration-none" rounded color="error" dark
+                                            @click="remove(rm)">Delete</v-btn>
+                                        <v-btn color="indigo" class="text-decoration-none" rounded dark  @click="dialog = false">
+                                            Cancel
+                                        </v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                    </v-dialog>
                                 </div>
                             </v-flex>
                         </v-layout>
+                        <v-overlay :z-index="2" :value="overlay" >
+                        <v-container class="rounded-lg white" >
+                            <v-col cols="12" align="end" justify="end">
+                                <v-btn icon color="error" @click="overlay = false">
+                                <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                            </v-col>
+                            <v-col cols="12" align="center" justify="center">
+                                <div>
+                                <v-img :src="imageData" height="270px" width="270px"></v-img>
+                            </div>
+                            <v-btn v-if="userHasGallery" class="text-decoration-none mt-4" rounded color="indigo" dark
+                                        @click="updates(rm)">Update</v-btn>
+                            </v-col>
+                        </v-container>
+                        </v-overlay>
                         </div>
-                        <div>
-                            <v-img :src="imageData" height="270px" width="270px"></v-img>
-                        </div>
+                        <v-img :src="imageData" height="270px" width="270px"></v-img>
                     </v-container> 
                 </div>
                 </v-col>
         </v-row>
         <v-snackbar v-model="snackbar">
-            You have uploaded {{usersGallery.length}} image(s).
+            <div v-if="usersGallery.length<3">
+            You have uploaded {{usersGallery.length}} image(s). {{4 - usersGallery.length}} more to go!
+            </div>
+            <div v-else>
+            Alright! Last one and we'll move on to adding the highlights of your dance journey.
+            </div>
             <template v-slot:action="{ attrs }">
-                <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-                    Close
+                <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                    Ok!
                 </v-btn>
             </template>
         </v-snackbar>
+        
     </v-container>
 </template>
 <script>
@@ -74,9 +121,11 @@ export default {
                g_artist: this.$auth.user.username,
                g_upload_photo: ""
            },
-        //    gallery_img: [],
            imageData: "",
            snackbar: false,
+           dialog: false,
+           rm:"",
+           overlay: false,
         }
     },
     computed: {
@@ -90,6 +139,30 @@ export default {
     //     this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
     // },
     methods: {
+        func(id){
+            this.dialog=true;
+            this.rm=id;
+        },
+        upd(id){
+            this.$refs.fileInput.click()
+            this.rm=id
+            this.overlay =true
+        },
+        onFileChangeUpdate(e) {
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                    // Read image as base64 and set to imageData
+                    this.imageData = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.artist.g_upload_photo = files[0];
+                // put_img(files[0]);
+            }
+            },
         async remove(id){
             const config = {
             headers: {"content-type": "multipart/form-data",
@@ -101,6 +174,7 @@ export default {
                 this.$store.dispatch("check_user_gallery");
                 // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
                 this.$router.push("/create/gallery");
+                this.dialog = false
             } 
             catch (e) {
                 console.log(e);
@@ -114,6 +188,34 @@ export default {
         {
             this.$refs.fileInput.click()
         },
+        async updates(id){
+            console.log(id);
+        },
+        // async update(id){
+        //     const config = {
+        //     headers: {"content-type": "multipart/form-data",
+        //         "Authorization": "Bearer " + this.$auth.user.access}
+        //     };
+        //     let formUpdate = new FormData();
+        //         console.log(this.artist);
+        //         for (let data in this.artist) {
+        //             if(data == 'id' || data == 'g_upload_photo' )
+        //             {
+        //                 console.log(this.artist);
+        //             formUpdate.append(data, this.artist[data]);
+        //             }
+        //         }
+        //     try {
+        //         let response = await this.$axios.$patch("/v1/artist/gallery/"+id , formUpdate, config);
+        //         this.$store.dispatch("remove_gallery");
+        //         this.$store.dispatch("check_user_gallery");
+        //         // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
+        //         this.$router.push("/create/gallery");
+        //     } 
+        //     catch (e) {
+        //         console.log(e);
+        //     }
+        // },
         onFileChange(e) {
             let files = e.target.files;
             if (files) {
@@ -174,7 +276,8 @@ export default {
                 this.snackbar = true
                 break;
                 case 3:
-                   { 
+                   {
+                       console.log("final");
                     const config = {
                     headers: {"content-type": "multipart/form-data",
                         "Authorization": "Bearer " + this.$auth.user.access}
@@ -189,7 +292,7 @@ export default {
                     let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
                     this.$store.dispatch("check_user_gallery");
                     this.removeImage();
-                    this.$router.push("/create/work");
+                    this.$router.push("/create/highlights");
                 } 
                 catch (e) {
                     console.log(e);

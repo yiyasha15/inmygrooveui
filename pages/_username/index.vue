@@ -1,7 +1,7 @@
 <template>
     <div>
         <center>
-            <v-img :src = "artist.artist_image" width="100%" class="centerImage" maxHeight="520px">
+            <v-img :src = "artist.artist_image" width="100%" class="centerImage" maxHeight="600px">
             </v-img>
         </center>
     <br> 

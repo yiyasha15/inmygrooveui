@@ -1,7 +1,7 @@
 /*just adding this index.js file inside the store directory enables vuex in nuxt */
 
 import * as Cookies from 'js-cookie'
-import cookie from 'cookie'
+import createPersistedState from 'vuex-persistedstate'
 import EventService from '@/services/EventService.js'
 
 export const state = () => ({
@@ -15,7 +15,13 @@ export const state = () => ({
   hasWork: false, //if user has work data
   hasPortfolio: false, //if user has portfolio data
   hasGallery: false, //if user has gallery data
-  img_artists: ''
+  img_artists: '',
+  // plugins: [
+  //   createPersistedState({
+  //     getState: (key) => Cookies.getJSON(key),
+  //     setState: (key, state) => Cookies.set(key, state, { expires: 3, secure: true })
+  //   })
+  // ]
 })
 export const getters = {
   artists(state) {
