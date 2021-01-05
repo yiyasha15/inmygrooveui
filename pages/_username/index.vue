@@ -71,6 +71,7 @@ import MilestoneCard from "@/components/MilestoneCard.vue"
 import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
 export default {
+    scrollToTop: true,
     data () {
       return {
         dialog: false,

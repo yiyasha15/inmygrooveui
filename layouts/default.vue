@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <the-header/>
+    <transition mode="out-in"> 
       <nuxt/>
+    </transition>
     <the-footer />
   </v-app>
 </template>

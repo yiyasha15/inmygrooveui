@@ -11,7 +11,7 @@
         <v-row>
           <v-col>
             <v-row>
-              <div>&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
+              <div class="mb-2">&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
             </v-row>
             <v-row>
               <div>developed by the dancers for the dancers.</div>
@@ -19,7 +19,7 @@
           </v-col>
       <v-spacer></v-spacer>
       <v-col>
-        <v-row class="justify-end">
+        <v-row class="justify-end mb-2">
           <div><a href="www.instagram.com/inmygroove.dance"> INS </a></div><br>
         </v-row>
         <v-row class="justify-end">
