@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="8"  class="justify-center">
-        <div class ="pl-6 title xs12">Our Community</div>
+        <h4 class ="pl-6 my-4 font-weight-light xs12">Our Community</h4>
       </v-col>
       <v-col cols="12" md="4" class= "pr-6 justify-end mb-2 px-6" >
           <v-text-field

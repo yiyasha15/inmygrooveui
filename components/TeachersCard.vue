@@ -16,15 +16,15 @@
                 <v-img :src = "artist.artist_image" width="220px" height="160px"></v-img>
             </div>
             <v-card-actions>
-              <v-row class="text-decoration-none">
+              <v-row class="text-decoration-none mt-2 pl-2">
               {{e1t1.s_teacher}} -> {{e1t1.s_student}}
               </v-row>
               <v-row>
                 
               <v-spacer></v-spacer>
-                <v-btn icon class="text-decoration-none" >
+                <!-- <v-btn icon class="text-decoration-none" >
                   <country-flag :country= 'e1t1.s_teacher_country' />
-                </v-btn>
+                </v-btn> -->
               </v-row>
               </v-card-actions>
           </div>

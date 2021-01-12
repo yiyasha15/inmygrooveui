@@ -6,16 +6,16 @@
             </nuxt-link>
             <!-- <v-btn medium class="ma-6 yellow text-decoration-none elevation-0" to='/'>InmyGroove</v-btn> -->
         <v-spacer></v-spacer>
-        <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/myhood" >My hood</v-btn>
+        <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/myhood" >My hood</v-btn> -->
         <!-- {{userHasPortfolio}} -->
         <div v-if="isAuthenticated">
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
-            <v-btn icon color="indigo" class="mr-2 text-decoration-none" to="/notifications" @click="check">
+            <!-- <v-btn icon color="indigo" class="mr-2 text-decoration-none" to="/notifications" @click="check">
             <v-badge
             color="green"
             content="6"
             ><v-icon>mdi-bell</v-icon></v-badge>
-            </v-btn>
+            </v-btn> -->
             <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
@@ -36,12 +36,6 @@
                     :to="'/'"
                     class="text-decoration-none pl-6 pr-12"
                     >
-                    <v-avatar size="36">
-                    <img
-                        src="@/assets/stitch.png"
-                        alt="img"
-                    >
-                    </v-avatar>
                     <v-list-item-title>In My Groove</v-list-item-title>
                     </v-list-item>
                     <v-list-item
@@ -51,7 +45,7 @@
                     >
                     <v-avatar size="36">
                     <img
-                        :src = "usersPortfolio.artist_image" 
+                        :src = "usersPortfolio.thumb" 
                         alt="img"
                     >
                     </v-avatar>
@@ -100,7 +94,7 @@
             </v-menu>
         </div>
         <div v-else>
-            <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/login">Log in</v-btn>
+            <v-btn rounded color="yellow" class="mr-2 text-decoration-none" to="/login">Log in</v-btn>
             <v-btn rounded color="indigo" dark class="mr-2 text-decoration-none" to="/register">Register</v-btn>
         </div>
         </v-toolbar>

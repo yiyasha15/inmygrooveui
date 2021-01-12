@@ -19,12 +19,6 @@
                     :to="'/'"
                     class="text-decoration-none pl-6 pr-12"
                     >
-                    <v-avatar size="36">
-                    <img
-                        src="@/assets/stitch.png"
-                        alt="img"
-                    >
-                    </v-avatar>
                     <v-list-item-title>In My Groove</v-list-item-title>
                     </v-list-item>
                     <v-list-item
@@ -32,6 +26,12 @@
                     :to="'/'+ loggedInUser.username"
                     class="text-decoration-none pl-6 pr-12"
                     >
+                    <v-avatar size="36">
+                    <img
+                        :src = "usersPortfolio.thumb" 
+                        alt="img"
+                    >
+                    </v-avatar>
                     <v-list-item-title>@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>
                     <v-list-item
@@ -47,12 +47,6 @@
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Edit your portfolio</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
-                    :to="'/e1t1'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>EachOneTeachOne</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     :to="'/notifications'"

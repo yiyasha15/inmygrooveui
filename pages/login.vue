@@ -18,8 +18,8 @@
 			</v-form>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="submitForm(userInfo)" class="ml-4" color="yellow">Log in</v-btn>
-			<v-btn to='/register' class="ml-4 text-decoration-none" color="primary" >Register</v-btn>
+			<v-btn @click="submitForm(userInfo)" class="px-4" rounded color="yellow">Log in</v-btn>
+			<v-btn to='/register' class="ml-4 px-4 text-decoration-none" rounded color="primary" >Register</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -43,8 +43,8 @@ export default {
 			this.$auth.setUserToken(res.data.access)
 			this.$auth.setRefreshToken('local', res.data.refresh);
 			this.$store.dispatch("check_user_portfolio");
-			this.$store.dispatch("check_user_gallery");
-			this.$store.dispatch("check_user_work");
+			// this.$store.dispatch("check_user_gallery");
+			// this.$store.dispatch("check_user_highlights");
 			
 			// this.$store.commit('SET_USER',res.data)
 			this.$router.push('/')

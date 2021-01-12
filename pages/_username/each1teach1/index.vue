@@ -1,35 +1,32 @@
 <template>
     <v-app>
-        <div>
-            <nuxt-child :sharing="sharing"/>
-            <v-container>
-            <div>My Teachers</div>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div v-for = "share in sharing" :key = "share.index">
-                    <div v-if="share.s_student === artist.username">
-                        <TeachersCard :e1t1="share" ></TeachersCard>
-                    </div>
+        <v-container>
+        <!-- <v-btn icon class="elevation-0 white text-decoration-none" to= "`/${artist.username}`">
+        <v-icon>mdi-arrow-left</v-icon>
+        </v-btn> -->
+        <nuxt-child :sharing="sharing"/>
+        <h5 class="font-weight-light mt-4 pl-4 ">My Teachers</h5>
+        <!-- <hr> -->
+        <div class="d-flex flex-wrap my-4 pl-4 ">
+            <div v-for = "share in sharing" :key = "share.index">
+                <div v-if="share.s_student === artist.username">
+                    <TeachersCard :e1t1="share" ></TeachersCard>
                 </div>
             </div>
-            <hr>
-            <div>My Students</div>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div v-for = "share in sharing" :key = "share.index">
-                    <!-- <div v-for = "s_teacher in share.s_teacher" :key = "s_teacher.index"> -->
-                        <div v-if="share.s_teacher === artist.username">
-                            <StudentsCard :share="share" ></StudentsCard>
-                        </div>
-                    <!-- </div>                 -->
-                </div>
-            </div>
-            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">Back</v-btn>
-            </v-container>
         </div>
+        <hr>
+        <h5 class="font-weight-light mt-8 pl-4 ">My Students</h5>
+        <!-- <hr> -->
+        <div class="d-flex flex-wrap my-4 pl-4 ">
+            <div v-for = "share in sharing" :key = "share.index">
+                <div v-if="share.s_teacher === artist.username">
+                    <StudentsCard :share="share" ></StudentsCard>
+                </div>
+            </div>
+        </div>
+        </v-container>
     </v-app>
 </template>
-
 
 <script>
 import EventService from '@/services/EventService.js'
