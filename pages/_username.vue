@@ -5,11 +5,11 @@
         <v-col cols="12" sm="4" >
             <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}}</div>
         </v-col>
-        <v-col class="px-0 d-flex align-end justify-end pr-4">
+        <v-col cols="12" sm="8" class="px-0 d-flex align-end justify-end pr-4">
             <div>
                 <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
                 <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/hiphop_wol`"> Way of Life</v-btn>  -->
+                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn> 
             </div>
         </v-col>
     </v-row>

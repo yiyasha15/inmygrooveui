@@ -3,11 +3,11 @@
   <template v-slot="{ hover }" >
   <v-card class = "ma-1 pa-1 grey lighten-5"
    :elevation="hover ? 6 : 1" :to="'/' + artist.username" 
-   min-width="270" max-height="240"> <!-- dark -->
+   min-width="240" max-height="220"> <!-- dark -->
     <v-container align="center">
         <div>
-          <div v-if = artist.artist_image>
-              <v-img :src = "artist.artist_image" width="230px" height="160px"/>
+          <div v-if = artist.thumb>
+              <v-img :src = "artist.thumb" width="210px" height="140px"/>
           </div>
           <!-- v-img covers larger area than only img tag -->
           <!-- <v-card-title color = "black" x-small>{{event.title}}</v-card-title> -->

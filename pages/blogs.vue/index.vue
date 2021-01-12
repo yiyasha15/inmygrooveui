@@ -1,7 +1,7 @@
 <template>
     <v-container>
       <v-row>
-          <div class ="pl-6 title mt-2">Community Blogs</div>
+          <h4 class ="pl-6 my-4 xs12 font-weight-light">Community Blogs</h4>
         <v-spacer></v-spacer>
           <v-btn v-if="$auth.loggedIn" class="text-decoration-none mt-2 mx-6  pa-4" rounded color="indigo" dark 
           to="/write_blog" >Write a post</v-btn>

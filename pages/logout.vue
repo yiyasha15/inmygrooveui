@@ -6,8 +6,8 @@
 				</h3>
 		</v-card-title>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn class="ml-4" color="error" @click="signout">Sign Out</v-btn>
-			<v-btn class="ml-4" color="indigo" @click="cancel">Cancel</v-btn>
+			<v-btn class="ml-4 px-4" dark rounded color="error" @click="signout">Sign Out</v-btn>
+			<v-btn class="ml-4 px-4" outlined rounded color="indigo" @click="cancel">Cancel</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>
@@ -20,7 +20,7 @@ export default {
 		signout(){
 			this.$store.dispatch("remove_portfolio")
 			this.$store.dispatch("remove_gallery")
-			this.$store.dispatch("remove_work")
+			this.$store.dispatch("remove_highlights")
 			this.$store.dispatch("remove_artists_sharing")
 			this.$auth.logout();
 		},

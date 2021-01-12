@@ -10,11 +10,19 @@ export const state = () => ({
   share_obj: null,
   sharing:[],
   portfolio: null, //store portfolio data of the logged in user
+  bio: null, //store bio data of the logged in user
   gallery: [], //store gallery data of the logged in user
-  work:[], //store work data of the logged in user
-  hasWork: false, //if user has work data
+  highlights:[], //store Highlights data of the logged in user
+  judging: [], //store bio data of the logged in user
+  moments: [], //store bio data of the logged in user
+  events: [], //store bio data of the logged in user
+  hasHighlights: false, //if user has highlights data
   hasPortfolio: false, //if user has portfolio data
+  hasBio: false,
   hasGallery: false, //if user has gallery data
+  hasJudging: false,
+  hasMoments: false,
+  hasEvents: false,
   img_artists: '',
   // plugins: [
   //   createPersistedState({
@@ -48,27 +56,50 @@ export const getters = {
   usersPortfolio(state){
     return state.portfolio
   },
+  userHasBio(state){
+    return state.hasBio
+  },
+  usersBio(state){
+    return state.bio
+  },
   usersGallery(state){
     return state.gallery
   },
   userHasGallery(state){
     return state.hasGallery
   },
-  usersWork(state){
-    return state.work
+  usersHighlights(state){
+    return state.highlights
   },
-  userHasWork(state){
-    return state.hasWork
+  userHasHighlights(state){
+    return state.hasHighlights
+  },
+  usersJudging(state){
+    return state.judging
+  },
+  userHasJudging(state){
+    return state.hasJudging
+  },
+  usersMoments(state){
+    return state.moments
+  },
+  userHasMoments(state){
+    return state.hasMoments
+  },
+  usersEvents(state){
+    return state.events
+  },
+  userHasEvents(state){
+    return state.hasEvents
   },
   img_artists(state){
     return state.img_artists
   }
 }
 export const actions = {
-  shareid({commit, state}, share_obj){
-    if(state.auth.loggedIn) {
-      commit('shareid', share_obj)
-    }
+
+  check_share_obj({commit}, share_obj){
+    commit('check_share_obj', share_obj)
   },
   check_artists({commit}){
     EventService.getArtists().then(res =>
@@ -93,6 +124,14 @@ export const actions = {
           })
         }  
     },
+    check_user_bio({commit, state}){
+      if(state.auth.loggedIn) {
+          EventService.getBio(state.auth.user.username).then(res =>
+          {
+            commit('usersBio',res.data)
+          })
+        }  
+    },
   check_user_gallery({commit, state}){
       if(state.auth.loggedIn) {
           EventService.getGalleries(state.auth.user.username).then(res =>
@@ -101,11 +140,35 @@ export const actions = {
           })
       }
   },
-  check_user_work({commit, state}){
+  check_user_highlights({commit, state}){
     if(state.auth.loggedIn) {
-      EventService.getMilestones(state.auth.user.username).then(res =>
+      EventService.getHighlights(state.auth.user.username).then(res =>
       {
-        commit('usersWork',res.data)
+        commit('usersHighlights',res.data)
+      })
+    }
+  },
+  check_user_judging({commit, state}){
+    if(state.auth.loggedIn) {
+      EventService.getJudging(state.auth.user.username).then(res =>
+      {
+        commit('usersJudging',res.data)
+      })
+    }
+  },
+  check_user_moments({commit, state}){
+    if(state.auth.loggedIn) {
+      EventService.getMoments(state.auth.user.username).then(res =>
+      {
+        commit('usersMoments',res.data)
+      })
+    }
+  },
+  check_user_events({commit, state}){
+    if(state.auth.loggedIn) {
+      EventService.getEvents(state.auth.user.username).then(res =>
+      {
+        commit('usersEvents',res.data)
       })
     }
   },
@@ -115,16 +178,40 @@ export const actions = {
         commit('clearPortfolio')
       }
     },
+  remove_bio({commit, state})
+    {
+      if(state.auth.loggedIn){
+        commit('clearBio')
+      }
+    },
   remove_gallery({commit, state})
     {
       if(state.auth.loggedIn){
         commit('clearGallery')
       }
     },
-  remove_work({commit, state})
+  remove_highlights({commit, state})
   {
     if(state.auth.loggedIn){
-      commit('clearWork')
+      commit('clearHighlights')
+    }
+  },
+  remove_judging({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clearJudging')
+    }
+  },
+  remove_moments({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clearMoments')
+    }
+  },
+  remove_events({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clearEvents')
     }
   },
   remove_artists_sharing({commit, state})
@@ -135,14 +222,14 @@ export const actions = {
   },
   remove_share_obj({commit, state})
   {
-    if(state.auth.loggedIn){
-      commit('clear_share_obj')
+    if(state.auth.loggedIn && state.share_obj){
+      commit('clear_share_obj',state.share_obj)
     }
   }
 }
     // Define Mutations
 export const mutations = {
-  shareid(state, share_obj){
+  check_share_obj(state, share_obj){
     if(share_obj){
       state.share_obj = null
       state.share_obj = share_obj
@@ -158,16 +245,17 @@ export const mutations = {
     {state.artists = artists}
   },
   get_artist_names(state, artists) 
-  {if(state.auth.loggedIn){
-    if(artists.length == state.artist_names.length+1)
+  {
+    if(state.auth.loggedIn && artists && state.artist_names){
+    if(artists.length == state.artist_names.length)
     {}
     else{
       artists.forEach(function (artist) {
         state.artist_names.push(artist.username)
     });
-      state.artist_names = state.artist_names.filter(function(item) {
-      return item !== state.auth.user.username
-    })
+      // state.artist_names = state.artist_names.filter(function(item) {
+      // return item !== state.auth.user.username
+    // })
     // state.artist_names.filter(item => item !== state.auth.user.username)
     }
   }
@@ -185,6 +273,14 @@ export const mutations = {
       state.hasPortfolio = true
     }
   },
+  usersBio(state, bio)
+  {
+    if(bio)
+    {
+      state.bio = bio
+      state.hasBio = true
+    }
+  },
   usersGallery(state, gallery)
   {
     if(gallery.length)
@@ -192,27 +288,68 @@ export const mutations = {
       state.gallery = gallery
       state.hasGallery = true}
   },
-  usersWork(state, work)
+  usersHighlights(state, highlights)
   {
-    if(work.length)
+    if(highlights.length)
     {
-      state.work = work
-      state.hasWork = true}
+      state.highlights = highlights
+      state.hasHighlights = true}
+  },
+  usersJudging(state, judging)
+  {
+    if(judging.length)
+    {
+      state.judging = judging
+      state.hasJudging = true}
+  },
+  usersMoments(state, moments)
+  {
+    if(moments.length)
+    {
+      state.moments = moments
+      state.hasMoments = true}
+  },
+  usersEvents(state, events)
+  {
+    if(events.length)
+    {
+      state.events = events
+      state.hasEvents = true}
   },
   clearPortfolio(state) //if user has portfolio change state to true
   {
     state.portfolio = null
     state.hasPortfolio = false
   },
+  clearBio(state) //if user has portfolio change state to true
+  {
+    state.bio = null
+    state.hasBio = false
+  },
   clearGallery(state) //if user has portfolio change state to true
   {
     state.gallery =[]
     state.hasGallery = false
   },
-  clearWork(state) //if user has portfolio change state to true
+  clearHighlights(state) //if user has portfolio change state to true
   {
-    state.work =[]
-    state.hasWork = false
+    state.highlights =[]
+    state.hasHighlights = false
+  },
+  clearJudging(state) //if user has portfolio change state to true
+  {
+    state.judging =[]
+    state.hasJudging = false
+  },
+  clearMoments(state) //if user has portfolio change state to true
+  {
+    state.moments =[]
+    state.hasMoments = false
+  },
+  clearEvents(state) //if user has portfolio change state to true
+  {
+    state.events =[]
+    state.hasEvents = false
   },
   img_community(state, length) //if user has portfolio change state to true
   {

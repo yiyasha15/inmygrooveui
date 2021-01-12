@@ -25,19 +25,31 @@ export default {
     getArtist(username) {
         return apiClient1.get('/artist/portfolio/' + username)
     },
+    getBio(username){
+        return apiClient1.get('/artist/bio/' + username)
+    },
     getGalleries(username) {
         return apiClient1.get('/artist/gallery/?search=' + username)
     },
-    getMilestones(username) {
-        return apiClient1.get('/artist/work/?search=' + username)
+    getHighlights(username) {
+        return apiClient1.get('/artist/highlights/?search=' + username)
+    },
+    getJudging(username) {
+        return apiClient1.get('/artist/jw/?search=' + username)
+    },
+    getMoments(username) {
+        return apiClient1.get('/artist/moments/?search=' + username)
+    },
+    getEvents(username) {
+        return apiClient1.get('/artist/events/?search=' + username)
     },
     getEach1Teach1s(){
-        return apiClient1.get('/e1t1')
+        return apiClient1.get('/e1t1/sharing/')
     },
     getEach1Teach1_user(username) {
-        return apiClient1.get('/e1t1/?search=' + username)
+        return apiClient1.get('/e1t1/sharing/?search=' + username)
     },
     getEach1Teach1(id) {
-        return apiClient1.get('/e1t1/' + id)
+        return apiClient1.get('/e1t1/sharing/' + id)
     }
 }

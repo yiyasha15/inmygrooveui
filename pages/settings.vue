@@ -10,7 +10,7 @@
 				<v-text-field v-model="info.email" label="Email" prepend-icon="mdi-account-circle" />
 				<v-text-field v-model="info.username" label="Username" prepend-icon="mdi-account-circle" />
 			</v-form>
-            <v-btn class="text-decoration-none" rounded color="indigo" dark
+            <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="save_information">Save Information</v-btn>
             <v-snackbar v-model="snackbar"> Changes saved.
             <template v-slot:action="{ attrs }">
@@ -28,7 +28,7 @@
                 <v-text-field v-model="info.password" label="Set new password"  />
 				<v-text-field v-model="info.password" label="Confirm password"  />
 			</v-form>
-            <v-btn class="text-decoration-none" rounded color="indigo" dark
+            <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="set_new_password">Set New Password</v-btn>
             </div>
             </v-card>
@@ -37,7 +37,7 @@
                 <h3 class="mt-6">Delete Account</h3>
                 <!-- <ul>Deleting your account will make you loose all your data.</ul>
                 <ul>Your username will be available yo anyone.</ul> -->
-            <v-btn class="text-decoration-none" rounded color="error" dark
+            <v-btn class="text-decoration-none" outlined rounded color="error" dark
                 @click="delete_account">Delete Account</v-btn>
             </div>
             </v-card>

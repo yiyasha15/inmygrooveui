@@ -3,26 +3,32 @@
         <v-container class="ma-24 ">
             <div class="text-xs-center mb-6" align = "center">
                 <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-                <v-btn outlined rounded color="indigo" class=" mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
-                <v-btn outlined rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
             </div>
             <v-divider class="mx-4" ></v-divider>
              <v-row>
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <v-row>
-                <v-col>
-                    <h5 class="pl-3">Build your portfolio</h5>
-                </v-col>
-                <v-col>
-                    <v-btn icon><v-icon>mdi-information-outline</v-icon></v-btn>
-                </v-col>
-                </v-row>
-                    <!-- <h1 class="pb-6 text-center">Create Your Website</h1>
-                    <v-divider />
-                    <div >We already have prepared an intuitive template for your webite. <br>
-                    You can preview it while uploading the information. <br>
-                    Time to upload contents, let's go.
-                    </div> -->
+                    <v-col cols="8">
+                        <h5 class="font-weight-light mt-4">Build your portfolio</h5>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-row class="justify-end mt-4 mr-8">
+                            <v-tooltip right>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon v-bind="attrs" v-on="on" color="primary"><v-icon>mdi-information-outline</v-icon></v-btn>
+                        </template>
+                        <span>We already have prepared an intuitive template for your webite. <br>
+                            You can preview it while uploading the information. <br>
+                            Time to upload contents, let's go.</span>
+                        </v-tooltip>
+                        </v-row>
+                    </v-col>
+                    </v-row>
                     <v-form v-on:submit.prevent="submit">
                         <v-row>
                             <v-col cols="12" md="9">
@@ -31,28 +37,23 @@
                                     label="Name"
                                     :maxlength="50">
                                 </v-text-field>
-                                <!-- <v-text-field
-                                    v-model = "artist_data.username"
-                                    label="Username"
-                                    :maxlength="20">
-                                </v-text-field> -->
                                 <v-select label="Country" v-model= "artist_data.country"
                                     :items="countries"
                                     item-text="name"
                                     item-value="code"
                                 ></v-select>
                                 <div class = "form-group">
-                                    <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
+                                    <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload a landscape image"></v-text-field>
                                     <input 
                                     type="file" 
-                                    name = "artist_image" 
+                                    name = "cover" 
                                     style="display:none" 
                                     ref="fileInput" 
                                     accept="image/*"
                                     required
                                     @change="onFileChange">
                                 </div>
-                                <v-select v-model= "artist_data.style" 
+                                <!-- <v-select v-model= "artist_data.style" 
                                     :items="items" 
                                     attach 
                                     chips 
@@ -87,10 +88,10 @@
                                     v-model= "artist_data.personal"
                                     label="Personal website"
                                     :maxlength="120">
-                                </v-text-field>
-                                <v-btn v-if="!userHasPortfolio" class="text-decoration-none" rounded color="indigo" dark
+                                </v-text-field> -->
+                                <v-btn v-if="!userHasPortfolio" outlined class="text-decoration-none" rounded color="indigo" dark
                                  @click="submit">submit</v-btn>
-                                 <v-btn v-if="userHasPortfolio" class="mt-2 mr-2 text-decoration-none" rounded color="indigo" dark
+                                 <v-btn v-if="userHasPortfolio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
                                  @click="update">Update</v-btn>
                                 <v-dialog v-if="userHasPortfolio" v-model="dialog" width="500">
                                 <template v-slot:activator="{ on, attrs }">
@@ -100,9 +101,9 @@
                                     Are you sure you want to delete your portfolio?
                                     <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn v-if="userHasPortfolio" class="text-decoration-none" rounded color="error" dark
+                                    <v-btn class="px-4 text-decoration-none" rounded color="error" dark
                                         @click="deleted">Delete</v-btn>
-                                    <v-btn color="indigo" class="text-decoration-none" rounded dark  @click="dialog = false">
+                                    <v-btn color="indigo" class="px-4 text-decoration-none" rounded dark outlined  @click="dialog = false">
                                         Cancel
                                     </v-btn>
                                     </v-card-actions>
@@ -112,38 +113,48 @@
                         </v-row>
                     </v-form>
                 </v-col>
-                <v-col cols="12" md="6" class="pl-sm-6">
-                    <!-- <h1 class="pb-6 text-center">Preview Your Website</h1> -->
-                        <v-col>
-                        <v-row class="pb-6 justify-center text-center">
-                            <h2> {{artist_data.artist_name}}</h2>
-                            <v-spacer></v-spacer>
-                            <v-btn v-if="artist_data.country " icon class="text-decoration-none" >
-                                <country-flag :country= artist_data.country />
-                            </v-btn>
-                        </v-row>
-                        <v-row class="pb-6 justify-center text-center">
-                            <v-img :src="imageData" height="300px" width="500px"></v-img>
-                        </v-row>
-                        <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
-                        </v-row>
-                        <v-row v-if="artist_data.quote" class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center font-italic">"{{artist_data.quote}}" </h5>
-                        </v-row>
-                        <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">Repping: {{artist_data.crew}}🙏 </h5>
-                        </v-row>
-                        <v-row class="pb-6 justify-center text-center">
-                            <v-col v-if="artist_data.ig"><v-icon>mdi-instagram</v-icon></v-col>
-                            <v-col v-if="artist_data.fb"><v-icon>mdi-facebook</v-icon></v-col>
-                            <v-col v-if="artist_data.yt"><v-icon>mdi-youtube</v-icon></v-col>
-                            <v-col v-if="artist_data.personal"><v-icon>mdi-email</v-icon></v-col>
-                        </v-row>
-                        </v-col>
+                <v-col cols="12" md="6" class="pl-sm-6 mt-6 grey lighten-4 rounded-xl">
+                <!-- <h1 class="pb-6 text-center">Preview Your Website</h1> -->
+                    <v-col>
+                    <v-row class="pb-6 justify-center text-center">
+                        <h2> {{artist_data.artist_name}}</h2>
+                        <v-spacer></v-spacer>
+                        <v-btn v-if="artist_data.country " icon class="text-decoration-none" >
+                            <country-flag :country= artist_data.country />
+                        </v-btn>
+                    </v-row>
+                    <v-row class="pb-6 justify-center text-center">
+                        <v-img :src="imageData" height="300px" width="500px"></v-img>
+                    </v-row>
+                    <!-- <v-row v-if="artist_data.quote" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center font-italic">"{{artist_data.quote}}" </h5>
+                    </v-row>
+                    <v-row class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
+                    </v-row>
+                    <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center">Repping: {{artist_data.crew}} 🙏 </h5>
+                    </v-row>
+                    <v-row class="pb-6 justify-center text-center">
+                        <v-col v-if="artist_data.ig"><v-icon>mdi-instagram</v-icon></v-col>
+                        <v-col v-if="artist_data.fb"><v-icon>mdi-facebook</v-icon></v-col>
+                        <v-col v-if="artist_data.yt"><v-icon>mdi-youtube</v-icon></v-col>
+                        <v-col v-if="artist_data.personal"><v-icon>mdi-email</v-icon></v-col>
+                    </v-row> -->
+                    </v-col>
                 </v-col>
             </v-row>
         </v-container>
+        <v-snackbar v-model="snackbar">
+            <div>
+                Changes saved.
+            </div>
+            <template v-slot:action="{ attrs }">
+                <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                    Okay.
+                </v-btn>
+            </template>
+        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -161,8 +172,15 @@ export default {
     },
     mounted() {
     this.$store.dispatch("check_user_portfolio");
-    this.$store.dispatch("check_user_gallery");
+    // this.$store.dispatch("check_user_gallery");
     },
+    created(){
+        if(this.$store.state.hasPortfolio)
+        {
+            this.artist_data = Object.assign({}, this.$store.getters.usersPortfolio);
+            this.imageData = this.artist_data.cover;
+        }
+        },
     data(){
         return {
             countries:[
@@ -415,14 +433,14 @@ export default {
                 artist_name: "",
                 username: this.$auth.user.username,
                 country: "",
-                style: "",
-                artist_image: "",
-                introduction: "",
-                quote: "",
-                crew: "",
-                ig: "",
-                fb: "",
-                personal: ""
+                cover: "",
+                // style: "",
+                // introduction: "",
+                // quote: "",
+                // crew: "",
+                // ig: "",
+                // fb: "",
+                // personal: ""
             },
             dialog: false,
             items: ['HipHop', 'House', 'Locking', 'Popping'],
@@ -432,13 +450,6 @@ export default {
             text: 'Website created successfully.'
         }
     },
-    created (){
-        if(this.$store.state.hasPortfolio)
-        {
-            this.artist_data = Object.assign({}, this.$store.getters.usersPortfolio);
-            this.imageData = this.artist_data.artist_image;
-        }
-        },
     methods: {
         ...mapActions(['check_user_portfolio']),
         onPick() //changing the click from button to input using refs
@@ -456,7 +467,7 @@ export default {
                 }
                 fileReader.readAsDataURL(files[0]);
                 console.log(files[0]);
-                this.artist_data.artist_image = files[0];
+                this.artist_data.cover = files[0];
                 console.log(this.artist_data);
             }
         },
@@ -469,7 +480,7 @@ export default {
             };
             let formData = new FormData();
             for (let data in this.artist_data) {
-                if(!this.artist_data.artist_image)
+                if(!this.artist_data.cover)
                 {
                     console.log("artist_ image is not there")
                     break;
@@ -478,16 +489,15 @@ export default {
                     formData.append(data, this.artist_data[data]);
                 }
             }
-            if(this.artist_data.artist_image){
+            if(this.artist_data.cover){
             try {
                 console.log(formData);
                 let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
                 console.log("Artist website created.");
                 //update store
                 this.$store.dispatch("check_user_portfolio");
-                this.$store.dispatch("check_user_gallery");
                 this.snackbar = true;
-                this.$router.push("/create/gallery");
+                this.$router.push("/create/bio");
             } catch (e) {
                 console.log(e);
             }
@@ -516,11 +526,11 @@ export default {
                 }}
             await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formName, config)
             }
-            if(this.usersPortfolio.artist_image!=this.artist_data.artist_image) //checking if data has changed
+            if(this.usersPortfolio.cover!=this.artist_data.cover) //checking if data has changed
             {
             let formImage = new FormData();
             for (let data in this.artist_data) {
-                if(data == 'artist_image' || data == 'username' )
+                if(data == 'cover' || data == 'username' )
                 {
                     console.log("image has changed");
                     formImage.append(data, this.artist_data[data]);
@@ -538,83 +548,83 @@ export default {
                 }}
             await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCountry, config)
             }
-            if(this.usersPortfolio.style!=this.artist_data.style) //checking if data has changed
-            {
-            let formStyle = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'style' || data == 'username' )
-                {
-                    console.log("style has changed");
-                    formStyle.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formStyle, config)
-            }
-            if(this.usersPortfolio.introduction!=this.artist_data.introduction) //checking if data has changed
-            {
-            let formIntro = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'introduction' || data == 'username' )
-                {
-                    console.log("style has changed");
-                    formIntro.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIntro, config)
-            }
-            if(this.usersPortfolio.quote!=this.artist_data.quote) //checking if data has changed
-            {
-            let formQuote = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'quote' || data == 'username' )
-                {
-                    console.log("quote has changed");
-                    formQuote.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formQuote, config)
-            }
-            if(this.usersPortfolio.crew!=this.artist_data.crew) //checking if data has changed
-            {
-            let formCrew = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'crew' || data == 'username' )
-                {
-                    console.log("crew has changed");
-                    formCrew.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCrew, config)
-            }
-            if(this.usersPortfolio.ig!=this.artist_data.ig) //checking if data has changed
-            {
-            let formIg = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'ig' || data == 'username' )
-                {
-                    console.log("ig has changed");
-                    formIg.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIg, config)
-            }
-            if(this.usersPortfolio.fb!=this.artist_data.fb) //checking if data has changed
-            {
-            let formfb = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'fb' || data == 'username' )
-                {
-                    console.log("fb has changed");
-                    formfb.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formfb, config)
-            }
-            if(this.usersPortfolio.personal!=this.artist_data.personal) //checking if data has changed
-            {
-            let formPersonal = new FormData();
-            for (let data in this.artist_data) {
-                if(data == 'personal' || data == 'username' )
-                {
-                    console.log("personal has changed");
-                    formPersonal.append(data, this.artist_data[data]);
-                }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formPersonal, config)
-            }
+            // if(this.usersPortfolio.style!=this.artist_data.style) //checking if data has changed
+            // {
+            // let formStyle = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'style' || data == 'username' )
+            //     {
+            //         console.log("style has changed");
+            //         formStyle.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formStyle, config)
+            // }
+            // if(this.usersPortfolio.introduction!=this.artist_data.introduction) //checking if data has changed
+            // {
+            // let formIntro = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'introduction' || data == 'username' )
+            //     {
+            //         console.log("style has changed");
+            //         formIntro.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIntro, config)
+            // }
+            // if(this.usersPortfolio.quote!=this.artist_data.quote) //checking if data has changed
+            // {
+            // let formQuote = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'quote' || data == 'username' )
+            //     {
+            //         console.log("quote has changed");
+            //         formQuote.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formQuote, config)
+            // }
+            // if(this.usersPortfolio.crew!=this.artist_data.crew) //checking if data has changed
+            // {
+            // let formCrew = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'crew' || data == 'username' )
+            //     {
+            //         console.log("crew has changed");
+            //         formCrew.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCrew, config)
+            // }
+            // if(this.usersPortfolio.ig!=this.artist_data.ig) //checking if data has changed
+            // {
+            // let formIg = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'ig' || data == 'username' )
+            //     {
+            //         console.log("ig has changed");
+            //         formIg.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formIg, config)
+            // }
+            // if(this.usersPortfolio.fb!=this.artist_data.fb) //checking if data has changed
+            // {
+            // let formfb = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'fb' || data == 'username' )
+            //     {
+            //         console.log("fb has changed");
+            //         formfb.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formfb, config)
+            // }
+            // if(this.usersPortfolio.personal!=this.artist_data.personal) //checking if data has changed
+            // {
+            // let formPersonal = new FormData();
+            // for (let data in this.artist_data) {
+            //     if(data == 'personal' || data == 'username' )
+            //     {
+            //         console.log("personal has changed");
+            //         formPersonal.append(data, this.artist_data[data]);
+            //     }}
+            // await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formPersonal, config)
+            // }
         this.$store.dispatch("check_user_portfolio");
         this.snackbar = true;
         this.$router.push("/create/about");
