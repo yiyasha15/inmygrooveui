@@ -24,6 +24,7 @@ export const state = () => ({
   hasMoments: false,
   hasEvents: false,
   img_artists: '',
+  // plugins: [createPersistedState()],
   // plugins: [
   //   createPersistedState({
   //     getState: (key) => Cookies.getJSON(key),
