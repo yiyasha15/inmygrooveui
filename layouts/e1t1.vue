@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <e1t1-header/>
-      <nuxt/>
+        <nuxt/>
     <the-footer />
   </v-app>
 </template>
