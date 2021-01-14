@@ -89,7 +89,7 @@
                                     <v-text-field
                                         v-model = "highlights.h_link"
                                         label= "Link"
-                                        :maxlength="30">
+                                        :maxlength="50">
                                     </v-text-field>
                                     <v-btn class="text-decoration-none" rounded color="indigo" dark outlined
                                  @click="submit">submit</v-btn>

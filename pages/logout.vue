@@ -20,6 +20,7 @@ export default {
 		signout(){
 			this.$store.dispatch("remove_portfolio")
 			this.$store.dispatch("remove_gallery")
+			this.$store.dispatch("remove_bio")
 			this.$store.dispatch("remove_highlights")
 			this.$store.dispatch("remove_moments")
 			this.$store.dispatch("remove_judging")
