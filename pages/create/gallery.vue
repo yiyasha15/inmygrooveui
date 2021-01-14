@@ -128,7 +128,19 @@
                 </v-btn>
             </template>
         </v-snackbar>
-        
+        <v-snackbar v-model="valid_snackbar">
+            Please upload an image.
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                color="error"
+                icon
+                v-bind="attrs"
+                @click="valid_snackbar = false"
+                >
+                <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </template>
+        </v-snackbar>
     </v-container>
 </template>
 <script>
@@ -145,6 +157,7 @@ export default {
            },
            imageData: "",
            snackbar: false,
+           valid_snackbar: false,
            dialog: false,
            rm:"",
            overlay: false,
@@ -330,8 +343,7 @@ export default {
             }
             }
             else{
-                alert("select image");
-                console.log("select image");
+                this.valid_snackbar = true;
             }
         }        
     }

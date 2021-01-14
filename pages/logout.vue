@@ -20,7 +20,12 @@ export default {
 		signout(){
 			this.$store.dispatch("remove_portfolio")
 			this.$store.dispatch("remove_gallery")
+			this.$store.dispatch("remove_bio")
 			this.$store.dispatch("remove_highlights")
+			this.$store.dispatch("remove_moments")
+			this.$store.dispatch("remove_judging")
+			this.$store.dispatch("remove_events")
+			this.$store.dispatch("remove_share_obj")
 			this.$store.dispatch("remove_artists_sharing")
 			this.$auth.logout();
 		},

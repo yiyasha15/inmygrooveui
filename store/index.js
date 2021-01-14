@@ -14,8 +14,9 @@ export const state = () => ({
   highlights: [], //store Highlights data of the logged in user
   judging: [], //store bio data of the logged in user
   moments: [], //store bio data of the logged in user
-  // artists_names: [],
+  // list_of_artists: [],
   events: [], //store bio data of the logged in user
+  list_of_artists: [],
   hasHighlights: false, //if user has highlights data
   hasPortfolio: false, //if user has portfolio data
   hasBio: false,
@@ -36,9 +37,9 @@ export const getters = {
   artists(state) {
     return state.artists
   },
-  // artists_names(state) {
-  //   return state.artists_names
-  // },
+  list_of_artists(state) {
+    return state.list_of_artists
+  },
   share_obj(state){
     return state.share_obj
   },
@@ -107,7 +108,7 @@ export const actions = {
     EventService.getArtists().then(res =>
     {
       commit('get_artists',res.data)
-      // commit('get_artists_names',res.data)
+      commit('get_list_of_artists',res.data)
       commit('img_community',res.data.length)
     })
     },
@@ -246,27 +247,27 @@ export const mutations = {
     if(artists)
     {state.artists = artists}
   },
-  // get_artists_names(state, artists) 
-  // {
+  get_list_of_artists(state, artists) 
+  {
+    // if(artists)
+    // {
+    //   for (var i = 0; i < artists.length; i++) {
+    //     state.list_of_artists.push(artists[i].username)
+    //   }
+    // }
   //   if(state.auth.loggedIn){
-  //     console.log("artists.length: ",artists.length);
-  //     console.log("state.artists_names.length: ",state.artists_names.length);
-  //   if(artists.length == state.artists_names.length)
+  //   if(artists.length != state.list_of_artists.length)
   //   {
-  //     console.log("3");
-  //   }
-  //   else{
   //     console.log("4");
   //     artists.forEach(function (artist) {
-  //       state.artists_names.push(artist.username)
+  //       state.list_of_artists.push(artist.username)
   //   });
-  //   //   state.artists_names = state.artists_names.filter(function(item) {
+  //   //   state.list_of_artists = state.list_of_artists.filter(function(item) {
   //   //   return item !== state.auth.user.username
   //   // })
-  //   // state.artists_names.filter(item => item !== state.auth.user.username)
+  //   // state.list_of_artists.filter(item => item !== state.auth.user.username)
   //   }
-  // }
-  // },
+  },
   get_sharing(state, sharing) 
   {
     if(sharing)
@@ -366,7 +367,7 @@ export const mutations = {
   {
     state.artists = null
     state.sharing = null
-    // state.artists_names = null
+    state.list_of_artists = null
   },
   
 }

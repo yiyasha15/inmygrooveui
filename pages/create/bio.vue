@@ -288,7 +288,7 @@ export default {
                 //update store
                 this.$store.dispatch("remove_bio")
                 this.snackbar = true;
-                this.$router.push("/");
+                this.$router.push("/create/bio");
             } catch (e) {
                 console.log(e);
             }
