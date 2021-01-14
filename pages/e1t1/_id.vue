@@ -2,7 +2,7 @@
   <v-app>
     <v-container class="ma-24">
         <!-- <h3 class="font-weight-light mt-6 mb-2">Each 1 Teach 1</h3> -->
-        <v-container class="rounded-lg grey lighten-5">
+        <v-container class="rounded-lg grey lighten-5 my-4">
             <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/e1t1`">
             <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
@@ -13,7 +13,7 @@
                 <v-col cols="12" md="4" class="pl-6">
                     <v-row>
                         <v-col class="ma-0">
-                        <p>{{e1t1.s_date}}</p>
+                        <p class="font-weight-light">{{e1t1.s_date}}</p>
                         </v-col>
                         <div v-if="loggedInUser">
                         <v-col class="ma-0" v-if="loggedInUser.username == e1t1.s_student" >
@@ -44,7 +44,7 @@
                     <v-row class="rounded-lg grey lighten-2 d-inline-flex mb-2">
                         <v-col class="ma-0">
                             <nuxt-link :to="'/'+ e1t1.s_teacher">
-                            <h3>{{e1t1.s_teacher}}</h3>
+                            <h3 class="font-weight-light">{{e1t1.s_teacher}}</h3>
                             </nuxt-link>
                         </v-col>
                         <!-- <v-col class="mt-2">
@@ -54,14 +54,14 @@
                     <v-row>
                         <v-col>
                         <nuxt-link :to="'/'+ e1t1.s_student">
-                        <h5>{{e1t1.s_student}}:</h5>
+                        <h5 class="font-weight-light">{{e1t1.s_student}}</h5>
                         </nuxt-link>
-                        <p>{{e1t1.s_appreciation}}</p>
-                        <v-btn icon color="orange" >
-                        <v-icon>mdi-heart-outline</v-icon> 4
+                        <h6 class="font-weight-light">{{e1t1.s_appreciation}}</h6>
+                        <v-btn icon color="orange" @click="like">
+                        <v-icon>mdi-heart-outline</v-icon> {{e1t1.likes_count}}
                         </v-btn>
                         <v-btn icon color="indigo" class="ml-2" >
-                        <v-icon>mdi-comment-outline</v-icon> 3
+                        <v-icon>mdi-comment-outline</v-icon> {{e1t1.comment.length}}
                         </v-btn>
                         <div v-if="e1t1.likes_count!=0">
                         <p>{{e1t1.likes_count}}</p>
@@ -74,8 +74,7 @@
                 <v-col cols="12" md="6" v-if="e1t1.s_video_talk">
                     <v-card
                         class="mx-auto"
-                        max-width="400"
-                    >
+                        max-width="400">
                         <video width="400" height="240" controls>
                             <source :src="e1t1.s_video_talk" type="video/mp4">
                             Your browser does not support the video tag.
@@ -118,6 +117,22 @@
                     </v-card>
                 </v-col>
             </v-row>
+            <v-row class="mt-8 ml-md-8 ml-2">
+                <v-avatar size="36">
+                <img
+                    :src = "usersPortfolio.thumb" 
+                    alt="img"
+                >
+                </v-avatar>
+                <v-textarea class="mx-4"
+                    outlined
+                    label="Share your thoughts">
+                </v-textarea>
+                <v-btn class="text-decoration-none mr-2 ml-12 ml-sm-2" 
+                    @click="post"
+                    rounded color="indigo" dark >Post
+                </v-btn>
+            </v-row>
         </v-container>
     </v-container>
   </v-app>
@@ -154,7 +169,7 @@ export default {
     // this.$store.dispatch("check_sharing");
 	},
 	computed: {
-		...mapGetters(['artists', 'loggedInUser'])
+		...mapGetters(['artists', 'loggedInUser', 'usersPortfolio'])
 	},
     async asyncData({error, params}) {
       try {
@@ -186,6 +201,21 @@ export default {
         async edit(){
             this.$store.dispatch("check_share_obj", this.e1t1);
             this.$router.push("/create/each1teach1");
+        },
+        async like(){
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
+            };
+            let formLike = new FormData();
+                console.log("liked");
+                formLike.append('s_student', this.$store.state.auth.user.username);
+                formLike.append('likes_count', 2);
+            await this.$axios.$patch("/v1/e1t1/sharing/"+this.e1t1.id+"/", formLike, config);
+        },
+        post(){
+            console.log("post comment!");
+            // this.$router.push("/blogs")
         }
     }
     

@@ -136,6 +136,29 @@
                     </div>
                 </v-col>
             </v-row>
+            <v-snackbar v-model="valid_snackbar">
+                Please fill the required details.
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                    color="error"
+                    icon
+                    v-bind="attrs"
+                    @click="valid_snackbar = false"
+                    >
+                    <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </template>
+            </v-snackbar>
+            <v-snackbar v-model="snackbar">
+                <div>
+                    Changes saved.
+                </div>
+                <template v-slot:action="{ attrs }">
+                    <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                        Okay.
+                    </v-btn>
+                </template>
+            </v-snackbar>
         </v-container>
     </v-app>
 </template>
@@ -154,6 +177,8 @@ export default {
             dialog: false,
             rm:"",
             imageData: "",
+            valid_snackbar: false,
+            snackbar: false,
             events: {
                 ev_artist: this.$store.state.auth.user.username,
                 ev_content: "",
@@ -184,6 +209,8 @@ export default {
                 let response = await this.$axios.$delete("/v1/artist/events/"+id , config);
                 this.$store.dispatch("remove_events");
                 this.$store.dispatch("check_user_events");
+                this.dialog =false;
+                this.snackbar = true;
                 // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
                 this.$router.push("/create/events");
             } 
@@ -222,34 +249,31 @@ export default {
             }
         },
         async submit() {
-            const config = {
-                headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
-            };
-            let formData = new FormData();
-            for (let data in this.events) {
-                if(data == 'ev_photo' && this.events[data] == null)
-                {
-                    console.log("add a photo")
-                    break;
-                }
-                else{
-                    // console.log("data: ", data);
-                    // console.log(this.events[data]);
+            if(this.events.ev_content != "" && this.events.jev_event != "" && this.events.ev_photo)
+            {
+                const config = {
+                    headers: {"content-type": "multipart/form-data",
+                        "Authorization": "Bearer " + this.$store.state.auth.user.access}
+                };
+                let formData = new FormData();
+                for (let data in this.events) {
                     formData.append(data, this.events[data]);
                 }
+                try {
+                    let response = await this.$axios.$post("/v1/artist/events/", formData, config);
+                    console.log("Artist events created.");
+                    this.$store.dispatch("check_user_events");
+                    this.refresh();
+                    this.snackbar = true;
+                    this.$router.push("/create/events");
+                } catch (e) {
+                    console.log(e);
+                }
             }
-            try {
-                let response = await this.$axios.$post("/v1/artist/events/", formData, config);
-                console.log("Artist events created.");
-                this.$store.dispatch("check_user_events");
-                this.refresh();
-                this.$router.push("/create/events");
-            } catch (e) {
-                console.log(e);
+            else{
+                this.valid_snackbar = true;
             }
         }        
     }
-
 }
 </script>

@@ -156,6 +156,19 @@
                 </v-btn>
             </template>
         </v-snackbar>
+        <v-snackbar v-model="valid_snackbar">
+            Please fill the required details.
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                color="error"
+                icon
+                v-bind="attrs"
+                @click="valid_snackbar = false"
+                >
+                <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </template>
+        </v-snackbar>
     </v-app>
 </template>
 <script>
@@ -447,6 +460,7 @@ export default {
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             imageData: "",
             snackbar: false,
+            valid_snackbar: false,
             update_text: 'Website updated successfully.',
             text: 'Website created successfully.'
         }
@@ -473,7 +487,9 @@ export default {
             }
         },
         async submit() {
-            this.username = this.loggedInUser.username; //adding the username
+            if(this.artist_data.artist_name != "" && this.artist_data.country != "" && this.artist_data.cover != "" )
+            {
+                console.log(this.artist_data);
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$store.state.auth.user.access
@@ -481,16 +497,8 @@ export default {
             };
             let formData = new FormData();
             for (let data in this.artist_data) {
-                if(!this.artist_data.cover)
-                {
-                    console.log("artist_ image is not there")
-                    break;
-                }
-                else{
-                    formData.append(data, this.artist_data[data]);
-                }
+                formData.append(data, this.artist_data[data]);
             }
-            if(this.artist_data.cover){
             try {
                 console.log(formData);
                 let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
@@ -504,10 +512,7 @@ export default {
             }
             }
             else{
-                <v-alert type="error">
-                Image required!
-                </v-alert>
-                alert("Image required!");
+                this.valid_snackbar = true
             }
         },    
         async update() {

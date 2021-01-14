@@ -135,6 +135,29 @@
                     </div>
                 </v-col>
             </v-row>
+            <v-snackbar v-model="valid_snackbar">
+                Please fill the required details.
+                <template v-slot:action="{ attrs }">
+                    <v-btn
+                    color="error"
+                    icon
+                    v-bind="attrs"
+                    @click="valid_snackbar = false"
+                    >
+                    <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </template>
+            </v-snackbar>
+            <v-snackbar v-model="snackbar">
+                <div>
+                    Changes saved.
+                </div>
+                <template v-slot:action="{ attrs }">
+                    <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                        Okay.
+                    </v-btn>
+                </template>
+            </v-snackbar>
         </v-container>
     </v-app>
 </template>
@@ -153,6 +176,8 @@ export default {
             dialog: false,
             rm:"",
             imageData: "",
+            valid_snackbar: false,
+            snackbar: false,
             judging: {
                 jw_artist: this.$store.state.auth.user.username,
                 jw_content: "",
@@ -183,6 +208,8 @@ export default {
                 let response = await this.$axios.$delete("/v1/artist/jw/"+id , config);
                 this.$store.dispatch("remove_judging");
                 this.$store.dispatch("check_user_judging");
+                this.dialog =false;
+                this.snackbar = true;
                 // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
                 this.$router.push("/create/judging");
             } 
@@ -214,39 +241,35 @@ export default {
                     this.imageData = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
                 this.judging.jw_photo = files[0];
-                console.log(this.judging);
             }
         },
         async submit() {
+            if(this.judging.jw_content != "" && this.judging.jw_event != "" && this.judging.jw_photo)
+            {
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.judging) {
-                if(data == 'jw_photo' && this.judging[data] == null)
-                {
-                    console.log("add a photo")
-                    break;
-                }
-                else{
-                    console.log("data: ", data);
-                    console.log(this.judging[data]);
-                    formData.append(data, this.judging[data]);
-                }
+                formData.append(data, this.judging[data]);
             }
             try {
                 let response = await this.$axios.$post("/v1/artist/jw/", formData, config);
                 console.log("Artist judging created.");
                 this.$store.dispatch("check_user_judging");
                 this.refresh();
+                this.snackbar = true;
                 this.$router.push("/create/judging");
             } catch (e) {
                 console.log(e);
             }
-        }        
+        } 
+        else{
+            this.valid_snackbar = true;
+        }
+        }       
     }
 
 }

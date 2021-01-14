@@ -188,6 +188,19 @@
             </v-btn>
       </template>
     </v-snackbar>
+    <v-snackbar v-model="mention_teacher_snackbar">
+        Please fill the required details.
+        <template v-slot:action="{ attrs }">
+            <v-btn
+            color="error"
+            icon
+            v-bind="attrs"
+            @click="mention_teacher_snackbar = false"
+            >
+            <v-icon>mdi-close</v-icon>
+            </v-btn>
+      </template>
+    </v-snackbar>
     </v-container>
 </template>
 <script>
@@ -470,7 +483,9 @@ export default {
                     s_date: "",
                     s_location: "",
                     s_student: this.$store.state.auth.user.username,
-                    s_teacher: ""
+                    s_teacher: "",
+                    likes_count: 1,
+                    comment: []
                 },
             imageData: "",
             videoData: "",
@@ -479,6 +494,7 @@ export default {
             menu: false,
             snackbar: false,
             uploaded_snackbar: false,
+            mention_teacher_snackbar: false,
             text: `Max. video upload size is 5K KB! :)`,
             uploaded_text: `Video uploaded! :)`,
         }
@@ -548,30 +564,26 @@ export default {
             }
         },
         async submit() {
-            this.sharing.s_teacher_name = this.sharing.s_teacher;
-            const config = {
-                headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
-            };
-            let formData = new FormData();
-            for (let data in this.sharing) {
-                if(data == 's_teacher' && this.sharing[data] == null)
-                {
-                    console.log("teacher not mentioned")
-                    break;
-                }
-                else{
+            if(this.sharing.s_teacher != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
+            {
+                this.sharing.s_teacher_name = this.sharing.s_teacher;
+                const config = {
+                    headers: {"content-type": "multipart/form-data",
+                        "Authorization": "Bearer " + this.$store.state.auth.user.access}
+                };
+                let formData = new FormData();
+                for (let data in this.sharing) {
                     formData.append(data, this.sharing[data]);
-                    console.log("form data is ",data);
-                    console.log("form data is ",this.sharing[data]);
+                }
+                try {
+                    let response = await this.$axios.$post("/v1/e1t1/sharing/", formData, config);
+                    this.$router.push("/e1t1/");
+                } catch (e) {
+                    console.log("cant post!",e);
                 }
             }
-            try {
-                let response = await this.$axios.$post("/v1/e1t1/sharing/", formData, config);
-                console.log("Teacher student relation.");
-                this.$router.push("/e1t1/");
-            } catch (e) {
-                console.log("cant post rn",e);
+            else{
+                this.mention_teacher_snackbar = true
             }
         },
         async update() {
