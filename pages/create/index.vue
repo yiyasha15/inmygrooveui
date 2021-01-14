@@ -22,7 +22,7 @@
               <h6 class="font-weight-light">5. <b>Highlights Page.</b> Share some of your profound memories.</h6>
               <h6 class="font-weight-light">6. <b>Judging/Workshops Page.</b> Share about your workshop and judging experiences.</h6>
               <h6 class="font-weight-light">7. <b>Events Page.</b> Share about the events you have attended.</h6>
-              <h6 class="font-weight-light mt-8">We understand that gathering all these memories, will take some time, but memories eventually fade away 
+              <h6 class="font-weight-light mt-8">We understand that gathering all these memories will take some time, but memories will eventually fade away 
                 but the shared ones will be here to stay. So, years down the lane we hope you have a smile on your face 
                 looking back at the journey. Okay, let's get started.
               </h6>
