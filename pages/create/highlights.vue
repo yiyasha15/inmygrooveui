@@ -153,7 +153,7 @@ import HighlightsCard from "@/components/HighlightsCard.vue"
 import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     components: {
       HighlightsCard
     },
@@ -164,7 +164,7 @@ export default {
             rm:"",
             imageData: "",
             highlights: {
-                h_artist: this.$auth.user.username,
+                h_artist: this.$store.state.auth.user.username,
                 h_content: "",
                 h_context: "",
                 h_date: "",
@@ -187,7 +187,7 @@ export default {
         async remove(id){
             const config = {
             headers: {"content-type": "multipart/form-data",
-                "Authorization": "Bearer " + this.$auth.user.access}
+                "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             try {
                 let response = await this.$axios.$delete("/v1/artist/highlights/"+id , config);
@@ -204,7 +204,7 @@ export default {
         refresh(){
             this.date ="";
             this.imageData = "";
-            this.highlights.h_artist = this.$auth.user.username;
+            this.highlights.h_artist = this.$store.state.auth.user.username;
             this.highlights.h_content= "";
             this.highlights.h_context= "";
             this.highlights.h_date= "";
@@ -232,7 +232,7 @@ export default {
         async submit() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access}
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.highlights) {

@@ -31,10 +31,10 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: "~/plugins/google-maps", ssr: true }
-  ],
+  // plugins: [{ src: "~/plugins/google-maps", ssr: true }
+  // ],
   plugins: [
-    '~/plugins/local-storage',
+    { src: '~/plugins/vuex-persist', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -112,14 +112,14 @@ export default {
   auth: {
     strategies: {
       local: {
-        scheme: 'refresh',
-        token:{
-          property : 'token',
-          maxAge : 1800
-        },
-        user: {
-          property: 'user',
-        },
+        // scheme: 'refresh',
+        // token:{
+        //   property : 'token',
+        //   maxAge : 1800
+        // },
+        // user: {
+        //   property: 'user',
+        // },
         endpoints: {
           login: { url: '/v1/user/token/', method: 'post', propertyName: 'user' },
           // refresh: { url: '/v1/user/token/refresh', method: 'post', propertyName: false },

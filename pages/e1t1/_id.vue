@@ -169,14 +169,14 @@ export default {
     },   
     methods:{
         async deleted(){
-            // const config = {
-            //     headers: {"content-type": "multipart/form-data",
-            //         "Authorization": "Bearer " + this.$auth.user.access
-            //     }
-            // };
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
+                }
+            };
             this.$store.dispatch("remove_share_obj")
             try {
-                let response = await this.$axios.$delete("/v1/e1t1/sharing/"+this.e1t1.id)
+                let response = await this.$axios.$delete("/v1/e1t1/sharing/"+this.e1t1.id, config)
                 console.log("e1t1 deleted.");
                 this.$router.push("/e1t1/");
             } catch (e) {

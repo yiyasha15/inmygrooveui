@@ -1,16 +1,18 @@
 <template>
   <v-app>
     <e1t1-header/>
-        <nuxt/>
+      <nuxt/>
     <the-footer />
   </v-app>
 </template>
 
 <script>
 import TheFooter from '@/components/TheFooter'
+import E1t1Header from '@/components/E1t1Header'
 export default {
   components:{
     TheFooter,
+    E1t1Header
   },
   head() {  //head function (a property of vue-meta), returns an object
     return {

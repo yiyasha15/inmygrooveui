@@ -143,7 +143,7 @@ import JudgingCard from "@/components/JudgingCard.vue"
 import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     components: {
       JudgingCard
     },
@@ -154,7 +154,7 @@ export default {
             rm:"",
             imageData: "",
             judging: {
-                jw_artist: this.$auth.user.username,
+                jw_artist: this.$store.state.auth.user.username,
                 jw_content: "",
                 jw_event: "",
                 jw_date: "",
@@ -177,7 +177,7 @@ export default {
         async remove(id){
             const config = {
             headers: {"content-type": "multipart/form-data",
-                "Authorization": "Bearer " + this.$auth.user.access}
+                "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             try {
                 let response = await this.$axios.$delete("/v1/artist/jw/"+id , config);
@@ -193,7 +193,7 @@ export default {
         refresh(){
             this.date ="";
             this.imageData = "";
-            this.judging.jw_artist = this.$auth.user.username;
+            this.judging.jw_artist = this.$store.state.auth.user.username;
             this.judging.jw_content= "";
             this.judging.jw_event= "";
             this.judging.jw_date= "";
@@ -222,7 +222,7 @@ export default {
         async submit() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access}
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.judging) {

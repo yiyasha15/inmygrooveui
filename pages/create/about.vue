@@ -8,6 +8,7 @@
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/each1teach1/`"> E1T1 </v-btn>
             </div>
             <v-divider class="mx-4" ></v-divider>
              <v-row>
@@ -162,13 +163,13 @@ import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     // middleware:['auth-admin'],
     components: {
         CountryFlag
     },
     computed: {
-        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'loggedInUser'])
     },
     mounted() {
     this.$store.dispatch("check_user_portfolio");
@@ -431,7 +432,7 @@ export default {
                 // this is artist object
             artist_data: {
                 artist_name: "",
-                username: this.$auth.user.username,
+                username: this.$store.state.auth.user.username,
                 country: "",
                 cover: "",
                 // style: "",
@@ -472,10 +473,10 @@ export default {
             }
         },
         async submit() {
-            this.username = this.$auth.user.username; //adding the username
+            this.username = this.loggedInUser.username; //adding the username
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             let formData = new FormData();
@@ -512,7 +513,7 @@ export default {
         async update() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             if(this.usersPortfolio.artist_name!=this.artist_data.artist_name) //checking if data has changed
@@ -632,7 +633,7 @@ export default {
         async deleted() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             try {

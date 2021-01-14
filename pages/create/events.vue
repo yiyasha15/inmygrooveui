@@ -144,7 +144,7 @@ import EventsCard from "@/components/EventsCard.vue"
 import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     components: {
       EventsCard
     },
@@ -155,7 +155,7 @@ export default {
             rm:"",
             imageData: "",
             events: {
-                ev_artist: this.$auth.user.username,
+                ev_artist: this.$store.state.auth.user.username,
                 ev_content: "",
                 ev_event: "",
                 ev_date: "",
@@ -178,7 +178,7 @@ export default {
         async remove(id){
             const config = {
             headers: {"content-type": "multipart/form-data",
-                "Authorization": "Bearer " + this.$auth.user.access}
+                "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             try {
                 let response = await this.$axios.$delete("/v1/artist/events/"+id , config);
@@ -195,7 +195,7 @@ export default {
         refresh(){
             this.date ="";
             this.imageData = "";
-            this.events.ev_artist = this.$auth.user.username;
+            this.events.ev_artist = this.$store.state.auth.user.username;
             this.events.ev_content= "";
             this.events.ev_event= "";
             this.events.ev_date= "";
@@ -224,7 +224,7 @@ export default {
         async submit() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access}
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             let formData = new FormData();
             for (let data in this.events) {

@@ -131,7 +131,7 @@
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     computed: {
         ...mapGetters(['usersBio', 'userHasBio'])
     },
@@ -148,7 +148,7 @@ export default {
         return {
                 // this is bio object
             bio: {
-                b_artist: this.$auth.user.username,
+                b_artist: this.$store.state.auth.user.username,
                 b_style: "",
                 b_introduction: "",
                 b_quote: "",
@@ -170,7 +170,7 @@ export default {
         async submit() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             let formData = new FormData();
@@ -192,7 +192,7 @@ export default {
         async update() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             if(this.usersBio.b_style!=this.bio.b_style) //checking if data has changed
@@ -279,7 +279,7 @@ export default {
         async deleted() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             try {

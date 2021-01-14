@@ -20,9 +20,9 @@
             {{share.s_student}}
             </p>
             <v-spacer></v-spacer>
-            <v-btn icon class="text-decoration-none" >
+            <!-- <v-btn icon class="text-decoration-none" >
               <country-flag :country= 'share.s_teacher_country' />
-            </v-btn>
+            </v-btn> -->
             </v-card-actions>
           <!-- <span>{{ event.attendees.length }} attending</span> -->
         </div>
