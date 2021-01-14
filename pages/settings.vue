@@ -46,7 +46,7 @@
 </template>
 <script>
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     data() {
       return {
         snackbar: false,
@@ -67,7 +67,7 @@ export default {
             const config = {
                 headers: {
                     "content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             try {
@@ -85,7 +85,7 @@ export default {
             const config = {
                 headers: {
                     "content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             try {
@@ -103,7 +103,7 @@ export default {
             const config = {
                 headers: {
                     "content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
             try {

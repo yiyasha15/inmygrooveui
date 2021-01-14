@@ -6,15 +6,15 @@ import EventService from '@/services/EventService.js'
 
 export const state = () => ({
   artists: [],
-  artist_names: [],
   share_obj: null,
   sharing:[],
   portfolio: null, //store portfolio data of the logged in user
   bio: null, //store bio data of the logged in user
   gallery: [], //store gallery data of the logged in user
-  highlights:[], //store Highlights data of the logged in user
+  highlights: [], //store Highlights data of the logged in user
   judging: [], //store bio data of the logged in user
   moments: [], //store bio data of the logged in user
+  // artists_names: [],
   events: [], //store bio data of the logged in user
   hasHighlights: false, //if user has highlights data
   hasPortfolio: false, //if user has portfolio data
@@ -36,9 +36,9 @@ export const getters = {
   artists(state) {
     return state.artists
   },
-  artist_names(state) {
-    return state.artist_names
-  },
+  // artists_names(state) {
+  //   return state.artists_names
+  // },
   share_obj(state){
     return state.share_obj
   },
@@ -98,15 +98,16 @@ export const getters = {
   }
 }
 export const actions = {
-
-  check_share_obj({commit}, share_obj){
+  check_share_obj({commit, state}, share_obj){
+    if(state.auth.loggedIn) {
     commit('check_share_obj', share_obj)
+    }
   },
   check_artists({commit}){
     EventService.getArtists().then(res =>
     {
       commit('get_artists',res.data)
-      commit('get_artist_names',res.data)
+      // commit('get_artists_names',res.data)
       commit('img_community',res.data.length)
     })
     },
@@ -218,7 +219,7 @@ export const actions = {
   remove_artists_sharing({commit, state})
   {
     if(state.auth.loggedIn){
-      commit('clearArtistssharing')
+      commit('clearArtistsSharing')
     }
   },
   remove_share_obj({commit, state})
@@ -245,22 +246,27 @@ export const mutations = {
     if(artists)
     {state.artists = artists}
   },
-  get_artist_names(state, artists) 
-  {
-    if(state.auth.loggedIn && artists && state.artist_names){
-    if(artists.length == state.artist_names.length)
-    {}
-    else{
-      artists.forEach(function (artist) {
-        state.artist_names.push(artist.username)
-    });
-      // state.artist_names = state.artist_names.filter(function(item) {
-      // return item !== state.auth.user.username
-    // })
-    // state.artist_names.filter(item => item !== state.auth.user.username)
-    }
-  }
-  },
+  // get_artists_names(state, artists) 
+  // {
+  //   if(state.auth.loggedIn){
+  //     console.log("artists.length: ",artists.length);
+  //     console.log("state.artists_names.length: ",state.artists_names.length);
+  //   if(artists.length == state.artists_names.length)
+  //   {
+  //     console.log("3");
+  //   }
+  //   else{
+  //     console.log("4");
+  //     artists.forEach(function (artist) {
+  //       state.artists_names.push(artist.username)
+  //   });
+  //   //   state.artists_names = state.artists_names.filter(function(item) {
+  //   //   return item !== state.auth.user.username
+  //   // })
+  //   // state.artists_names.filter(item => item !== state.auth.user.username)
+  //   }
+  // }
+  // },
   get_sharing(state, sharing) 
   {
     if(sharing)
@@ -356,11 +362,11 @@ export const mutations = {
   {
     state.img_artists = length
   },
-  clearArtistssharing(state) //if user has portfolio change state to true
+  clearArtistsSharing(state) //if user has portfolio change state to true
   {
     state.artists = null
     state.sharing = null
-    state.artist_names = null
+    // state.artists_names = null
   },
   
 }

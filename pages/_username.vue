@@ -36,7 +36,6 @@ export default {
     async asyncData({error, params}) {
       try {
         let artist_response = await EventService.getArtist(params.username)
-        console.log(artist_response.data);
         return {
             artist: artist_response.data,
         }

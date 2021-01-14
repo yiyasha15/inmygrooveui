@@ -10,7 +10,9 @@
           <div>
             <div v-if="!userHasPortfolio" class="ma-8">
               <h2 class="font-weight-light">How to get started?</h2>
-              <h6 class="font-weight-light mb-8">Yo! <b class="text-capitalize">{{this.$auth.user.username}}</b>, so glad that you're joining the <b>InMyGroove
+              <h6 class="font-weight-light mb-8">Yo! <b class="text-capitalize">
+                {{loggedInUser.username}}
+                </b>, so glad that you're joining the <b>InMyGroove
                 community</b>, we have a basic template laid out for you. Please follow these steps.
               </h6>
               <h6 class="font-weight-light">1. Fill the form according to the guidelines provided on each page. All these combined make up your portfolio. </h6>
@@ -30,7 +32,7 @@
             </div>
             <div v-else class="ma-8">
               <h1 class="font-weight-light">How to edit portfolio?</h1>
-              <h5 class="mt-4 font-weight-light">Hi {{this.$auth.user.username}}, <br>Let's edit your portfolio follow these steps.
+              <h5 class="mt-4 font-weight-light">Hi {{loggedInUser.username}}, <br>Let's edit your portfolio follow these steps.
               </h5>
               <div class="mt-6" >
                 <v-btn rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Edit</v-btn>
@@ -78,14 +80,14 @@
 import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     data () {
       return {
         dialog: false,
       }
     },
     computed: {
-        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'loggedInUser'])
     },
     mounted() {
     this.$store.dispatch("check_user_portfolio");

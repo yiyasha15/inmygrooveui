@@ -2,7 +2,7 @@
 	<v-card width="500" class="mx-auto mt-12 ">
 		<v-card-title class="justify-center align-center">
             <h3>Are you sure you want to sign out?
-				<!-- <br> {{this.$auth.user.username}}? -->
+				<!-- <br> {{this.$store.state.auth.user.username}}? -->
 				</h3>
 		</v-card-title>
 		<v-card-actions class="mb-3 justify-center">

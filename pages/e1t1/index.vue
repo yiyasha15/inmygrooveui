@@ -74,8 +74,8 @@ export default {
   },
   methods:{
     addteacher(){
-      console.log("throught this");
       this.$store.dispatch("remove_share_obj")
+      // this.$router.push('/createe1t1/')
       this.$router.push('/create/each1teach1/')
     }
   }

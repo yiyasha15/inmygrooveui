@@ -28,6 +28,7 @@ import VueEmoji from 'emoji-vue'
 import vuex from 'vuex'
 import BlogCard from '~/components/BlogCard.vue';
 export default {
+    middleware : 'check_auth',
     // layouts:'blogHeader'
     components: 
     { 

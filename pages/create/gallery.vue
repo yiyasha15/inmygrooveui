@@ -136,11 +136,11 @@ import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
-    middleware : 'auth',
+    middleware : 'check_auth',
     data(){
         return {
            artist: {
-               g_artist: this.$auth.user.username,
+               g_artist: this.$store.state.auth.user.username,
                g_upload_photo: ""
            },
            imageData: "",
@@ -188,7 +188,7 @@ export default {
         async remove(id){
             const config = {
             headers: {"content-type": "multipart/form-data",
-                "Authorization": "Bearer " + this.$auth.user.access}
+                "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
             try {
                 let response = await this.$axios.$delete("/v1/artist/gallery/"+id , config);
@@ -216,7 +216,7 @@ export default {
         // async update(id){
         //     const config = {
         //     headers: {"content-type": "multipart/form-data",
-        //         "Authorization": "Bearer " + this.$auth.user.access}
+        //         "Authorization": "Bearer " + tthis.$store.state.auth.user.access}
         //     };
         //     let formUpdate = new FormData();
         //         console.log(this.artist);
@@ -275,7 +275,7 @@ export default {
                 {
                 const config = {
                 headers: {"content-type": "multipart/form-data",
-                    "Authorization": "Bearer " + this.$auth.user.access}
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access}
                 };
                 let formData = new FormData();
                 console.log(this.artist);
@@ -302,7 +302,7 @@ export default {
                        console.log("final");
                     const config = {
                     headers: {"content-type": "multipart/form-data",
-                        "Authorization": "Bearer " + this.$auth.user.access}
+                        "Authorization": "Bearer " + this.$store.state.auth.user.access}
                     };
                 let formData = new FormData();
                 for (let data in this.artist) {

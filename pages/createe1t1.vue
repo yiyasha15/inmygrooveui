@@ -1,6 +1,6 @@
 <template>
-<v-container class="ma-24">
-    <v-row>
+    <v-container class="ma-24" >
+        <v-row>
         <v-col>
             <v-container>
                 <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/e1t1`"><v-icon>mdi-arrow-left</v-icon></v-btn>
@@ -14,180 +14,140 @@
                 </div>
             </v-container>
         </v-col>
-    </v-row>      
-    <v-row>
-        <v-col cols="12" md="6" class="pl-sm-6">
-            <h5>
+        </v-row>  
+        <v-row>
+            <v-col cols="12" md="6" class="pl-sm-6">
+                <h5>
                 Share your experience
-            </h5>
-            <v-form v-on:submit.prevent="submit">
-            <v-row>
-                <v-col cols="12" md="9">
-                    <!-- <v-select 
-                        label="Teacher name" 
-                        v-model= "sharing.s_teacher"
-                        :items="artists_names">
-                    </v-select> -->
-                <v-text-field
-                    v-model = "sharing.s_teacher"
-                    label= "Teacher name"
-                    :maxlength="50">
-                </v-text-field>
-                <v-textarea
-                    v-model = "sharing.s_appreciation"
-                    label= "Your learning">
-                </v-textarea>
-                <v-text-field
-                    v-model = "sharing.s_location"
-                    label= "Where did you meet?"
-                    :maxlength="50">
-                </v-text-field>
-                <v-select 
-                    label="Your teacher's country" 
-                    v-model= "sharing.s_teacher_country"
-                    :items="countries"
-                    item-text="name"
-                    item-value="code">
-                </v-select>
-                <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="true"
-                    :return-value.sync="date"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                        v-model= "sharing.s_date"
-                        label="Date"
-                        prepend-icon="mdi-calendar" 
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker v-model= "sharing.s_date" no-title scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                        <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
-                </v-menu>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_photo" 
-                    style="display:none" 
-                    ref="fileInput" 
-                    accept="image/*"
-                    required
-                    @change="onFileChange">
-                </div>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo" label="Upload an appreciation video"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_video_talk" 
-                    style="display:none" 
-                    ref="fileInputVideo" 
-                    accept="video/*"
-                    required
-                    @change="onFileChangeVideo">
-                </div>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo2" label="Upload a video of your learning"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_video_dance" 
-                    style="display:none" 
-                    ref="fileInputVideo2" 
-                    accept="video/*"
-                    required
-                    @change="onFileChangeVideo2">
-                </div>
-                <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
-                @click="submit">Submit</v-btn>
-                <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
-                @click="update">Update</v-btn>
-                </v-col>
-                </v-row>
-            </v-form>   
-        </v-col>
-        <v-col cols="12" md="6" class="pl-sm-6">
-            <v-row class="pb-6 justify-center text-center">
+                </h5>
+                <v-form v-on:submit.prevent="submit">
+                    <v-row>
+                        <v-col cols="12" md="9">
+                            <v-autocomplete
+                                v-model = "sharing.s_teacher"
+                                label= "Teacher Name"
+                                :items="artists_names">
+                            </v-autocomplete>
+                            <!-- <v-select 
+                                label="Teacher name" 
+                                v-model= "sharing.s_teacher"
+                                :items="artists_names">
+                            </v-select> -->
+                            <v-textarea
+                                v-model = "sharing.s_appreciation"
+                                label= "Your learning">
+                            </v-textarea>
+                            <v-text-field
+                                v-model = "sharing.s_location"
+                                label= "Where did you meet?"
+                                :maxlength="50">
+                            </v-text-field>
+                            <v-select 
+                                label="Your teacher's country" 
+                                v-model= "sharing.s_teacher_country"
+                                :items="countries"
+                                item-text="name"
+                                item-value="code">
+                            </v-select>
+                            <v-menu
+                                ref="menu"
+                                v-model="menu"
+                                :close-on-content-click="true"
+                                :return-value.sync="date"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="290px"
+                                >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                    v-model= "sharing.s_date"
+                                    label="Date"
+                                    prepend-icon="mdi-calendar" 
+                                    readonly
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker v-model= "sharing.s_date" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                                    <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                                </v-date-picker>
+                            </v-menu>
+                            <div class = "form-group">
+                                <v-text-field clearable prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
+                                <input 
+                                type="file" 
+                                name = "sharing.s_photo" 
+                                style="display:none" 
+                                ref="fileInput" 
+                                accept="image/*"
+                                required
+                                @change="onFileChange">
+                            </div>
+                            <div class = "form-group">
+                                <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo" label="Upload an appreciation video"></v-text-field>
+                                <input 
+                                type="file" 
+                                name = "sharing.s_video_talk" 
+                                style="display:none" 
+                                ref="fileInputVideo" 
+                                accept="video/*"
+                                required
+                                @change="onFileChangeVideo">
+                            </div>
+                            <div class = "form-group">
+                                <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo2" label="Upload a video of your learning"></v-text-field>
+                                <input 
+                                type="file" 
+                                name = "sharing.s_video_dance" 
+                                style="display:none" 
+                                ref="fileInputVideo2" 
+                                accept="video/*"
+                                required
+                                @change="onFileChangeVideo2">
+                            </div>
+                            <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
+                            @click="submit">Submit</v-btn>
+                            <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
+                            @click="update">Update</v-btn>
+                        </v-col>
+                    </v-row>
+                </v-form>
+            </v-col>
+            <v-col cols="12" md="6" class="pa-sm-6 mt-6 grey lighten-4 rounded-xl">
+                <v-row class="pb-6 justify-center text-center">
                 <h2> {{sharing.s_teacher}}</h2>
                 <v-spacer></v-spacer>
                 <h5>{{sharing.s_location}}</h5>
                 <!-- <v-btn icon class="text-decoration-none" >
                     <country-flag :country= sharing.s_teacher_country />
                 </v-btn> -->
-            </v-row>
-            <v-row class="pb-6 justify-center text-center">
-                <v-img :src="imageData" height="500px" width="500px"></v-img>
-            </v-row>
-            <v-row class="pb-6 justify-center text-center">
-                <h5 class="pb-6 text-center">{{sharing.s_appreciation}} {{sharing.s_date}} </h5>
-            </v-row>
-            <v-row v-if="sharing.s_video_dance" class="pb-6 justify-center text-center">
-                <h5 class="pb-6 text-center"><v-icon color="green">mdi-video</v-icon> Freestyle video.</h5>
-            </v-row>
-            <v-row v-if="sharing.s_video_talk" class="pb-6 justify-center text-center">
-                <h5 class="pb-6 text-center"><v-icon color="green">mdi-video</v-icon> Appreciation video.</h5>
-            </v-row>
-        </v-col>
-    </v-row>
-    <v-snackbar v-model="snackbar">
-        {{ text }}
-        <template v-slot:action="{ attrs }">
-            <v-btn
-            color="error"
-            icon
-            v-bind="attrs"
-            @click="snackbar = false"
-            >
-            <v-icon>mdi-close</v-icon>
-            </v-btn>
-      </template>
-    </v-snackbar>
-    <v-snackbar v-model="uploaded_snackbar">
-        {{ uploaded_text }}
-        <template v-slot:action="{ attrs }">
-            <v-btn
-            color="error"
-            icon
-            v-bind="attrs"
-            @click="uploaded_snackbar = false"
-            >
-            <v-icon>mdi-close</v-icon>
-            </v-btn>
-      </template>
-    </v-snackbar>
+                </v-row>
+                <v-row class="pb-6 justify-center text-center">
+                    <v-img :src="imageData" height="500px" width="500px"></v-img>
+                </v-row>
+                <v-row class="pb-6 justify-center text-center">
+                    <h5 class="pb-6 text-center">{{sharing.s_appreciation}} {{sharing.s_date}} </h5>
+                </v-row>
+                <v-row v-if="sharing.s_video_dance" class="pb-6 justify-center text-center">
+                    <h5 class="pb-6 text-center"><v-icon color="green">mdi-video</v-icon> Freestyle video.</h5>
+                </v-row>
+                <v-row v-if="sharing.s_video_talk" class="pb-6 justify-center text-center">
+                    <h5 class="pb-6 text-center"><v-icon color="green">mdi-video</v-icon> Appreciation video.</h5>
+                </v-row>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 <script>
 import CountryFlag from 'vue-country-flag'
 import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
-import vuex from 'vuex'
 export default {
     middleware : 'check_auth',
     components: {
-        CountryFlag
-    },
-    mounted() {
-    this.$store.dispatch("check_artists");
-    },
-    created (){
-        if(this.$store.state.share_obj)
-        {
-            this.sharing = Object.assign({}, this.$store.getters.share_obj);
-            this.imageData = this.sharing.s_photo;
-        }
-    },
-    computed: {
-        ...mapGetters([ 'share_obj'])
+      CountryFlag
     },
     data(){
         return {
@@ -435,7 +395,24 @@ export default {
                     {"name": "Yemen", "code": "YE"},
                     {"name": "Zambia", "code": "ZM"},
                     {"name": "Zimbabwe", "code": "ZW"}
-                    ],
+            ],
+            imageData: "",
+            videoData: "",
+            videoData2: "",
+            date: "",
+            menu: false,
+            snackbar: false,
+            uploaded_snackbar: false,
+            text: `Max. video upload size is 5K KB! :)`,
+            uploaded_text: `Video uploaded! :)`,
+            events: {
+                ev_artist: this.$store.state.auth.user.username,
+                ev_content: "",
+                ev_event: "",
+                ev_date: "",
+                ev_photo: "",
+                ev_link: ""
+            },
             sharing: {
                     s_teacher_name: "",
                     // s_teacher_country: "",
@@ -448,15 +425,19 @@ export default {
                     s_student: this.$store.state.auth.user.username,
                     s_teacher: ""
                 },
-            imageData: "",
-            videoData: "",
-            videoData2: "",
-            date: "",
-            menu: false,
-            snackbar: false,
-            uploaded_snackbar: false,
-            text: `Max. video upload size is 5K KB! :)`,
-            uploaded_text: `Video uploaded! :)`,
+        }
+    },
+    computed: {
+        ...mapGetters(['artists_names', 'share_obj'])
+    },
+    mounted() {
+    this.$store.dispatch("check_artists");
+    },
+    created (){
+        if(this.$store.state.share_obj)
+        {
+            this.sharing = Object.assign({}, this.$store.getters.share_obj);
+            this.imageData = this.sharing.s_photo;
         }
     },
     methods: {
@@ -656,5 +637,6 @@ export default {
         }, 
                
     },
-    }
+
+}
 </script>
