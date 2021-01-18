@@ -185,8 +185,7 @@ export default {
         ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'loggedInUser'])
     },
     mounted() {
-    this.$store.dispatch("check_user_portfolio");
-    // this.$store.dispatch("check_user_gallery");
+    // this.$store.dispatch("check_user_portfolio");
     },
     created(){
         if(this.$store.state.hasPortfolio)

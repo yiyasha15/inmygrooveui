@@ -32,8 +32,10 @@
             </div>
             <div v-else class="ma-8">
               <h1 class="font-weight-light">How to edit portfolio?</h1>
-              <h5 class="mt-4 font-weight-light">Hi {{loggedInUser.username}}, <br>Let's edit your portfolio follow these steps.
+              <h5 class="mt-4 font-weight-light">Hi {{loggedInUser.username}}, <br>To edit your portfolio follow these steps.
               </h5>
+              <h6 class="font-weight-light">1. You can edit the form and preview the information.</h6>
+              <h6 class="font-weight-light">1. You can update it once you're done.</h6>
               <div class="mt-6" >
                 <v-btn rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Edit</v-btn>
               </div>
@@ -90,7 +92,7 @@ export default {
         ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'loggedInUser'])
     },
     mounted() {
-    this.$store.dispatch("check_user_portfolio");
+    // this.$store.dispatch("check_user_portfolio");
   },
 }
 </script>

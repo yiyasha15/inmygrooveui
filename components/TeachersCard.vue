@@ -15,17 +15,25 @@
             <div v-else>
                 <v-img :src = "artist.artist_image" width="220px" height="160px"></v-img>
             </div>
-            <v-card-actions>
-              <v-row class="text-decoration-none mt-2 pl-2">
+            <v-card-title>
+              <v-row class="text-decoration-none">
               {{e1t1.s_teacher}} -> {{e1t1.s_student}}
-              </v-row>
-              <v-row>
-                
               <v-spacer></v-spacer>
                 <!-- <v-btn icon class="text-decoration-none" >
                   <country-flag :country= 'e1t1.s_teacher_country' />
                 </v-btn> -->
               </v-row>
+            </v-card-title>
+            <v-card-text>
+              <v-row>
+                <div v-if = "e1t1.likes_sharing.length">
+                    <!-- <v-icon>mdi-creation</v-icon>  -->
+                    {{e1t1.likes_sharing.length}} reactions
+                </div>
+              </v-row>
+            </v-card-text>
+            
+            <v-card-actions>
               </v-card-actions>
           </div>
       </v-container>

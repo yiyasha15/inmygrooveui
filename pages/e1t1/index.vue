@@ -15,9 +15,9 @@
           v-model="search">
         </v-text-field>
       </v-col>
-      </v-row>
-        <v-btn text color="indigo" class="mt-2 mb-6 text-decoration-none justify-end" dark @click="addteacher">
-        <v-icon class="px-2">mdi-account-multiple-plus-outline</v-icon>Share my experience</v-btn>
+    </v-row>
+      <v-btn text color="indigo" class="mt-2 mb-6 text-decoration-none justify-end" dark @click="addteacher">
+      <v-icon class="px-2">mdi-account-multiple-plus-outline</v-icon>Share my experience</v-btn>
     <v-layout row wrap justify-center >
       <div v-for="teacher in filteredteachers" :key ="teacher.index">
         <v-flex sm6 xs6> 
@@ -27,7 +27,6 @@
     </v-layout>
   </v-container>
 </template>
-
 <script>
 import TeachersCard from '@/components/TeachersCard.vue'
 import EventService from '@/services/EventService.js'

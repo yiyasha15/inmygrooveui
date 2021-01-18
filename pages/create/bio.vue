@@ -56,18 +56,15 @@
                             </v-text-field>
                             <v-text-field
                                 v-model= "bio.b_ig"
-                                label="Instagram URL"
-                                :maxlength="120">
+                                label="Instagram URL">
                             </v-text-field>
                             <v-text-field
                                 v-model= "bio.b_fb"
-                                label="Facebook URL"
-                                :maxlength="120">
+                                label="Facebook URL">
                             </v-text-field>
                             <v-text-field
                                 v-model= "bio.b_personal"
-                                label="Personal Website URL"
-                                :maxlength="120">
+                                label="Personal Website URL">
                             </v-text-field>
                             <v-btn v-if="!userHasBio" outlined class="text-decoration-none" rounded color="indigo" dark
                                 @click="submit">submit</v-btn>
@@ -136,13 +133,13 @@ export default {
         ...mapGetters(['usersBio', 'userHasBio'])
     },
     mounted() {
-    if(this.$store.state.hasBio)
+        this.$store.dispatch("check_user_bio");
+    },
+    created(){
+        if(this.$store.state.hasBio)
         {
             this.bio = Object.assign({}, this.$store.getters.usersBio);
         }
-    },
-    created(){
-        this.$store.dispatch("check_user_bio");
     },
     data(){
         return {

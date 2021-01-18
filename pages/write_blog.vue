@@ -14,7 +14,7 @@
                     </div>
                 </v-col>
                 <v-col cols="6">
-                    <blog-card></blog-card>
+                    
                 </v-col>
             </v-row>
         </v-container>
