@@ -5,33 +5,30 @@ import createPersistedState from 'vuex-persistedstate'
 import EventService from '@/services/EventService.js'
 
 export const state = () => ({
-  artists: [],
-  share_obj: null,
-  sharing:[],
+  artists: [], //array of artists in img community
+  share_obj: null, //object to edit e1t1 data
+  sharing:[], //e1t1 onject
   portfolio: null, //store portfolio data of the logged in user
   bio: null, //store bio data of the logged in user
   gallery: [], //store gallery data of the logged in user
   highlights: [], //store Highlights data of the logged in user
   judging: [], //store bio data of the logged in user
   moments: [], //store bio data of the logged in user
-  // list_of_artists: [],
   events: [], //store bio data of the logged in user
   list_of_artists: [],
   hasHighlights: false, //if user has highlights data
   hasPortfolio: false, //if user has portfolio data
-  hasBio: false,
+  hasBio: false, //if user has bio data
   hasGallery: false, //if user has gallery data
-  hasJudging: false,
-  hasMoments: false,
-  hasEvents: false,
-  img_artists: '',
-  // plugins: [createPersistedState()],
-  // plugins: [
-  //   createPersistedState({
-  //     getState: (key) => Cookies.getJSON(key),
-  //     setState: (key, state) => Cookies.set(key, state, { expires: 3, secure: true })
-  //   })
-  // ]
+  hasJudging: false, //if user has judging data
+  hasMoments: false, //if user has moments data
+  hasEvents: false, //if user has events data
+  img_artists: '', //no. of artist in img community
+  comments_list: [],
+  love: '',
+  dope: '',
+  info:''
+
 })
 export const getters = {
   artists(state) {
@@ -96,9 +93,33 @@ export const getters = {
   },
   img_artists(state){
     return state.img_artists
+  },
+  comments_list(state){
+    return state.comments_list
+  },
+  love(state){
+    return state.love
+  },
+  dope(state){
+    return state.dope
+  },
+  info(state){
+    return state.info
   }
 }
 export const actions = {
+  check_likes({commit}, id){
+    EventService.getLikes(id).then(res =>
+      {
+        commit('check_likes',res.data)
+      })
+  },
+  check_comments({commit}, id){
+    EventService.getComments(id).then(res =>
+      {
+        commit('check_comments',res.data)
+      })
+  },
   check_share_obj({commit, state}, share_obj){
     if(state.auth.loggedIn) {
     commit('check_share_obj', share_obj)
@@ -232,6 +253,18 @@ export const actions = {
 }
     // Define Mutations
 export const mutations = {
+  check_likes(state, likes){
+    if(likes){
+      state.love = likes.filter(likes => likes.l_type == "LO");
+      state.dope = likes.filter(likes => likes.l_type == "DO");
+      state.info = likes.filter(likes => likes.l_type == "IF");
+    }
+  },
+  check_comments(state, comments_list){
+    if(comments_list){
+      state.comments_list = comments_list
+    }
+  },
   check_share_obj(state, share_obj){
     if(share_obj){
       state.share_obj = null

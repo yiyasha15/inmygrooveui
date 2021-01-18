@@ -118,6 +118,7 @@
                     ref="fileInputVideo" 
                     accept="video/*"
                     required
+                    @click:clear="rem()"
                     @change="onFileChangeVideo">
                 </div>
                 <div class = "form-group">
@@ -144,9 +145,9 @@
                 <h2> {{sharing.s_teacher}}</h2>
                 <v-spacer></v-spacer>
                 <h5>{{sharing.s_location}}</h5>
-                <!-- <v-btn icon class="text-decoration-none" >
+                <v-btn icon class="text-decoration-none" >
                     <country-flag :country= sharing.s_teacher_country />
-                </v-btn> -->
+                </v-btn>
             </v-row>
             <v-row class="pb-6 justify-center text-center">
                 <v-img :src="imageData" height="500px" width="500px"></v-img>
@@ -475,7 +476,7 @@ export default {
                     ],
             sharing: {
                     s_teacher_name: "",
-                    // s_teacher_country: "",
+                    s_teacher_country: "",
                     s_photo: "",
                     s_appreciation: "",
                     s_video_talk: "",
@@ -483,9 +484,7 @@ export default {
                     s_date: "",
                     s_location: "",
                     s_student: this.$store.state.auth.user.username,
-                    s_teacher: "",
-                    likes_count: 1,
-                    comment: []
+                    s_teacher: ""
                 },
             imageData: "",
             videoData: "",
@@ -562,6 +561,9 @@ export default {
                     console.log("Upload size is 5K KB.");
                 }
             }
+        },
+        async rem(){
+            this.sharing.s_video_dance = ''
         },
         async submit() {
             if(this.sharing.s_teacher != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")

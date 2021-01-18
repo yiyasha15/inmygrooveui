@@ -8,15 +8,14 @@
         <v-spacer></v-spacer>
         <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/myhood" >My hood</v-btn> -->
         <!-- {{userHasPortfolio}} -->
-        <div v-if="isAuthenticated">
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
-            <!-- <v-btn icon color="indigo" class="mr-2 text-decoration-none" to="/notifications" @click="check">
+            <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
             <v-badge
             color="green"
             content="6"
             ><v-icon>mdi-bell</v-icon></v-badge>
-            </v-btn> -->
-            <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
+            </v-btn>
+            <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
                     v-on="on">
@@ -92,8 +91,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-        </div>
-        <div v-else>
+        <div v-if="!isAuthenticated">
             <v-btn rounded color="yellow" class="mr-2 text-decoration-none" to="/login">Log in</v-btn>
             <v-btn rounded color="indigo" dark class="mr-2 text-decoration-none" to="/register">Register</v-btn>
         </div>

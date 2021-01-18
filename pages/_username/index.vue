@@ -4,8 +4,8 @@
             <v-img :src = "artist.cover" width="100%" class="centerImage" maxHeight="600px">
             </v-img>
         </center>
-    <br> 
-    <v-row align="center"  no-gutters>
+    <br>
+    <v-row v-if="bio" align="center"  no-gutters>
         <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" cols="12" md="6" lg="6" xl="6">
                 <h3  class="mb-5 font-weight-light font-italic">
                     <br> 

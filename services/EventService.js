@@ -51,5 +51,11 @@ export default {
     },
     getEach1Teach1(id) {
         return apiClient1.get('/e1t1/sharing/' + id)
+    },
+    getLikes(id){
+        return apiClient1.get('/e1t1/likes/?search=' + id)
+    },
+    getComments(id){
+        return apiClient1.get('/e1t1/comments/?search=' + id)
     }
 }
