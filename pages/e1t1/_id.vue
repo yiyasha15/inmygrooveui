@@ -3,7 +3,7 @@
     <v-container class="ma-24">
         <!-- <h3 class="font-weight-light mt-6 mb-2">Each 1 Teach 1</h3> -->
         <v-container class="rounded-lg grey lighten-5 my-4">
-            <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/e1t1`">
+            <v-btn icon class="elevation-0 white text-decoration-none" @click="goback()">
             <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
             <v-row class="pa-4">
@@ -28,14 +28,14 @@
                         </v-tooltip>
                         <v-dialog v-if="loggedInUser" v-model="dialog" width="500">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-tooltip top>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon >
-                            <v-icon color="error" @click="dialog = true" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Delete</span>
-                        </v-tooltip>
+                            <v-tooltip top v-bind="attrs" v-on="on">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn icon >
+                                <v-icon color="error" @click="dialog = true" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Delete</span>
+                            </v-tooltip>
                         </template>
                         <v-card class="pa-4">
                             Are you sure you want to delete this experience?
@@ -264,6 +264,9 @@ export default {
         }
     },   
     methods:{
+        goback(){
+            window.history.back();
+        },
         async deleted(){
             const config = {
                 headers: {"content-type": "multipart/form-data",
