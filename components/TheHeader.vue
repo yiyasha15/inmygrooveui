@@ -10,10 +10,9 @@
         <!-- {{userHasPortfolio}} -->
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
             <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
-            <v-badge
-            color="green"
-            content="6"
-            ><v-icon>mdi-bell</v-icon></v-badge>
+            <!-- <v-badge color="green" content="0"> -->
+            <v-icon>mdi-bell</v-icon>
+            <!-- </v-badge> -->
             </v-btn>
             <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
