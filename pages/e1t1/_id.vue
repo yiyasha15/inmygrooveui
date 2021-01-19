@@ -55,7 +55,7 @@
                     <v-row class="rounded-lg grey lighten-2 d-inline-flex mb-2">
                         <v-col class="ma-0">
                             <nuxt-link :to="'/'+ e1t1.s_teacher">
-                            <h3 class="font-weight-light text-capitalize">{{e1t1.s_teacher}}</h3>
+                            <h3 class=" text-capitalize">{{e1t1.s_teacher}}</h3>
                             </nuxt-link>
                         </v-col>
                         <!-- <v-col class="mt-2">
@@ -132,13 +132,14 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-row v-if="comments_list.length" class="mt-4 pa-4">
+            <v-row v-if="comments_list.length" class="mx-2 px-4">
                 <h5 class="font-weight-light">Comments {{comments_list.length}}
                 </h5>
             </v-row>
             <v-row v-if="comments_list.length">
+                <comment :comments = "comments_list"></comment>
                 <!-- <div v-for = "comments in comments" :key = "comments.index" > -->
-                    <comments-card :comments = "comments_list"></comments-card>
+                    <!-- <comments-card :comments = "comments_list"></comments-card> -->
                 <!-- </div> -->
             </v-row>
             <v-row v-if="isAuthenticated" class="mt-8 ml-md-8 ml-2">
@@ -148,12 +149,12 @@
                     alt="img"
                 >
                 </v-avatar>
-                <v-textarea class="mx-4"
+                <v-text-field class="mx-4"
                     v-model= "comments.c_comment"
                     outlined
                     max-width= "400"
                     label="Share your thoughts">
-                </v-textarea>
+                </v-text-field>
                 <v-btn class="text-decoration-none mr-2 ml-12 ml-sm-2" 
                     @click="post_comment"
                     rounded color="indigo" dark >Post
@@ -209,6 +210,7 @@ import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
 import vuex from 'vuex'
 import CommentsCard from '~/components/CommentsCard.vue'
+import Comment from '~/components/Comment.vue'
 export default {
     head() {
         return {
@@ -224,7 +226,8 @@ export default {
     },
     components:{
         CountryFlag,
-        CommentsCard
+        CommentsCard,
+        Comment
     },
     data(){
         return {

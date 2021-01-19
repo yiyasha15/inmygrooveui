@@ -1,6 +1,6 @@
 <template>
-  <v-container class="ma-2">
-    <v-list two-line outlined>
+  <v-container class="ma-2 pa-4">
+    <v-list rounded outlined>
           <template v-for="(comments, index) in comments">
             <v-list-item :key="comments.c_commenter">
               <div v-for="artist in artists" :key ="artist.index">
@@ -8,7 +8,7 @@
                 <img :src = "artist.thumb" alt="img">
               </v-list-item-avatar>
               </div>
-              <v-list-item-content>
+              <v-list-item-content outlined>
                 <nuxt-link :to="'/'+ comments.c_commenter">
                 <v-list-item-title>{{comments.c_commenter}}</v-list-item-title>
                 </nuxt-link>
