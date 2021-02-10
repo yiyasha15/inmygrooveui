@@ -122,6 +122,9 @@
                     <div class="d-flex flex-wrap" >
                         <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
                             <HighlightsCard :highlights = "highlights"></HighlightsCard>
+                            <v-btn icon>
+                                <v-icon color="indigo" @click="upd(highlights.id)">mdi-circle-edit-outline</v-icon>
+                            </v-btn>
                             <v-dialog v-if="userHasHighlights" v-model="dialog" width="500">
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn icon>
@@ -208,6 +211,9 @@ export default {
         func(id){
             this.dialog=true;
             this.rm=id;
+        },
+        upd(id){
+            this.rm=id
         },
         async remove(id){
             const config = {

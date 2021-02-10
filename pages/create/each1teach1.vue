@@ -23,7 +23,7 @@
             <v-form v-on:submit.prevent="submit">
             <v-row>
                 <v-col cols="12" md="9">
-                    <v-select
+                    <v-combobox
                         v-model="sharing.s_teacher"
                         :items="artists"
                         color="blue-grey lighten-2"
@@ -36,10 +36,15 @@
                             v-bind="data.attrs"
                             :input-value="data.selected"
                             >
-                            <v-avatar left>
+                            <v-avatar v-if="data.item.thumb" left>
                                 <v-img :src="data.item.thumb"></v-img>
                             </v-avatar>
+                            <template v-if="data.item.artist_name" >
                             {{ data.item.artist_name }}
+                            </template>
+                            <template v-else >
+                            {{ data.item }}
+                            </template>
                             </v-chip>
                         </template>
                         <template v-slot:item="data">
@@ -56,7 +61,7 @@
                             </v-list-item-content>
                             </template>
                         </template>
-                    </v-select>
+                    </v-combobox>
                 <v-textarea
                     v-model = "sharing.s_appreciation"
                     label= "Your learning">
@@ -142,7 +147,12 @@
         </v-col>
         <v-col cols="12" md="6" class="px-sm-6 mt-6 grey lighten-4 rounded-xl">
             <v-row class="pb-6 pa-4 justify-center text-center">
-                <h2> {{sharing.s_teacher}}</h2>
+                <template v-if="typeof sharing.s_teacher== 'object'">
+                <h2> {{sharing.s_teacher.username}}</h2>
+                </template>
+                <template v-else>
+                    <h2> {{sharing.s_teacher}}</h2>
+                </template>
                 <v-spacer></v-spacer>
                 <h5>{{sharing.s_location}}</h5>
                 <v-btn icon class="text-decoration-none" >
@@ -566,6 +576,11 @@ export default {
             this.sharing.s_video_dance = ''
         },
         async submit() {
+            let t_name = typeof this.sharing.s_teacher;
+            if(t_name == 'object')
+            {
+                this.sharing.s_teacher = this.sharing.s_teacher.username
+            }
             if(this.sharing.s_teacher != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
             {
                 this.sharing.s_teacher_name = this.sharing.s_teacher;
@@ -589,6 +604,11 @@ export default {
             }
         },
         async update() {
+            let t_name = typeof this.sharing.s_teacher;
+            if(t_name == 'object')
+            {
+                this.sharing.s_teacher = this.sharing.s_teacher.username
+            }
             this.sharing.s_teacher_name = this.sharing.s_teacher;
             const config = {
                 headers: {"content-type": "multipart/form-data",
