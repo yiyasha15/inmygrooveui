@@ -42,7 +42,8 @@
                 <v-card :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }" to = '/create'>
                 <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="140">
-                <p class="font-weight-light text-center py-2"> Create a portfolio</p>
+                <p v-if="!userHasPortfolio" class="font-weight-light text-center py-2"> Create a portfolio</p>
+                <p v-else class="font-weight-light text-center py-2"> Edit your portfolio</p>
                 </v-card>
             </v-hover>
         </v-col>

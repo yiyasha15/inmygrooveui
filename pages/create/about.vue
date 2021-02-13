@@ -22,7 +22,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs" v-on="on" color="primary"><v-icon>mdi-information-outline</v-icon></v-btn>
                         </template>
-                        <span>We already have prepared an intuitive template for your webite. <br>
+                        <span>We already have prepared an intuitive template for your website. <br>
                             You can preview it while uploading the information. <br>
                             Time to upload contents, let's go.</span>
                         </v-tooltip>
@@ -527,7 +527,8 @@ export default {
                 {
                     console.log("name has changed");
                     formName.append(data, this.artist_data[data]);
-                }}
+                }
+            }
             await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formName, config)
             }
             if(this.usersPortfolio.cover!=this.artist_data.cover) //checking if data has changed
