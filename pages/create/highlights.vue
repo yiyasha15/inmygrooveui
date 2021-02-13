@@ -91,9 +91,10 @@
                                         label= "Link"
                                         :maxlength="50">
                                     </v-text-field>
-                                    <v-btn class="text-decoration-none" rounded color="indigo" dark outlined
-                                 @click="submit">submit</v-btn>
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                    <v-btn v-if="editing_obj == null" class="text-decoration-none" rounded color="indigo" dark outlined
+                                    @click="submit">Submit</v-btn>
+                                    <v-btn v-else class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
+                                    @click="update">Update</v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -119,31 +120,30 @@
             </v-row>
             <v-row v-if="userHasHighlights">
                 <v-col>
-                    <div class="d-flex flex-wrap" >
+                    <div class="d-inline-flex" >
                         <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
                             <HighlightsCard :highlights = "highlights"></HighlightsCard>
                             <v-btn icon>
-                                <v-icon color="indigo" @click="upd(highlights.id)">mdi-circle-edit-outline</v-icon>
+                                <v-icon color="indigo" @click="edit(highlights)">mdi-circle-edit-outline</v-icon>
                             </v-btn>
                             <v-dialog v-if="userHasHighlights" v-model="dialog" width="500">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-btn icon>
-                                            <v-icon color="error" @click="func(highlights.id)" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <v-card class="pa-4">
-                                        Are you sure you want to delete this highlight?
-                                        <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn class="px-4 text-decoration-none" rounded color="error" dark
-                                            @click="remove(rm)">Delete</v-btn>
-                                        <v-btn color="indigo" class="px-4 text-decoration-none" rounded outlined  @click="dialog = false">
-                                            Cancel
-                                        </v-btn>
-                                        </v-card-actions>
-                                    </v-card>
-                                    </v-dialog>
-                            <!-- <v-btn class="error" @click="remove(highlights.id)">Remove</v-btn> -->
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn icon>
+                                        <v-icon color="error" @click="func(highlights.id)" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-card class="pa-4">
+                                    Are you sure you want to delete this highlight?
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn class="px-4 text-decoration-none" rounded color="error" dark
+                                        @click="remove(rm)">Delete</v-btn>
+                                    <v-btn color="indigo" class="px-4 text-decoration-none" rounded outlined  @click="dialog = false">
+                                        Cancel
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </v-dialog>
                         </div>
                     </div>
                 </v-col>
@@ -176,7 +176,6 @@
 </template>
 <script>
 import HighlightsCard from "@/components/HighlightsCard.vue"
-import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
     middleware : 'check_auth',
@@ -202,7 +201,7 @@ export default {
         }
     },
     computed: {
-    ...mapGetters(['usersHighlights', 'userHasHighlights'])
+    ...mapGetters(['usersHighlights', 'userHasHighlights', 'editing_obj'])
     },
     mounted() {
     this.$store.dispatch("check_user_highlights");
@@ -212,8 +211,10 @@ export default {
             this.dialog=true;
             this.rm=id;
         },
-        upd(id){
-            this.rm=id
+        edit(highlights){
+            this.highlights = Object.assign({}, highlights);
+            this.imageData = this.highlights.h_photo;
+            this.$store.dispatch("check_editing_obj", highlights);
         },
         async remove(id){
             const config = {
@@ -286,7 +287,73 @@ export default {
         else{
             this.valid_snackbar =true;
         }
-        }        
+        } ,
+        async update() {
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
+                }
+            };
+            if(this.editing_obj.h_content!=this.highlights.h_content) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.highlights) {
+                    if(data == 'id' || data == 'h_content' )
+                    {
+                        console.log("content has changed");
+                        formName.append(data, this.highlights[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.h_context!=this.highlights.h_context) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.highlights) {
+                    if(data == 'id' || data == 'h_context' )
+                    {
+                        console.log("context has changed");
+                        formName.append(data, this.highlights[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.h_date!=this.highlights.h_date) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.highlights) {
+                    if(data == 'id' || data == 'h_date' )
+                    {
+                        console.log("date has changed");
+                        formName.append(data, this.highlights[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.h_photo!=this.highlights.h_photo) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.highlights) {
+                    if(data == 'id' || data == 'h_photo' )
+                    {
+                        console.log("photo has changed");
+                        formName.append(data, this.highlights[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.h_link!=this.highlights.h_link) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.highlights) {
+                    if(data == 'id' || data == 'h_link' )
+                    {
+                        console.log("link has changed");
+                        formName.append(data, this.highlights[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
+            }
+            this.$store.dispatch("check_user_highlights");
+            this.refresh();
+            this.snackbar = true;
+            this.$store.dispatch("remove_editing_obj");
+        },       
     }
 }
 </script>

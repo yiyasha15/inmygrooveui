@@ -7,6 +7,7 @@ import EventService from '@/services/EventService.js'
 export const state = () => ({
   artists: [], //array of artists in img community
   share_obj: null, //object to edit e1t1 data
+  editing_obj: null, //object to edit data
   sharing:[], //e1t1 onject
   portfolio: null, //store portfolio data of the logged in user
   bio: null, //store bio data of the logged in user
@@ -39,6 +40,9 @@ export const getters = {
   },
   share_obj(state){
     return state.share_obj
+  },
+  editing_obj(state){
+    return state.editing_obj
   },
   sharing(state) {
     return state.sharing
@@ -123,6 +127,11 @@ export const actions = {
   check_share_obj({commit, state}, share_obj){
     if(state.auth.loggedIn) {
     commit('check_share_obj', share_obj)
+    }
+  },
+  check_editing_obj({commit, state}, editing_obj){
+    if(state.auth.loggedIn) {
+    commit('check_editing_obj', editing_obj)
     }
   },
   check_artists({commit}){
@@ -249,7 +258,14 @@ export const actions = {
     if(state.auth.loggedIn && state.share_obj){
       commit('clear_share_obj',state.share_obj)
     }
-  }
+  },
+  remove_editing_obj({commit, state})
+  {
+    if(state.auth.loggedIn && state.editing_obj){
+      commit('clear_editing_obj',state.editing_obj)
+    }
+  },
+  
 }
     // Define Mutations
 export const mutations = {
@@ -274,6 +290,16 @@ export const mutations = {
   clear_share_obj(state, share_obj){
     if(share_obj){
       state.share_obj = null}
+  },
+  check_editing_obj(state, editing_obj){
+    if(editing_obj){
+      state.editing_obj = null
+      state.editing_obj = editing_obj
+    }
+  },
+  clear_editing_obj(state, editing_obj){
+    if(editing_obj){
+      state.editing_obj = null}
   },
   get_artists(state, artists) 
   {
@@ -404,21 +430,3 @@ export const mutations = {
   },
   
 }
-    // authUserOnReload (state, user_id) {
-    //   state.auth.user.access = user_id
-        // perform login here and store user
-    // This one runs on the beginning of reload/refresh
-    // nuxtServerInit ({ commit }, { req }) {
-    //     if (req.headers.cookie) {
-    //           const parsed = cookie.parse(req.headers.cookie)
-    //           try {
-    //               // get user id that you would set on auth as Cookie
-    //               user_id = parsed.uid
-    //           } catch (err) {
-    //               // error here...
-    //           }
-    //     }
-
-    //     // perform login and store info on vuex store
-    //     commit('authUserOnReload', user_id)
-    // },

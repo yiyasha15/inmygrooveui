@@ -7,12 +7,16 @@
   <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" :to="'/e1t1/' + share.id"  min-width="180" max-height="260"> <!-- dark -->
     <v-container align="center">
         <div>
-          <div v-if = "share.s_photo">
+          <!-- <div v-if = "share.s_photo">
               <v-img :src = "share.s_photo" width="180px" height="180px"/>
           </div>
-          <div v-else>
-              <v-img :src = "artist.artist_image" width="180px" height="180px"/>
-          </div>
+          <div v-else> -->
+            <div v-for = "artist in artists" :key = "artist.index">
+                <div v-if="share.s_student === artist.username">
+                   <v-img :src = "artist.thumb" width="180px" height="180px"/>
+                </div>
+            </div>
+          <!-- </div> -->
           <!-- v-img covers larger area than only img tag -->
           <!-- <v-card-title color = "black" x-small>{{event.title}}</v-card-title> -->
           <v-card-actions>
@@ -24,9 +28,7 @@
               <country-flag :country= 'share.s_teacher_country' />
             </v-btn> -->
             </v-card-actions>
-          <!-- <span>{{ event.attendees.length }} attending</span> -->
         </div>
-      <!-- </nuxt-link> -->
     </v-container>
   </v-card>
   </template>
@@ -35,6 +37,7 @@
 
 <script>
 import CountryFlag from 'vue-country-flag'
+import { mapGetters } from 'vuex'
     export default {
       name: 'StudentsCard',
       props: {
@@ -43,7 +46,10 @@ import CountryFlag from 'vue-country-flag'
       },
       components:{
          CountryFlag
-         }
+      },
+      computed: {
+        ...mapGetters(['artists', 'userHasPortfolio'])
+      },
       
       
     }

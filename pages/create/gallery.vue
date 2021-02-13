@@ -223,34 +223,26 @@ export default {
         {
             this.$refs.fileInput.click()
         },
-        async updates(id){
-            console.log(id);
-        },
-        // async update(id){
-        //     const config = {
-        //     headers: {"content-type": "multipart/form-data",
-        //         "Authorization": "Bearer " + tthis.$store.state.auth.user.access}
-        //     };
-        //     let formUpdate = new FormData();
-        //         console.log(this.artist);
-        //         for (let data in this.artist) {
-        //             if(data == 'id' || data == 'g_upload_photo' )
-        //             {
-        //                 console.log(this.artist);
-        //             formUpdate.append(data, this.artist[data]);
-        //             }
-        //         }
-        //     try {
-        //         let response = await this.$axios.$patch("/v1/artist/gallery/"+id , formUpdate, config);
-        //         this.$store.dispatch("remove_gallery");
-        //         this.$store.dispatch("check_user_gallery");
-        //         // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
-        //         this.$router.push("/create/gallery");
-        //     } 
-        //     catch (e) {
-        //         console.log(e);
-        //     }
+        // async updates(id){
+        //     console.log(id);
         // },
+        async updates(id){
+            const config = {
+            headers: {"content-type": "multipart/form-data",
+                "Authorization": "Bearer " + this.$store.state.auth.user.access}
+            };
+            let formUpdate = new FormData();
+                for (let data in this.artist) {
+                    // if(data == 'g_artist' || data == 'g_upload_photo' )
+                    // {
+                        console.log(data);
+                    formUpdate.append(data, this.artist[data]);
+                    // }
+                }
+                await this.$axios.$patch("/v1/artist/gallery/"+id , formUpdate, config);
+                this.$store.dispatch("remove_gallery");
+                this.$store.dispatch("check_user_gallery");
+        },
         onFileChange(e) {
             let files = e.target.files;
             if (files) {

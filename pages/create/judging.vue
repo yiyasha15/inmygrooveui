@@ -82,9 +82,10 @@
                                     label= "Link"
                                     :maxlength="50">
                                 </v-text-field>
-                                    <v-btn class="text-decoration-none" rounded color="indigo" dark outlined
-                                 @click="submit">Submit</v-btn>
-                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                                <v-btn v-if="editing_obj == null" class="text-decoration-none" rounded color="indigo" dark outlined
+                                    @click="submit">Submit</v-btn>
+                                 <v-btn v-else class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
+                                    @click="update">Update</v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -110,9 +111,12 @@
             </v-row>
             <v-row v-if="userHasJudging">
                 <v-col>
-                    <div class="d-flex flex-wrap" >
+                    <div class="d-inline-flex"  >
                         <div v-for = "judging in usersJudging" :key = "judging.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
                             <JudgingCard :judging = "judging"></JudgingCard>
+                            <v-btn icon>
+                                <v-icon color="indigo" @click="edit(judging)">mdi-circle-edit-outline</v-icon>
+                            </v-btn>
                             <v-dialog v-if="userHasJudging" v-model="dialog" width="500">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn icon>
@@ -163,7 +167,6 @@
 </template>
 <script>
 import JudgingCard from "@/components/JudgingCard.vue"
-import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 export default {
     middleware : 'check_auth',
@@ -189,7 +192,7 @@ export default {
         }
     },
     computed: {
-    ...mapGetters(['usersJudging', 'userHasJudging'])
+    ...mapGetters(['usersJudging', 'userHasJudging' , 'editing_obj'])
     },
     mounted() {
     this.$store.dispatch("check_user_judging");
@@ -198,6 +201,11 @@ export default {
         func(id){
             this.dialog=true;
             this.rm=id;
+        },
+        edit(judging){
+            this.judging = Object.assign({}, judging);
+            this.imageData = this.judging.jw_photo;
+            this.$store.dispatch("check_editing_obj", judging);
         },
         async remove(id){
             const config = {
@@ -269,7 +277,73 @@ export default {
         else{
             this.valid_snackbar = true;
         }
-        }       
+        },
+        async update() {
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
+                }
+            };
+            if(this.editing_obj.jw_content!=this.judging.jw_content) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.judging) {
+                    if(data == 'id' || data == 'jw_content' )
+                    {
+                        console.log("content has changed");
+                        formName.append(data, this.judging[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/jw/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.jw_event!=this.judging.jw_event) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.judging) {
+                    if(data == 'id' || data == 'jw_event' )
+                    {
+                        console.log("event has changed");
+                        formName.append(data, this.judging[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/jw/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.jw_date!=this.judging.jw_date) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.judging) {
+                    if(data == 'id' || data == 'jw_date' )
+                    {
+                        console.log("date has changed");
+                        formName.append(data, this.judging[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/jw/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.jw_photo!=this.judging.jw_photo) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.judging) {
+                    if(data == 'id' || data == 'jw_photo' )
+                    {
+                        console.log("photo has changed");
+                        formName.append(data, this.judging[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/jw/"+this.editing_obj.id+"/", formName, config);
+            }
+            if(this.editing_obj.jw_link!=this.judging.jw_link) //checking if data has changed
+                {
+                let formName = new FormData();
+                for (let data in this.judging) {
+                    if(data == 'id' || data == 'jw_link' )
+                    {
+                        console.log("link has changed");
+                        formName.append(data, this.judging[data]);
+                    }}
+                await this.$axios.$patch("/v1/artist/jw/"+this.editing_obj.id+"/", formName, config);
+            }
+            this.$store.dispatch("check_user_judging");
+            this.refresh();
+            this.snackbar = true;
+            this.$store.dispatch("remove_editing_obj");
+        },        
     }
 
 }

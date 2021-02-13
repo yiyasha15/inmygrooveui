@@ -45,30 +45,13 @@
             <v-icon>mdi-email</v-icon>
         </v-btn>
     </v-row>
-        <v-row>
+    <!-- <v-row>
         <v-col cols="12" > 
             <div class="mb-5" v-if="highlights.length > 0">
                 <h3 class=" ml-2 mb-8 mt-4 font-weight-light">Highlights</h3>
                 <div class="d-flex flex-wrap" >
                     <div v-for = "highlights in highlights" :key = "highlights.index" >
                         <highlights-card :highlights = "highlights"></highlights-card>
-                    </div>
-                </div>
-            </div>  
-            <!-- <div v-if="userHasPortfolio">
-                <div v-if="usersPortfolio.artist_name == artist.username">
-                <v-btn class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Add Highlights</v-btn>
-                </div>
-            </div> -->
-        </v-col>
-    </v-row>
-    <v-row>
-        <v-col cols="12" > 
-            <div class="mb-5" v-if="judging.length > 0">
-                <h3 class=" ml-2 mb-8 mt-4 font-weight-light">Workshops and Judging</h3>
-                <div class="d-flex flex-wrap" >
-                    <div v-for = "judging in judging" :key = "judging.index" >
-                        <judging-card :judging = "judging"></judging-card>
                     </div>
                 </div>
             </div>
@@ -97,7 +80,7 @@
                 </div>
             </div>
         </v-col>
-    </v-row>
+    </v-row> -->
     <!-- <v-row>
         <v-col cols="12" > 
             <div class="mb-5" v-if="moments.length > 0">
@@ -116,10 +99,6 @@
 <script>
 import EventService from '@/services/EventService.js'
 import GalleryCard from '@/components/GalleryCard.vue'
-import HighlightsCard from "@/components/HighlightsCard.vue"
-import JudgingCard from "@/components/JudgingCard.vue"
-import EventsCard from "@/components/EventsCard.vue"
-// import MomentsCard from "@/components/MomentsCard.vue"
 import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
 export default {
@@ -129,7 +108,7 @@ export default {
         dialog: false,
       }
     },
-     computed: {
+    computed: {
         ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
     },
     // layout: 'username',
@@ -137,10 +116,6 @@ export default {
     components:{
         GalleryCard,
         CountryFlag,
-        HighlightsCard,
-        JudgingCard,
-        EventsCard,
-        // MomentsCard
     },
     head() {
         return {
@@ -158,17 +133,11 @@ export default {
       try {
         let gallery_response = await EventService.getGalleries(params.username)
         let bio_response = await EventService.getBio(params.username)
-        let highlights_response = await EventService.getHighlights(params.username)
-        let judging_response = await EventService.getJudging(params.username)
-        let events_response = await EventService.getEvents(params.username)
         
         // let moments_response = await EventService.getMoments(params.username)
         return {
              gallery: gallery_response.data,
              bio: bio_response.data,
-             highlights: highlights_response.data,
-             judging: judging_response.data,
-             events: events_response.data,
             //  moments: moments_response.data
         }
       } catch (err) {

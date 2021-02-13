@@ -577,13 +577,17 @@ export default {
         },
         async submit() {
             let t_name = typeof this.sharing.s_teacher;
-            if(t_name == 'object')
+            if(t_name == 'object') //if teacher exists then changing the value of s_teacher to username 
             {
                 this.sharing.s_teacher = this.sharing.s_teacher.username
             }
-            if(this.sharing.s_teacher != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
+            else{
+                this.sharing.s_teacher_name = this.sharing.s_teacher 
+                this.sharing.s_teacher = "" //making null because no artists to tag.
+            }
+            if(this.sharing.s_teacher_name != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
             {
-                this.sharing.s_teacher_name = this.sharing.s_teacher;
+                // this.sharing.s_teacher_name = this.sharing.s_teacher;
                 const config = {
                     headers: {"content-type": "multipart/form-data",
                         "Authorization": "Bearer " + this.$store.state.auth.user.access}
@@ -605,11 +609,14 @@ export default {
         },
         async update() {
             let t_name = typeof this.sharing.s_teacher;
-            if(t_name == 'object')
+            if(t_name == 'object') //if teacher exists then changing the value of s_teacher to username 
             {
                 this.sharing.s_teacher = this.sharing.s_teacher.username
             }
-            this.sharing.s_teacher_name = this.sharing.s_teacher;
+            else{
+                this.sharing.s_teacher_name = this.sharing.s_teacher 
+                this.sharing.s_teacher = "" //making null because no artists to tag.
+            }
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$store.state.auth.user.access}
