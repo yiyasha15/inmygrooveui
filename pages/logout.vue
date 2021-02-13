@@ -26,6 +26,7 @@ export default {
 			this.$store.dispatch("remove_judging")
 			this.$store.dispatch("remove_events")
 			this.$store.dispatch("remove_share_obj")
+			this.$store.dispatch("remove_editing_obj")
 			this.$store.dispatch("remove_artists_sharing")
 			this.$auth.logout();
 		},

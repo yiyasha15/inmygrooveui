@@ -10,7 +10,7 @@
                 <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
                 <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/hiphop_highlight`"> Highlights</v-btn> 
                 <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn> 
+                <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn>  -->
             </div>
         </v-col>
     </v-row>

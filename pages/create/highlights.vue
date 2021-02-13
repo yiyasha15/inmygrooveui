@@ -205,6 +205,7 @@ export default {
     },
     mounted() {
     this.$store.dispatch("check_user_highlights");
+    this.$store.dispatch("remove_editing_obj")
     },
     methods: {
         func(id){
