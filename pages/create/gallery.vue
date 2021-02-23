@@ -3,10 +3,10 @@
     <div class="text-xs-center mb-6" align = "center">
         <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
         <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
-        <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+        <!-- <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
         <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
+        <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
+        <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
     </div>
     <v-divider class="mx-4" ></v-divider>
         <v-row>
@@ -164,11 +164,11 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['usersGallery', 'userHasGallery'])
+        ...mapGetters(['usersBio', 'userHasBio'])
     },
     mounted() {
     this.$store.dispatch("check_user_portfolio");
-    this.$store.dispatch("check_user_gallery");
+    this.$store.dispatch("check_user_bio");
     },
     // created (){
     //     this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
@@ -206,7 +206,7 @@ export default {
             try {
                 let response = await this.$axios.$delete("/v1/artist/gallery/"+id , config);
                 this.$store.dispatch("remove_gallery");
-                this.$store.dispatch("check_user_gallery");
+                this.$store.dispatch("check_user_bio");
                 // this.gallery_img = Object.assign({}, this.$store.getters.usersGallery);
                 this.$router.push("/create/gallery");
                 this.dialog = false
@@ -241,7 +241,7 @@ export default {
                 }
                 await this.$axios.$patch("/v1/artist/gallery/"+id , formUpdate, config);
                 this.$store.dispatch("remove_gallery");
-                this.$store.dispatch("check_user_gallery");
+                this.$store.dispatch("check_user_bio");
         },
         onFileChange(e) {
             let files = e.target.files;
@@ -292,7 +292,7 @@ export default {
                 try {
                 console.log(formData);
                 let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
-                this.$store.dispatch("check_user_gallery");
+                this.$store.dispatch("check_user_bio");
                 this.removeImage();
                 this.$router.push("/create/gallery");
                 } 
@@ -317,7 +317,7 @@ export default {
                 }
                 try {
                     let response = await this.$axios.$post("/v1/artist/gallery/", formData, config);
-                    this.$store.dispatch("check_user_gallery");
+                    this.$store.dispatch("check_user_bio");
                     this.removeImage();
                     this.$router.push("/create/highlights");
                 } 

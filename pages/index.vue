@@ -28,35 +28,35 @@
         </h5>
       </v-row>
       <v-row>
-        <v-col cols="6" md="3" class="pa-md-6 pa-sm-4 pa-xs-0">
+        <v-col cols="6" md="4" class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
                 <v-card :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }" to = '/artists'>
-                <img src = "~/assets/pencil_art2.png" width="100%" alt="portfolio logo" height="140">
+                <img src = "~/assets/pencil_art2.png" width="100%" alt="portfolio logo" height="150">
                 <p class="font-weight-light text-center py-2"> Our community</p>
                 </v-card>
             </v-hover>
         </v-col >
-        <v-col cols="6" md="3"  class="pa-md-6 pa-sm-4 pa-xs-0">
+        <v-col cols="6" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
                 <v-card :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }" to = '/create'>
-                <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="140">
+                <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="150">
                 <p v-if="!userHasPortfolio" class="font-weight-light text-center py-2"> Create a portfolio</p>
                 <p v-else class="font-weight-light text-center py-2"> Edit your portfolio</p>
                 </v-card>
             </v-hover>
         </v-col>
-        <v-col cols="6" md="3"  class="pa-md-6 pa-sm-4 pa-xs-0">
+        <v-col cols="6" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
                 <v-card :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }" to = '/e1t1'>
-                <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="140">
+                <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="150">
                 <p class="font-weight-light text-center py-2"> Each one Teach one</p>
                 </v-card>
             </v-hover>
         </v-col>
-        <v-col cols="6" md="3"  class="pa-md-6 pa-sm-4 pa-xs-0">
+        <!-- <v-col cols="6" md="3"  class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
                 <v-card :elevation="hover ? 16 : 2"
                 :class="{ 'on-hover': hover }" to = '/blogs'>
@@ -64,7 +64,7 @@
                 <p class="font-weight-light text-center py-2"> Blogs</p>
                 </v-card>
             </v-hover>
-        </v-col>
+        </v-col> -->
     </v-row>
     </v-container>
 </template>

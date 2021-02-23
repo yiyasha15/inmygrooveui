@@ -3,10 +3,11 @@
         <div class="text-xs-center mb-6" align = "center">
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
+            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
         </div>
         <v-divider class="mx-4" ></v-divider>
             <v-row>
@@ -33,15 +34,15 @@
                     <v-row>
                         <v-col cols="12" md="9">
                             <v-textarea
-                                v-model= "bio.b_introduction"
+                                v-model= "bio.introduction"
                                 label="Describe Yourself">
                             </v-textarea>
                             <v-text-field
-                                v-model= "bio.b_quote"
+                                v-model= "bio.quote"
                                 label="Any Favourite Quote?"
                                 :maxlength="120">
                             </v-text-field>
-                            <v-autocomplete v-model= "bio.b_style" 
+                            <v-autocomplete v-model= "bio.style" 
                                 :items="items" 
                                 attach 
                                 chips 
@@ -50,22 +51,116 @@
                                 multiple>
                             </v-autocomplete>
                             <v-text-field
-                                v-model= "bio.b_crew"
+                                v-model= "bio.crew"
                                 label="Crew"
                                 :maxlength="120">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_ig"
+                            prepend-icon="mdi-instagram"
+                                v-model= "bio.ig"
                                 label="Instagram URL">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_fb"
+                            prepend-icon="mdi-facebook"
+                                v-model= "bio.fb"
                                 label="Facebook URL">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_personal"
+                            prepend-icon="mdi-email"
+                                v-model= "bio.site"
                                 label="Personal Website URL">
                             </v-text-field>
+                            <!-- <div class = "form-group">
+                                <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
+                                <input 
+                                type="file" 
+                                name = "g_upload_photo" 
+                                style="display:none" 
+                                ref="fileInput" 
+                                accept="image/*"
+                                required
+                                @change="onFileChange">
+                            </div> -->
+                            <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
+                                <v-layout class="flex-wrap">
+                                    <v-flex xs6 md6>
+                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                            <v-img :src="imageData" height="200px" width="200px"></v-img>
+                                            <v-btn icon>
+                                                <v-icon color="indigo" @click="onPick">mdi-image-plus</v-icon>
+                                            </v-btn>
+                                            <input 
+                                            type="file" 
+                                            name = "gallery" 
+                                            style="display:none" 
+                                            ref="fileInput" 
+                                            accept="image/*"
+                                            required
+                                            @change="onFileChange">
+                                            <v-btn icon>
+                                                <v-icon color="error" @click="removeImage" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs6 md6>
+                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                            <v-img :src="imageData1" height="200px" width="200px"></v-img>
+                                            <v-btn icon>
+                                                <v-icon color="indigo" @click="onPick1">mdi-image-plus</v-icon>
+                                            </v-btn>
+                                            <input 
+                                            type="file" 
+                                            name = "gallery" 
+                                            style="display:none" 
+                                            ref="fileInput1" 
+                                            accept="image/*"
+                                            required
+                                            @change="onFileChange1">
+                                            <v-btn icon>
+                                                <v-icon color="error" @click="removeImage1" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs6 md6>
+                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                            <v-img :src="imageData2" height="200px" width="200px"></v-img>
+                                            <v-btn icon>
+                                                <v-icon color="indigo" @click="onPick2">mdi-image-plus</v-icon>
+                                            </v-btn>
+                                            <input 
+                                            type="file" 
+                                            name = "gallery" 
+                                            style="display:none" 
+                                            ref="fileInput2" 
+                                            accept="image/*"
+                                            required
+                                            @change="onFileChange2">
+                                            <v-btn icon>
+                                                <v-icon color="error" @click="removeImage2" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs6 md6>
+                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                            <v-img :src="imageData3" height="200px" width="200px"></v-img>
+                                            <v-btn icon>
+                                                <v-icon color="indigo" @click="onPick3">mdi-image-plus</v-icon>
+                                            </v-btn>
+                                            <input 
+                                            type="file" 
+                                            name = "gallery" 
+                                            style="display:none" 
+                                            ref="fileInput3" 
+                                            accept="image/*"
+                                            required
+                                            @change="onFileChange3">
+                                            <v-btn icon>
+                                                <v-icon color="error" @click="removeImage3" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container> 
                             <v-btn v-if="!userHasBio" outlined class="text-decoration-none" rounded color="indigo" dark
                                 @click="submit">submit</v-btn>
                                 <v-btn v-if="userHasBio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
@@ -95,19 +190,19 @@
                 <!-- <h1 class="pb-6 text-center">Preview Your Website</h1> -->
                     <v-col>
                     <v-row class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">{{bio.b_introduction}} </h5>
+                        <h5 class="pb-6 text-center">{{bio.introduction}} </h5>
                     </v-row>
-                    <v-row v-if="bio.b_quote" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center font-italic">"{{bio.b_quote}}" </h5>
+                    <v-row v-if="bio.quote" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center font-italic">"{{bio.quote}}" </h5>
                     </v-row>
-                    <v-row v-if="bio.b_crew" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">Repping: {{bio.b_crew}} 🙏 </h5>
+                    <v-row v-if="bio.crew" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center">Repping: {{bio.crew}} 🙏 </h5>
                     </v-row>
                     <v-row class="pb-6 justify-center text-center">
-                        <v-col v-if="bio.b_ig"><v-icon>mdi-instagram</v-icon></v-col>
-                        <v-col v-if="bio.b_fb"><v-icon>mdi-facebook</v-icon></v-col>
-                        <v-col v-if="bio.b_yt"><v-icon>mdi-youtube</v-icon></v-col>
-                        <v-col v-if="bio.b_personal"><v-icon>mdi-email</v-icon></v-col>
+                        <v-col v-if="bio.ig"><v-icon>mdi-instagram</v-icon></v-col>
+                        <v-col v-if="bio.fb"><v-icon>mdi-facebook</v-icon></v-col>
+                        <v-col v-if="bio.yt"><v-icon>mdi-youtube</v-icon></v-col>
+                        <v-col v-if="bio.site"><v-icon>mdi-email</v-icon></v-col>
                     </v-row>
                     </v-col>
             </v-col>
@@ -139,31 +234,124 @@ export default {
         if(this.$store.state.hasBio)
         {
             this.bio = Object.assign({}, this.$store.getters.usersBio);
+            this.imageData = this.bio.gallery1
+            this.imageData1 = this.bio.gallery2
+            this.imageData2 = this.bio.gallery3
+            this.imageData3 = this.bio.gallery4
         }
     },
     data(){
         return {
                 // this is bio object
             bio: {
-                b_artist: this.$store.state.auth.user.username,
-                b_style: "",
-                b_introduction: "",
-                b_quote: "",
-                b_crew: "",
-                b_ig: "",
-                b_fb: "",
-                b_personal: ""
+                username: this.$store.state.auth.user.username,
+                style: "",
+                introduction: "",
+                quote: "",
+                crew: "",
+                ig: "",
+                fb: "",
+                site: "",
+                gallery1 : "",
+                gallery2 : "",
+                gallery3 : "",
+                gallery4 : "",
             },
+            rm:"",
             dialog: false,
             items: ['HipHop', 'House', 'Locking', 'Popping'],
             imageData: "",
+            imageData1: "",
+            imageData2: "",
+            imageData3: "",
             snackbar: false,
             update_text: 'Website updated successfully.',
-            text: 'Website created successfully.'
+            text: 'Website created successfully.',
+            overlay: false,
         }
     },
     methods: {
         ...mapActions(['check_user_bio']),
+        onFileChange(e) {
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    this.imageData = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.bio.gallery1 = files[0];
+            }
+        },
+        onFileChange1(e) {
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    this.imageData1 = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.bio.gallery2 = files[0];
+            }
+        },
+        onFileChange2(e) {
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    this.imageData2 = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.bio.gallery3 = files[0];
+            }
+        },
+        onFileChange3(e) {
+            let files = e.target.files;
+            if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                    this.imageData3 = e.target.result;
+                }
+                fileReader.readAsDataURL(files[0]);
+                console.log(files[0]);
+                this.bio.gallery4 = files[0];
+            }
+        },
+        onPick() //changing the click from button to input using refs
+        {
+            this.$refs.fileInput.click()
+        },
+        onPick1() //changing the click from button to input using refs
+        {
+            this.$refs.fileInput1.click()
+        },
+        onPick2() //changing the click from button to input using refs
+        {
+            this.$refs.fileInput2.click()
+        },
+        onPick3() //changing the click from button to input using refs
+        {
+            this.$refs.fileInput3.click()
+        },
+        removeImage(){
+            this.imageData = ""
+            this.bio.gallery1 =''
+        },
+        removeImage1(){
+            this.imageData1 = ""
+            this.bio.gallery2 =''
+        },
+        removeImage2(){
+            this.imageData2 = ""
+            this.bio.gallery3 =''
+        },
+        removeImage3(){
+            this.imageData3 = ""
+            this.bio.gallery4 =''
+        },
         async submit() {
             const config = {
                 headers: {"content-type": "multipart/form-data",
@@ -176,12 +364,12 @@ export default {
             }
             try {
                 console.log(formData);
-                let response = await this.$axios.$post("/v1/artist/bio/", formData, config)
+                let response = await this.$axios.$post("/v1/artist/bios/", formData, config)
                 console.log("Artist website created.");
                 //update store
                 this.$store.dispatch("check_user_bio");
                 this.snackbar = true;
-                this.$router.push("/create/gallery");
+                // this.$router.push("/create/gallery");
             } catch (e) {
                 console.log(e);
             }
@@ -192,82 +380,126 @@ export default {
                     "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
-            if(this.usersBio.b_style!=this.bio.b_style) //checking if data has changed
+            if(this.usersBio.style!=this.bio.style) //checking if data has changed
             {
             let formStyle = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_style' || data == 'b_artist' )
+                if(data == 'style' || data == 'id' )
                 {
                     console.log("style has changed");
                     formStyle.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formStyle, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formStyle, config)
             }
-            if(this.usersBio.b_introduction!=this.bio.b_introduction) //checking if data has changed
+            if(this.usersBio.introduction!=this.bio.introduction) //checking if data has changed
             {
             let formIntro = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_introduction' || data == 'b_artist' )
+                if(data == 'introduction' || data == 'id' )
                 {
                     console.log("style has changed");
                     formIntro.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formIntro, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formIntro, config)
             }
-            if(this.usersBio.b_quote!=this.bio.b_quote) //checking if data has changed
+            if(this.usersBio.quote!=this.bio.quote) //checking if data has changed
             {
             let formQuote = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_quote' || data == 'b_artist' )
+                if(data == 'quote' || data == 'id' )
                 {
                     console.log("quote has changed");
                     formQuote.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formQuote, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formQuote, config)
             }
-            if(this.usersBio.b_crew!=this.bio.b_crew) //checking if data has changed
+            if(this.usersBio.crew!=this.bio.crew) //checking if data has changed
             {
             let formCrew = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_crew' || data == 'b_artist' )
+                if(data == 'crew' || data == 'id' )
                 {
                     console.log("Crew has changed");
                     formCrew.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formCrew, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formCrew, config)
             }
-            if(this.usersBio.b_ig!=this.bio.b_ig) //checking if data has changed
+            if(this.usersBio.ig!=this.bio.ig) //checking if data has changed
             {
             let formIg = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_ig' || data == 'b_artist' )
+                if(data == 'ig' || data == 'id' )
                 {
                     console.log("ig has changed");
                     formIg.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formIg, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formIg, config)
             }
-            if(this.usersBio.b_fb!=this.bio.b_fb) //checking if data has changed
+            if(this.usersBio.fb!=this.bio.fb) //checking if data has changed
             {
             let formfb = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_fb' || data == 'b_artist' )
+                if(data == 'fb' || data == 'id' )
                 {
                     console.log("fb has changed");
                     formfb.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formfb, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formfb, config)
             }
-            if(this.usersBio.b_personal!=this.bio.b_personal) //checking if data has changed
+            if(this.usersBio.site!=this.bio.site) //checking if data has changed
             {
             let formPersonal = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_personal' || data == 'b_artist' )
+                if(data == 'site' || data == 'id' )
                 {
-                    console.log("personal has changed");
+                    console.log("site has changed");
                     formPersonal.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formPersonal, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
+            }
+            if(this.usersBio.gallery1!=this.bio.gallery1) //checking if data has changed
+            {
+            let formPersonal = new FormData();
+            for (let data in this.bio) {
+                if(data == 'gallery1' || data == 'id' )
+                {
+                    console.log("pic1 has changed");
+                    formPersonal.append(data, this.bio[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
+            }
+            if(this.usersBio.gallery2!=this.bio.gallery2) //checking if data has changed
+            {
+            let formPersonal = new FormData();
+            for (let data in this.bio) {
+                if(data == 'gallery2' || data == 'id' )
+                {
+                    console.log("pic2 has changed");
+                    formPersonal.append(data, this.bio[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
+            }
+            if(this.usersBio.gallery3!=this.bio.gallery3) //checking if data has changed
+            {
+            let formPersonal = new FormData();
+            for (let data in this.bio) {
+                if(data == 'gallery3' || data == 'id' )
+                {
+                    console.log("pic3 has changed");
+                    formPersonal.append(data, this.bio[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
+            }
+            if(this.usersBio.gallery4!=this.bio.gallery4) //checking if data has changed
+            {
+            let formPersonal = new FormData();
+            for (let data in this.bio) {
+                if(data == 'gallery4' || data == 'id' )
+                {
+                    console.log("pic4 has changed");
+                    formPersonal.append(data, this.bio[data]);
+                }}
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
             }
         this.$store.dispatch("check_user_bio");
         this.snackbar = true;
@@ -280,10 +512,15 @@ export default {
                 }
             };
             try {
-                let response = await this.$axios.$delete("/v1/artist/bio/"+this.usersBio.b_artist, config)
+                let response = await this.$axios.$delete("/v1/artist/bios/"+this.usersBio.username, config)
                 console.log("Artist Bio deleted.");
                 //update store
                 this.$store.dispatch("remove_bio")
+                this.bio = ''
+                this.imageData = ''
+                this.imageData2 = ''
+                this.imageData1 = ''
+                this.imageData3 = ''
                 this.snackbar = true;
                 this.$router.push("/create/bio");
             } catch (e) {

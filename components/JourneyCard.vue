@@ -2,10 +2,10 @@
   <v-card 
       class="ma-2 "
       max-width="270" >
-      <div v-if = highlights.hiphoto>
-        <v-img :src="highlights.hiphoto" class="centerImage" height="180px"/>
-        <v-card-title v-if = highlights.hicontent>
-        <h6>{{highlights.hicontext}}</h6>
+      <div v-if = journey.jophoto>
+        <v-img :src="journey.jophoto" class="centerImage" height="180px"/>
+        <v-card-title v-if = journey.jocontent>
+        <h6>{{journey.jocontext}}</h6>
         </v-card-title>
         <v-card-actions>
         <v-overlay :z-index="2" :value="overlay" >
@@ -17,24 +17,24 @@
             </v-col>
             <v-row class="ma-4">
                 <v-col cols="12" md="6" align="center" justify="center">
-                    <v-img :src="highlights.hiphoto" class="centerImage mb-6" width="80%" max-height="480px"/>
+                    <v-img :src="journey.jophoto" class="centerImage mb-6" width="80%" max-height="480px"/>
                 </v-col>
                 <v-col cols="12" md="6" class="pl-6">
                   <v-row class="pt-2 pr-4">
-                    <p>{{highlights.hidate}}</p>
+                    <p>{{journey.jodate}}</p>
                   </v-row>
                   <v-row class="py-4 pr-4">
-                      <h4>{{highlights.hicontext}}</h4>
+                      <h4>{{journey.jocontext}}</h4>
                   </v-row>
                   <v-row class="py-4 pr-4">
-                    <p>{{highlights.username}}: {{highlights.hicontent}}</p>
+                    <p>{{journey.username}}: {{journey.jocontent}}</p>
                   </v-row>
                   <v-row class="py-4 pr-4">
                     <!-- <v-btn icon color="orange" @click="snackbar = true">
                       <v-icon>mdi-heart-outline</v-icon>
                     </v-btn> -->
                     <v-spacer></v-spacer>
-                    <v-btn v-if="highlights.hilink" icon color="indigo" @click="openlink">
+                    <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink">
                       <v-icon>mdi-link</v-icon>
                     </v-btn>
                   </v-row>
@@ -46,13 +46,13 @@
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn> -->
           <v-spacer></v-spacer>
-          <v-btn v-if="highlights.hilink" icon color="indigo" @click="openlink" >
+          <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink" >
             <v-icon>mdi-link</v-icon>
           </v-btn>
           <v-btn @click="overlay = !overlay" icon>
             <v-icon>mdi-open-in-new</v-icon>
           </v-btn>
-          <!-- <v-btn icon @click="show = !show" v-if = highlights.hicontext>
+          <!-- <v-btn icon @click="show = !show" v-if = journey.jocontext>
             <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
           </v-btn> -->
         </v-card-actions>
@@ -60,15 +60,15 @@
           <div v-show="show">
             <v-divider></v-divider>
             <v-card-text>
-                {{highlights.hicontext}}
+                {{journey.jocontext}}
             </v-card-text>
           </div>
         </v-expand-transition> -->
-        <!-- <div class="text font-weight-bold" v-if = highlights.hicontent>
-          {{highlights.hicontent}}
+        <!-- <div class="text font-weight-bold" v-if = journey.jocontent>
+          {{journey.jocontent}}
         </div>
-        <div class="text font-weight-light" v-if = highlights.hicontext>
-          {{highlights.hicontext}}
+        <div class="text font-weight-light" v-if = journey.jocontext>
+          {{journey.jocontext}}
         </div> -->
         
     <v-snackbar v-model="snackbar">
@@ -92,11 +92,11 @@
 <script>
   export default {
     props: {
-      highlights: Object,
+      journey: Object,
     },
     methods:{
       openlink(){
-        var url = this.highlights.hilink;
+        var url = this.journey.jolink;
         var win = window.open(url, '_blank');
         win.focus();
       }
@@ -111,7 +111,7 @@
         }
     },
     mounted(){
-      // console.log(this.highlights);
+      // console.log(tjos.journey);
     }
   }
 </script>

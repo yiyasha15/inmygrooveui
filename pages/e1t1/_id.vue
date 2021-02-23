@@ -90,7 +90,7 @@
                     <v-card
                         class="mx-auto"
                         max-width="400">
-                        <video width="400" height="240" controls>
+                        <video max-width="400" height="240" controls>
                             <source :src="e1t1.s_video_talk" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
