@@ -13,11 +13,13 @@ export const state = () => ({
   bio: null, //store bio data of the logged in user
   gallery: [], //store gallery data of the logged in user
   highlights: [], //store Highlights data of the logged in user
+  journey: [], //store Highlights data of the logged in user
   judging: [], //store bio data of the logged in user
   moments: [], //store bio data of the logged in user
   events: [], //store bio data of the logged in user
   list_of_artists: [],
   hasHighlights: false, //if user has highlights data
+  hasJourney: false, 
   hasPortfolio: false, //if user has portfolio data
   hasBio: false, //if user has bio data
   hasGallery: false, //if user has gallery data
@@ -76,6 +78,12 @@ export const getters = {
   },
   userHasHighlights(state){
     return state.hasHighlights
+  },
+  usersJourney(state){
+    return state.journey
+  },
+  userHasJourney(state){
+    return state.hasJourney
   },
   usersJudging(state){
     return state.judging
@@ -181,6 +189,14 @@ export const actions = {
       })
     }
   },
+  check_user_journey({commit, state}){
+    if(state.auth.loggedIn) {
+      EventService.getJourney(state.auth.user.username).then(res =>
+      {
+        commit('usersJourney',res.data)
+      })
+    }
+  },
   check_user_judging({commit, state}){
     if(state.auth.loggedIn) {
       EventService.getJudging(state.auth.user.username).then(res =>
@@ -227,6 +243,12 @@ export const actions = {
   {
     if(state.auth.loggedIn){
       commit('clearHighlights')
+    }
+  },
+  remove_journey({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clearJourney')
     }
   },
   remove_judging({commit, state})
@@ -362,6 +384,13 @@ export const mutations = {
       state.highlights = highlights
       state.hasHighlights = true}
   },
+  usersJourney(state, journey)
+  {
+    if(journey.length)
+    {
+      state.journey = journey
+      state.hasJourney = true}
+  },
   usersJudging(state, judging)
   {
     if(judging.length)
@@ -402,6 +431,11 @@ export const mutations = {
   {
     state.highlights =[]
     state.hasHighlights = false
+  },
+  clearJourney(state) //if user has portfolio change state to true
+  {
+    state.journey =[]
+    state.hasJourney = false
   },
   clearJudging(state) //if user has portfolio change state to true
   {

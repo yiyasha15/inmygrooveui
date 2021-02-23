@@ -20,14 +20,27 @@
       <v-spacer></v-spacer>
       <v-col>
         <v-row class="justify-end mb-2">
-          <div><a href="www.instagram.com/inmygroove.dance"> INS </a></div><br>
+          <v-btn icon class="text-decoration-none mx-4" color="indigo"  @click="openig" >
+            <v-icon>mdi-instagram</v-icon>
+        </v-btn>
         </v-row>
-        <v-row class="justify-end">
+        <!-- <v-row class="justify-end">
           <div><a href="">Contact</a></div>
-        </v-row>
+        </v-row> -->
       </v-col>
         </v-row>
       </v-col>
       </v-container>
     </v-footer>
 </template>
+<script>
+export default {
+  methods: {
+    openig(){
+            var url = 'https://www.instagram.com/inmygroove.dance/';
+            var win = window.open(url, '_blank');
+            win.focus();
+        },
+  }
+}
+</script>

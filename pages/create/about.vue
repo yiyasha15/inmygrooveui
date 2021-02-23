@@ -4,10 +4,11 @@
             <div class="text-xs-center mb-6" align = "center">
                 <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
+                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
             </div>
             <v-divider class="mx-4" ></v-divider>
              <v-row>
@@ -499,7 +500,7 @@ export default {
             }
             try {
                 console.log(formData);
-                let response = await this.$axios.$post("/v1/artist/portfolio/", formData, config)
+                let response = await this.$axios.$post("/v1/artist/portfolios/", formData, config)
                 console.log("Artist website created.");
                 //update store
                 this.$store.dispatch("check_user_portfolio");
@@ -529,7 +530,7 @@ export default {
                     formName.append(data, this.artist_data[data]);
                 }
             }
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formName, config)
+            await this.$axios.$patch("/v1/artist/portfolios/"+this.usersPortfolio.username + '/', formName, config)
             }
             if(this.usersPortfolio.cover!=this.artist_data.cover) //checking if data has changed
             {
@@ -540,7 +541,7 @@ export default {
                     console.log("image has changed");
                     formImage.append(data, this.artist_data[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formImage, config)
+            await this.$axios.$patch("/v1/artist/portfolios/"+this.usersPortfolio.username + '/', formImage, config)
             }
             if(this.usersPortfolio.country!=this.artist_data.country) //checking if data has changed
             {
@@ -551,7 +552,7 @@ export default {
                     console.log("country has changed");
                     formCountry.append(data, this.artist_data[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/portfolio/"+this.usersPortfolio.username + '/', formCountry, config)
+            await this.$axios.$patch("/v1/artist/portfolios/"+this.usersPortfolio.username + '/', formCountry, config)
             }
             // if(this.usersPortfolio.style!=this.artist_data.style) //checking if data has changed
             // {
@@ -641,12 +642,14 @@ export default {
                 }
             };
             try {
-                let response = await this.$axios.$delete("/v1/artist/portfolio/"+this.usersPortfolio.username, config)
+                let response = await this.$axios.$delete("/v1/artist/portfolios/"+this.usersPortfolio.username, config)
                 console.log("Artist portfolio deleted.");
                 //update store
                 this.$store.dispatch("remove_portfolio")
+                this.artist_data = ''
+                this.imageData = ''
                 this.snackbar = true;
-                this.$router.push("/");
+                this.$router.push("/create/about");
             } catch (e) {
                 console.log(e);
             }

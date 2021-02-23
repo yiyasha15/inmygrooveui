@@ -4,10 +4,11 @@
         <div class="text-xs-center mb-6" align = "center">
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn>
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
             <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn>
+            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
         </div>
             <v-divider class="mx-4" ></v-divider>
             <v-row>
@@ -43,7 +44,7 @@
                                     :maxlength="20">
                                 </v-text-field> -->
                                 <v-text-field
-                                    v-model = "highlights.h_content"
+                                    v-model = "highlights.hicontext"
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
@@ -51,7 +52,7 @@
                                         <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
                                         <input 
                                         type="file" 
-                                        name = "highlights.h_photo" 
+                                        name = "highlights.hiphoto" 
                                         style="display:none" 
                                         ref="fileInput" 
                                         accept="image/*"
@@ -59,7 +60,7 @@
                                         @change="onFileChange">
                                     </div>
                                 <v-textarea
-                                    v-model = "highlights.h_context"
+                                    v-model = "highlights.hicontent"
                                     label= "Share your experience">
                                 </v-textarea>
                                 <v-menu
@@ -72,7 +73,7 @@
                                     >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                        v-model= "highlights.h_date"
+                                        v-model= "highlights.hidate"
                                         label="Date"
                                         prepend-icon="mdi-calendar"        
                                         readonly
@@ -80,14 +81,14 @@
                                         v-on="on"
                                         ></v-text-field>
                                     </template>
-                                    <v-date-picker v-model= "highlights.h_date" no-title scrollable>
+                                    <v-date-picker v-model= "highlights.hidate" no-title scrollable>
                                         <v-spacer></v-spacer>
                                         <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
                                         <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
                                     </v-date-picker>
                                     </v-menu>
                                     <v-text-field
-                                        v-model = "highlights.h_link"
+                                        v-model = "highlights.hilink"
                                         label= "Link"
                                         :maxlength="50">
                                     </v-text-field>
@@ -102,15 +103,15 @@
                 <v-col cols="12" md="4" class="pl-sm-6 mt-6 grey lighten-4 rounded-xl">
                         <v-col>
                         <v-row class="pb-6 justify-center text-center">
-                            <h2> {{highlights.h_content}}</h2>
+                            <h2> {{highlights.hicontext}}</h2>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{highlights.h_context}} {{highlights.h_date}}</h5>
+                            <h5 class="pb-6 text-center">{{highlights.hicontent}} {{highlights.hidate}}</h5>
                         </v-row>
-                        <v-row v-if="highlights.h_link" class="pb-6 justify-center text-center">
+                        <v-row v-if="highlights.hilink" class="pb-6 justify-center text-center">
                             <v-btn icon color="indigo" >
                                 <v-icon>mdi-link</v-icon>
                             </v-btn>
@@ -191,12 +192,12 @@ export default {
             valid_snackbar: false,
             snackbar: false,
             highlights: {
-                h_artist: this.$store.state.auth.user.username,
-                h_content: "",
-                h_context: "",
-                h_date: "",
-                h_photo: "",
-                h_link: ""
+                username: this.$store.state.auth.user.username,
+                hicontent: "",
+                hicontext: "",
+                hidate: "",
+                hiphoto: "",
+                hilink: ""
             }
         }
     },
@@ -214,7 +215,7 @@ export default {
         },
         edit(highlights){
             this.highlights = Object.assign({}, highlights);
-            this.imageData = this.highlights.h_photo;
+            this.imageData = this.highlights.hiphoto;
             this.$store.dispatch("check_editing_obj", highlights);
         },
         async remove(id){
@@ -239,12 +240,12 @@ export default {
         refresh(){
             this.date ="";
             this.imageData = "";
-            this.highlights.h_artist = this.$store.state.auth.user.username;
-            this.highlights.h_content= "";
-            this.highlights.h_context= "";
-            this.highlights.h_date= "";
-            this.highlights.h_photo= "";
-            this.highlights.h_link= "";
+            this.highlights.username = this.$store.state.auth.user.username;
+            this.highlights.hicontent= "";
+            this.highlights.hicontext= "";
+            this.highlights.hidate= "";
+            this.highlights.hiphoto= "";
+            this.highlights.hilink= "";
         },
         onPick() //changing the click from button to input using refs
         {
@@ -260,11 +261,11 @@ export default {
                     this.imageData = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                this.highlights.h_photo = files[0];
+                this.highlights.hiphoto = files[0];
             }
         },
         async submit() {
-            if(this.highlights.h_content != "" && this.highlights.h_context != "" && this.highlights.h_photo)
+            if(this.highlights.hicontent != "" && this.highlights.hicontext != "" && this.highlights.hiphoto)
             {
             const config = {
                 headers: {"content-type": "multipart/form-data",
@@ -295,55 +296,55 @@ export default {
                     "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
-            if(this.editing_obj.h_content!=this.highlights.h_content) //checking if data has changed
+            if(this.editing_obj.hicontent!=this.highlights.hicontent) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.highlights) {
-                    if(data == 'id' || data == 'h_content' )
+                    if(data == 'id' || data == 'hicontent' )
                     {
                         console.log("content has changed");
                         formName.append(data, this.highlights[data]);
                     }}
                 await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
             }
-            if(this.editing_obj.h_context!=this.highlights.h_context) //checking if data has changed
+            if(this.editing_obj.hicontext!=this.highlights.hicontext) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.highlights) {
-                    if(data == 'id' || data == 'h_context' )
+                    if(data == 'id' || data == 'hicontext' )
                     {
                         console.log("context has changed");
                         formName.append(data, this.highlights[data]);
                     }}
                 await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
             }
-            if(this.editing_obj.h_date!=this.highlights.h_date) //checking if data has changed
+            if(this.editing_obj.hidate!=this.highlights.hidate) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.highlights) {
-                    if(data == 'id' || data == 'h_date' )
+                    if(data == 'id' || data == 'hidate' )
                     {
                         console.log("date has changed");
                         formName.append(data, this.highlights[data]);
                     }}
                 await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
             }
-            if(this.editing_obj.h_photo!=this.highlights.h_photo) //checking if data has changed
+            if(this.editing_obj.hiphoto!=this.highlights.hiphoto) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.highlights) {
-                    if(data == 'id' || data == 'h_photo' )
+                    if(data == 'id' || data == 'hiphoto' )
                     {
                         console.log("photo has changed");
                         formName.append(data, this.highlights[data]);
                     }}
                 await this.$axios.$patch("/v1/artist/highlights/"+this.editing_obj.id+"/", formName, config);
             }
-            if(this.editing_obj.h_link!=this.highlights.h_link) //checking if data has changed
+            if(this.editing_obj.hilink!=this.highlights.hilink) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.highlights) {
-                    if(data == 'id' || data == 'h_link' )
+                    if(data == 'id' || data == 'hilink' )
                     {
                         console.log("link has changed");
                         formName.append(data, this.highlights[data]);
