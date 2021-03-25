@@ -144,7 +144,8 @@ module.exports = {
     }
   },
   plugins: [
-    '~/plugins/bootstrap-vue',
+    // '~/plugins/bootstrap-vue',
+    { src: '~/plugins/amplify.js', mode: 'client' }
 ],
 }
 // sometimes u cant see nuxt home page even if 
