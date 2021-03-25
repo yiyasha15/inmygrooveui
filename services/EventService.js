@@ -33,22 +33,25 @@ export default {
     //     return apiClient1.get('/artist/gallery/?search=' + username)
     // },
     getHighlights(username) {
-        return apiClient1.get('/artist/highlights/?search=' + username)
+        return apiClient1.get('/artist/highlights/?username=' + username)
     },
     getJourney(username) {
-        return apiClient1.get('/artist/journey/?search=' + username)
+        return apiClient1.get('/artist/journey/?username=' + username)
     },
-    getJudging(username) {
-        return apiClient1.get('/artist/jw/?search=' + username)
-    },
-    getMoments(username) {
-        return apiClient1.get('/artist/moments/?search=' + username)
-    },
-    getEvents(username) {
-        return apiClient1.get('/artist/events/?search=' + username)
-    },
+    // getJudging(username) {
+    //     return apiClient1.get('/artist/jw/?search=' + username)
+    // },
+    // getMoments(username) {
+    //     return apiClient1.get('/artist/moments/?search=' + username)
+    // },
+    // getEvents(username) {
+    //     return apiClient1.get('/artist/events/?search=' + username)
+    // },
     getEach1Teach1s(){
         return apiClient1.get('/e1t1/sharing/')
+    },
+    getPersonalMessages(id){
+        return apiClient1.get('/e1t1/qna/?shareid=' + id)
     },
     getEach1Teach1_user(username) {
         return apiClient1.get('/e1t1/sharing/?search=' + username)

@@ -51,12 +51,12 @@
                     >
                     <v-list-item-title>Notifications</v-list-item-title>
                     </v-list-item>
-                    <v-list-item
+                    <!-- <v-list-item
                     :to="'/write_blog'"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Write a Post</v-list-item-title>
-                    </v-list-item>
+                    </v-list-item> -->
                     <v-list-item
                     :to="'/settings'"
                     class="text-decoration-none pl-6 pr-12"

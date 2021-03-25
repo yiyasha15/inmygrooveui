@@ -12,7 +12,7 @@
           </div>
           <div v-else> -->
             <div v-for = "artist in artists" :key = "artist.index">
-                <div v-if="share.s_student === artist.username">
+                <div v-if="share.username === artist.username">
                    <v-img :src = "artist.thumb" width="180px" height="180px"/>
                 </div>
             </div>
@@ -21,7 +21,7 @@
           <!-- <v-card-title color = "black" x-small>{{event.title}}</v-card-title> -->
           <v-card-actions>
             <p class="text-decoration-none">
-            {{share.s_student}}
+            {{share.username}}
             </p>
             <v-spacer></v-spacer>
             <!-- <v-btn icon class="text-decoration-none" >

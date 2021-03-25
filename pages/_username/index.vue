@@ -1,22 +1,25 @@
 <template>
     <div>
         <center>
-            <v-img :src = "artist.cover" width="100%" class="centerImage" maxHeight="600px">
-            </v-img>
+            <v-parallax
+                height="600"
+                :src = "artist.cover"
+            ></v-parallax>
         </center>
     <br>
     <v-row v-if="bio" align="center"  no-gutters>
-        <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" cols="12" md="6" lg="6" xl="6">
-                <h3  class="mb-5 font-weight-light font-italic">
-                    <br> 
-                "{{ bio.quote }}"
-                </h3>  
-                <div align="end" justify="end" class="text font-weight-thin"> 
-                    <!-- -{{artist.artist_name}} <country-flag :country= 'artist.country' />   -->
-                </div>         
-                <!-- <div align="end" justify="end" class="text font-weight-thin">
-                    <country-flag class="mt-4" :country= 'artist.country' />   
-                </div> -->
+        <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" 
+        cols="12" md="6" lg="6" xl="6">
+            <h3 class="mb-5 font-weight-light font-italic">
+                <br> 
+            "{{ bio.quote }}"
+            </h3>  
+            <div align="end" justify="end" class="text font-weight-thin"> 
+                <!-- -{{artist.artist_name}} <country-flag :country= 'artist.country' />   -->
+            </div>         
+            <!-- <div align="end" justify="end" class="text font-weight-thin">
+                <country-flag class="mt-4" :country= 'artist.country' />   
+            </div> -->
         </v-col>
         <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}">
             <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
@@ -34,11 +37,7 @@
                         <v-img :src="bio.gallery4" width = "270px" height = "270px"/>
                     </v-flex>
                 </v-layout>
-            </v-container> 
-            <!-- <gallery-card :gallery="bio.gallery1" ></gallery-card>
-            <gallery-card :gallery="bio.gallery2" ></gallery-card>
-            <gallery-card :gallery="bio.gallery3" ></gallery-card>
-            <gallery-card :gallery="bio.gallery4" ></gallery-card> -->
+            </v-container>
         </v-col>
     </v-row>
     <v-container>

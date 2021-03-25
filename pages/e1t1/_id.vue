@@ -16,7 +16,7 @@
                         <p class="font-weight-light">{{e1t1.s_date}}</p>
                         </v-col>
                         <div v-if="loggedInUser">
-                        <v-col class="ma-0" v-if="loggedInUser.username == e1t1.s_student" >
+                        <v-col class="ma-0" v-if="loggedInUser.username == e1t1.username" >
                         <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn icon v-bind="attrs"
@@ -54,35 +54,92 @@
                     </v-row>
                     <v-row class="rounded-lg grey lighten-2 d-inline-flex mb-2">
                         <v-col class="ma-0">
-                            <nuxt-link :to="'/'+ e1t1.s_teacher">
-                            <h3 class="font-weight-light text-capitalize">{{e1t1.s_teacher}}</h3>
+                            <nuxt-link :to="'/'+ e1t1.teacher">
+                            <h3 class="font-weight-light text-capitalize">{{e1t1.teacher}}</h3>
                             </nuxt-link>
                         </v-col>
                         <!-- <v-col class="mt-2">
-                            <country-flag :country= 'e1t1.s_teacher_country' />
+                            <country-flag :country= 'e1t1.teacher_country' />
                         </v-col> -->
                     </v-row>
                     <v-row>
                         <v-col>
-                        <nuxt-link :to="'/'+ e1t1.s_student">
-                        <h5 class="font-weight-light text-capitalize">{{e1t1.s_student}}</h5>
+                        <nuxt-link :to="'/'+ e1t1.username">
+                        <h5 class="font-weight-light text-capitalize">{{e1t1.username}}</h5>
                         </nuxt-link>
                         <h6 class="font-weight-light">{{e1t1.s_appreciation}}</h6>
-                        <v-btn icon color="orange" @click="react_love">
+                        <v-btn icon @click="react_love">
                         <v-icon>mdi-rocket-launch-outline</v-icon><div v-if="love.length">{{love.length}}</div>
                         </v-btn>
-                        <v-btn icon color="indigo" @click="react_dope">
+                        <v-btn icon @click="react_dope">
                         <v-icon>mdi-hand-peace</v-icon><div v-if="dope.length">{{dope.length}}</div>
                         </v-btn>
-                        <v-btn icon color="green" @click="react_info">
+                        <v-btn icon @click="react_info">
                         <v-icon>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
-                        
                         </v-btn>
+                        </v-col>
+                    </v-row>
+                        <v-dialog v-model="personalDialog" width="800px" v-if="isAuthenticated && userHasPortfolio && isYourRoom">
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn class="my-4" small outlined
+                                v-if="loggedInUser.username == e1t1.username"
+                                    v-bind="attrs"
+                                    v-on="on">
+                                Talk to my teacher
+                                </v-btn>
+                                <v-btn v-else class="my-4" small outlined
+                                    v-bind="attrs"
+                                    v-on="on">
+                                Talk to my student
+                                </v-btn>
+                            </template>
+                            <v-container class="rounded-lg grey lighten-5 my-4" >
+                                <!-- <v-col cols="12" align="end" justify="end">
+                                <v-btn icon color="error" @click="dialog = false">
+                                <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                                </v-col> -->
+                            <!-- <v-divider></v-divider> -->
+                                    <v-row class="mx-4 mt-4 pa-4">
+                                        <h5 v-if="loggedInUser.username == e1t1.username"
+                                         class="font-weight-light text-uppercase">{{e1t1.teacher}}</h5>
+                                         <h5 v-else
+                                         class="font-weight-light text-uppercase">{{e1t1.username}}</h5>
+                                         <v-spacer></v-spacer>
+                                         <v-btn icon color="error" @click="personalDialog = false">
+                                <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                                    </v-row>
+                                    <v-row 
+                                    class="ma-4 pa-4">
+                                        <v-avatar size="36">
+                                        <img
+                                            :src = "usersPortfolio.thumb" 
+                                            alt="img"
+                                        >
+                                        </v-avatar>
+                                        <v-textarea
+                                        class="mx-4"
+                                            v-model= "personal.messagetext"
+                                            outlined
+                                            auto-grow
+                                            rows="1"
+                                            row-height="15"
+                                            max-width= "200"
+                                            label="Teacher student discussion">
+                                        </v-textarea>
+                                        <v-btn small class="text-decoration-none mr-2 ml-12 ml-sm-2" 
+                                            @click="post_personal_text"
+                                            rounded color="indigo" dark>Send
+                                        </v-btn>
+                                        <personal-messages-card :messages="personalMessages"></personal-messages-card>
+                                        <!-- <v-divider></v-divider> -->
+                                    </v-row>
+                            </v-container>
+                        </v-dialog>
                         <!-- <v-btn icon color="indigo" class="ml-2" >
                         <v-icon>mdi-comment-outline</v-icon> 
                         </v-btn> -->
-                        </v-col>
-                    </v-row>
                 </v-col>
             </v-row>
             <v-row class="mt-4 pa-4">
@@ -132,34 +189,137 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-row v-if="comments_list.length" class="mt-4 pa-4">
+        </v-container>
+        <v-container class="rounded-lg grey lighten-5 pa-4">
+            <!-- <v-virtual-scroll
+            v-if="isAuthenticated && userHasPortfolio && isYourRoom && !isShowing "
+            :items="personalMessages"
+            :item-height="this.dynamic_height"
+            height="300">
+            <template v-slot:default="{ item }">
+                <v-list-item>
+                    <div v-for="artist in artists" :key ="artist.index">
+                        <nuxt-link :to="'/'+ item.username">
+                            <v-list-item-avatar v-if=" item.username == artist.username">
+                                    <img :src = "artist.thumb" alt="img">
+                            </v-list-item-avatar>
+                        </nuxt-link>
+                    </div>
+                <v-list-item-content>
+                    <nuxt-link :to="'/'+ item.username">
+                        <div class="subtitle grey--text">{{item.username}}</div>
+                    </nuxt-link>
+                    <p>{{ item.messagetext }}</p>
+                </v-list-item-content>
+
+                <v-list-item-action>
+                </v-list-item-action>
+                </v-list-item>
+            </template>
+            </v-virtual-scroll> -->
+            <v-row v-if="comments_list.length" class="mx-4 pa-4">
                 <h5 class="font-weight-light">Comments {{comments_list.length}}
                 </h5>
             </v-row>
-            <v-row v-if="comments_list.length">
-                <!-- <div v-for = "comments in comments" :key = "comments.index" > -->
-                    <comments-card :comments = "comments_list"></comments-card>
-                <!-- </div> -->
-            </v-row>
-            <v-row v-if="isAuthenticated" class="mt-8 ml-md-8 ml-2">
-                <v-avatar size="36">
+            <v-row class="mx-4 pa-4">
+                <v-avatar v-if="isAuthenticated && userHasPortfolio" size="36">
                 <img
                     :src = "usersPortfolio.thumb" 
                     alt="img"
                 >
                 </v-avatar>
-                <v-textarea class="mx-4"
+                <v-avatar color="indigo" v-else size="36">
+                <v-icon dark>
+                    mdi-account-circle
+                </v-icon>
+                </v-avatar>
+                <v-textarea v-if="isAuthenticated && userHasPortfolio" class="mx-4"
                     v-model= "comments.c_comment"
                     outlined
-                    max-width= "400"
+                    auto-grow
+                    rows="1"
+                    row-height="15"
+                    max-width= "200"
                     label="Share your thoughts">
                 </v-textarea>
-                <v-btn class="text-decoration-none mr-2 ml-12 ml-sm-2" 
+                <v-textarea v-else class="mx-4"
+                    @click="dialog=true"
+                    outlined
+                    rows="1"
+                    row-height="15"
+                    max-width= "200"
+                    label="Share your thoughts">
+                </v-textarea>
+                <v-btn v-if="isAuthenticated && userHasPortfolio"
+                 small class="text-decoration-none mr-2 ml-12 ml-sm-2" 
                     @click="post_comment"
                     rounded color="indigo" dark >Post
                 </v-btn>
             </v-row>
-            <v-snackbar v-model="valid_snackbar">
+            <!-- <v-row v-else class="mt-8 ml-md-8 ml-2">
+                <v-btn
+                    color="primary"
+                    class="ml-4 px-4" outlined rounded
+                    @click="dialog=true"
+                        >
+                    Add Comment
+                </v-btn>
+            </v-row> -->
+            <v-row class="px-4" v-if="comments_list.length">
+                <!-- <div v-for = "comments in comments" :key = "comments.index" > -->
+                    <comments-card :comments = "comments_list"></comments-card>
+                <!-- </div> -->
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card class="pa-4">
+        <v-card-title>
+          Log in and make your portfolio to continue.
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            class="ml-4 px-4" text rounded
+            @click="create_portfolio"
+          >
+            Let's go!
+          </v-btn>
+          <v-btn
+            color="error"
+            class="ml-4 px-4" text rounded
+            @click="dialog = false"
+          >
+            Nope!
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+     <!-- <DynamicScroller
+        :items="items"
+        :min-item-size="54"
+        class="scroller"
+    >
+        <template v-slot="{ item, index, active }">
+        <DynamicScrollerItem
+            :item="item"
+            :active="active"
+            :key="item.shareid"
+            :size-dependencies="[
+            item.messagetext,
+            ]"
+            :data-index="index"
+        >
+            <div class="text">{{ item.messagetext }}</div>
+        </DynamicScrollerItem>
+        </template>
+    </DynamicScroller> -->
+    <v-snackbar v-model="valid_snackbar">
                 Write something to post.
                 <template v-slot:action="{ attrs }">
                     <v-btn
@@ -171,35 +331,33 @@
                     <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </template>
-            </v-snackbar>
-            <v-snackbar v-model="login_snackbar">
-                Please login first.
-                <template v-slot:action="{ attrs }">
-                    <v-btn
-                    color="error"
-                    icon
-                    v-bind="attrs"
-                    @click="login_snackbar = false"
-                    >
-                    <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                </template>
-            </v-snackbar>
-            <v-snackbar v-model="thankyou_snackbar">
-                Thankyou for sharing!
-                <template v-slot:action="{ attrs }">
-                <v-btn
-                    color="error"
-                    icon
-                    v-bind="attrs"
-                    @click="thankyou_snackbar = false"
-                >
-                    <v-icon>mdi-close</v-icon>
-                </v-btn>
-                </template>
-            </v-snackbar>
-        </v-container>
-    </v-container>
+    </v-snackbar>
+    <v-snackbar v-model="login_snackbar">
+        Please login first.
+        <template v-slot:action="{ attrs }">
+            <v-btn
+            color="error"
+            icon
+            v-bind="attrs"
+            @click="login_snackbar = false"
+            >
+            <v-icon>mdi-close</v-icon>
+            </v-btn>
+        </template>
+    </v-snackbar>
+    <v-snackbar v-model="thankyou_snackbar">
+        Shared!
+        <template v-slot:action="{ attrs }">
+        <v-btn
+            color="error"
+            icon
+            v-bind="attrs"
+            @click="thankyou_snackbar = false"
+        >
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
+        </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -207,8 +365,11 @@
 import EventService from '@/services/EventService.js'
 import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
-import vuex from 'vuex'
+import VueVirtualScroller from 'vue-virtual-scroller'
+import { DynamicScroller } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import CommentsCard from '~/components/CommentsCard.vue'
+import PersonalMessagesCard from '~/components/PersonalMessagesCard.vue'
 export default {
     head() {
         return {
@@ -224,11 +385,15 @@ export default {
     },
     components:{
         CountryFlag,
-        CommentsCard
+        CommentsCard,
+        PersonalMessagesCard,
+        DynamicScroller,
+        VueVirtualScroller
     },
     data(){
         return {
             dialog: false,
+            personalDialog: false,
             valid_snackbar: false,
             login_snackbar: false,
             thankyou_snackbar: false,
@@ -241,16 +406,49 @@ export default {
                 l_shareid: "",
                 l_liker: "",
                 l_type: ""
-            }
+            },
+            personal:{
+                shareid: null,
+                username: null,
+                messagetext: ""
+            },
+            isShowing:false,
+            isYourRoom: false,
+            items: [],
+            dynamic_height: 50,
+            // colors: ['#2196F3', '#90CAF9', '#64B5F6', '#42A5F5'],
+            names: ['Oliver', 'Jake', 'Noah', 'James', 'Jake', 'Noah', 'James'],
+      
             }
     },
     mounted() {
         this.$store.dispatch("check_artists");
         this.$store.dispatch("check_likes", this.e1t1.id)
         this.$store.dispatch("check_comments", this.e1t1.id)
+        if(this.$store.state.auth.user.username == this.e1t1.teacher || this.$store.state.auth.user.username ==this.e1t1.username){
+            this.isYourRoom = true
+            this.$store.dispatch("check_personal_room", this.e1t1.id);
+            this.items = this.personalMessages;
+            // this.dynamic_height = this.$refs.infoBox.clientHeight;
+        }
 	},
 	computed: {
-        ...mapGetters(['artists', 'isAuthenticated','loggedInUser', 'usersPortfolio', 'comments_list', 'love', 'dope', 'info']),
+    //     items () {
+    //     const namesLength = this.names.length
+    //     const colorsLength = this.colors.length
+
+    //     return Array.from({ length: 10 }, (k, v) => {
+    //       const name = this.names[this.genRandomIndex(namesLength)]
+
+    //       return {
+    //         color: this.colors[this.genRandomIndex(colorsLength)],
+    //         fullName: `${name}`,
+    //       }
+    //     })
+    //   },
+        ...mapGetters(['artists', 'userHasPortfolio', 'isAuthenticated',
+        'loggedInUser', 'usersPortfolio', 'comments_list', 'love', 'dope', 'info',
+        'personalMessages','userHasPersonalMessages']),
 	},
     async asyncData({error, params}) {
       try {
@@ -264,6 +462,9 @@ export default {
         }
     },   
     methods:{
+        create_portfolio(){
+            this.$router.push("/create/about");
+        },
         goback(){
             window.history.back();
         },
@@ -389,6 +590,31 @@ export default {
             else{
                 this.login_snackbar = true
             }
+        },
+        async post_personal_text(){
+            this.personal.username = this.$store.state.auth.user.username
+            this.personal.shareid = this.e1t1.id
+
+            const config = {
+                headers: {"content-type": "multipart/form-data",
+                    "Authorization": "Bearer " + this.$store.state.auth.user.access
+                }
+            };
+            let formData = new FormData();
+            for (let data in this.personal) {
+                formData.append(data, this.personal[data]);
+            }
+            try {
+                await this.$axios.$post("/v1/e1t1/qna/", formData, config)
+                this.personal.messagetext = ''
+                this.personal.shareid = null
+                this.personal.username = null
+                this.thankyou_snackbar = true
+                this.$store.dispatch("check_personal_room", this.e1t1.id);
+            } catch (e) {
+                console.log(e);
+            }
+
         }
     }
     

@@ -1,37 +1,36 @@
 <template>
-    <v-footer class="ma-6 white">
-      <v-container>
-        <v-divider set="inset"></v-divider>
-      <v-col cols="12" >
-        <v-row align="center" justify="center">
-          <h2 class="pa-6">
-            Let's connect HipHop a little more, share it a little more...Together.
-          </h2>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-row>
-              <div class="mb-2">&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
-            </v-row>
-            <v-row>
-              <div>developed by the dancers for the dancers.</div>
-            </v-row>
-          </v-col>
+  <v-footer class="ma-6 white">
+    <v-container>
+      <v-divider set="inset"></v-divider>
+      <v-row class="mt-8">
+        <v-col cols="12" sm="6">
+          <v-row>
+            <div class="mb-2">&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>
+          </v-row>
+          <v-row>
+            <p class="caption">developed by the dancers for the dancers.</p>
+          </v-row>
+        </v-col>
       <v-spacer></v-spacer>
-      <v-col>
+      <v-col cols="12" sm="6">
+        <v-row class="mx-4 justify-end">
+        <v-btn plain small text :to= "`/about_us/`">About</v-btn>
+        </v-row>
+        <v-row class="mx-4 justify-end">
+          <v-btn plain small text :to= "`/team/`">Team</v-btn>
+        </v-row>
+        <v-row class="mx-4 justify-end">
+          <v-btn plain small text :to= "`/contact/`">Contact Us</v-btn>
+        </v-row>
         <v-row class="justify-end mb-2">
-          <v-btn icon class="text-decoration-none mx-4" color="indigo"  @click="openig" >
+          <v-btn small icon class="text-decoration-none mt-2 mx-4 mr-10"  @click="openig" >
             <v-icon>mdi-instagram</v-icon>
         </v-btn>
         </v-row>
-        <!-- <v-row class="justify-end">
-          <div><a href="">Contact</a></div>
-        </v-row> -->
       </v-col>
-        </v-row>
-      </v-col>
-      </v-container>
-    </v-footer>
+      </v-row>
+    </v-container>
+  </v-footer>
 </template>
 <script>
 export default {

@@ -3,12 +3,7 @@
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
              <img src="@/assets/inmygroove.png" height="80px" width="90px">
-            </nuxt-link>
-            <!-- <v-btn medium class="ma-6 yellow text-decoration-none elevation-0" to='/'>InmyGroove</v-btn> -->
-        <v-spacer></v-spacer>
-        <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/myhood" >My hood</v-btn> -->
-        <!-- {{userHasPortfolio}} -->
-            <!-- <v-btn outlined rounded color="indigo" class="mr-2 text-decoration-none" to="/write_blog" >Write a blog</v-btn> -->
+            </nuxt-link> <v-spacer></v-spacer> 
             <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
             <!-- <v-badge color="green" content="0"> -->
             <v-icon>mdi-bell</v-icon>
@@ -22,14 +17,6 @@
                     </div>
                 </template>
                 <v-list>
-                    <!-- <v-list-item
-                    v-for="(item, index) in items"
-                    :key="index"
-                    :to="item.url"
-                    class="text-decoration-none"
-                    >
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item> -->
                     <v-list-item
                     :to="'/'"
                     class="text-decoration-none pl-6 pr-12"
@@ -71,12 +58,6 @@
                     <v-list-item-title>Notifications</v-list-item-title>
                     </v-list-item>
                     <v-list-item
-                    :to="'/write_blog'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>Write a Post</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
                     :to="'/settings'"
                     class="text-decoration-none pl-6 pr-12"
                     >
@@ -99,13 +80,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import store from 'vuex'
 export default {
-    // mounted(){
-    //     if(this.$auth.getToken('local')){
-    //         this.$router.push("/login");
-    //     }
-    // },
     computed: {
         ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio','usersPortfolio'])
     },

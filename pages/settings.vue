@@ -6,10 +6,10 @@
             <div class="ma-6">
                 <h3 class="mt-6">User</h3>
                 <v-form>
-                <v-text-field v-model="info.name" label="Name" prepend-icon="mdi-account-circle" />
-				<v-text-field v-model="info.email" label="Email" prepend-icon="mdi-account-circle" />
-				<v-text-field v-model="info.username" label="Username" prepend-icon="mdi-account-circle" />
-			</v-form>
+                    <v-text-field v-model="info.name" label="Name" prepend-icon="mdi-account-circle" />
+                    <v-text-field v-model="info.email" label="Email" prepend-icon="mdi-account-circle" />
+                    <v-text-field v-model="info.username" label="Username" prepend-icon="mdi-account-circle" />
+                </v-form>
             <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="save_information">Save Information</v-btn>
             <v-snackbar v-model="snackbar"> Changes saved.
@@ -25,9 +25,9 @@
             <div class="ma-6">
                 <h3 class="mt-6">Account</h3>
                 <v-form>
-                <v-text-field v-model="info.password" label="Set new password"  />
-				<v-text-field v-model="info.password" label="Confirm password"  />
-			</v-form>
+                    <v-text-field v-model="info.password" label="Set new password"  />
+                    <v-text-field v-model="info.password" label="Confirm password"  />
+                </v-form>
             <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="set_new_password">Set New Password</v-btn>
             </div>
@@ -89,7 +89,11 @@ export default {
                 }
             };
             try {
-                // let response = await this.$axios.$delete("/v1/artist/gallery/25", config)
+                let formPassword = new FormData();
+                formPassword.append('name', this.$store.state.auth.user.username);
+                formPassword.append('password', this.info.password)
+                formPassword.append('email', this.info.email)
+                await this.$axios.$put("/v1/user/update/", formPassword, config)
                 //new password
                 console.log("new password changed successfully");
                 this.snackbar = true;

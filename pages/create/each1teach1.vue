@@ -21,137 +21,137 @@
                 Share your experience
             </h5>
             <v-form v-on:submit.prevent="submit">
-            <v-row>
-                <v-col cols="12" md="9">
-                    <v-combobox
-                        v-model="sharing.s_teacher"
-                        :items="artists"
-                        color="blue-grey lighten-2"
-                        label="Teacher name"
-                        item-text="artist_name"
-                        item-value="username"
-                        >
-                        <template v-slot:selection="data">
-                            <v-chip
-                            v-bind="data.attrs"
-                            :input-value="data.selected"
+                <v-row>
+                    <v-col cols="12" md="9">
+                        <v-combobox
+                            v-model="sharing.teacher"
+                            :items="artists"
+                            color="blue-grey lighten-2"
+                            label="Teacher name"
+                            item-text="artist_name"
+                            item-value="username"
                             >
-                            <v-avatar v-if="data.item.thumb" left>
-                                <v-img :src="data.item.thumb"></v-img>
-                            </v-avatar>
-                            <template v-if="data.item.artist_name" >
-                            {{ data.item.artist_name }}
+                            <template v-slot:selection="data">
+                                <v-chip
+                                v-bind="data.attrs"
+                                :input-value="data.selected"
+                                >
+                                <v-avatar v-if="data.item.thumb" left>
+                                    <v-img :src="data.item.thumb"></v-img>
+                                </v-avatar>
+                                <template v-if="data.item.artist_name" >
+                                {{ data.item.artist_name }}
+                                </template>
+                                <template v-else >
+                                {{ data.item }}
+                                </template>
+                                </v-chip>
                             </template>
-                            <template v-else >
-                            {{ data.item }}
+                            <template v-slot:item="data">
+                                <template v-if="typeof data.item !== 'object'">
+                                <v-list-item-content v-text="data.item"></v-list-item-content>
+                                </template>
+                                <template v-else>
+                                <v-list-item-avatar>
+                                    <img :src="data.item.thumb">
+                                </v-list-item-avatar>
+                                <v-list-item-content>
+                                    <v-list-item-title v-html="data.item.artist_name"></v-list-item-title>
+                                    <v-list-item-subtitle v-html="data.item.country"></v-list-item-subtitle>
+                                </v-list-item-content>
+                                </template>
                             </template>
-                            </v-chip>
-                        </template>
-                        <template v-slot:item="data">
-                            <template v-if="typeof data.item !== 'object'">
-                            <v-list-item-content v-text="data.item"></v-list-item-content>
-                            </template>
-                            <template v-else>
-                            <v-list-item-avatar>
-                                <img :src="data.item.thumb">
-                            </v-list-item-avatar>
-                            <v-list-item-content>
-                                <v-list-item-title v-html="data.item.artist_name"></v-list-item-title>
-                                <v-list-item-subtitle v-html="data.item.country"></v-list-item-subtitle>
-                            </v-list-item-content>
-                            </template>
-                        </template>
-                    </v-combobox>
-                <v-textarea
-                    v-model = "sharing.s_appreciation"
-                    label= "Your learning">
-                </v-textarea>
-                <v-text-field
-                    v-model = "sharing.s_location"
-                    label= "Where did you meet?"
-                    :maxlength="50">
-                </v-text-field>
-                <v-select 
-                    label="Your teacher's country" 
-                    v-model= "sharing.s_teacher_country"
-                    :items="countries"
-                    item-text="name"
-                    item-value="code">
-                </v-select>
-                <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :return-value.sync="date"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
+                        </v-combobox>
+                        <v-textarea
+                            v-model = "sharing.s_appreciation"
+                            label= "Your learning">
+                        </v-textarea>
                         <v-text-field
-                        v-model= "sharing.s_date"
-                        label="Date"
-                        prepend-icon="mdi-calendar" 
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker v-model= "sharing.s_date" no-title scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                        <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
-                </v-menu>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_photo" 
-                    style="display:none" 
-                    ref="fileInput" 
-                    accept="image/*"
-                    required
-                    @change="onFileChange">
-                </div>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo" label="Upload an appreciation video"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_video_talk" 
-                    style="display:none" 
-                    ref="fileInputVideo" 
-                    accept="video/*"
-                    required
-                    @click:clear="rem()"
-                    @change="onFileChangeVideo">
-                </div>
-                <div class = "form-group">
-                    <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo2" label="Upload a video of your learning"></v-text-field>
-                    <input 
-                    type="file" 
-                    name = "sharing.s_video_dance" 
-                    style="display:none" 
-                    ref="fileInputVideo2" 
-                    accept="video/*"
-                    required
-                    @change="onFileChangeVideo2">
-                </div>
-                <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
-                @click="submit">Submit</v-btn>
-                <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
-                @click="update">Update</v-btn>
-                </v-col>
+                            v-model = "sharing.s_location"
+                            label= "Where did you meet?"
+                            :maxlength="50">
+                        </v-text-field>
+                        <v-select 
+                            label="Your teacher's country" 
+                            v-model= "sharing.s_teacher_country"
+                            :items="countries"
+                            item-text="name"
+                            item-value="code">
+                        </v-select>
+                        <v-menu
+                            ref="menu"
+                            v-model="menu"
+                            :close-on-content-click="false"
+                            :return-value.sync="date"
+                            transition="scale-transition"
+                            offset-y
+                            min-width="290px"
+                            >
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                v-model= "sharing.s_date"
+                                label="Date"
+                                prepend-icon="mdi-calendar" 
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model= "sharing.s_date" no-title scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                        <div class = "form-group">
+                            <v-text-field clearable prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
+                            <input 
+                            type="file" 
+                            name = "sharing.s_photo" 
+                            style="display:none" 
+                            ref="fileInput" 
+                            accept="image/*"
+                            required
+                            @change="onFileChange">
+                        </div>
+                        <div class = "form-group">
+                            <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo" label="Upload an appreciation video"></v-text-field>
+                            <input 
+                            type="file" 
+                            name = "sharing.s_video_talk" 
+                            style="display:none" 
+                            ref="fileInputVideo" 
+                            accept="video/*"
+                            required
+                            @click:clear="rem()"
+                            @change="onFileChangeVideo">
+                        </div>
+                        <div class = "form-group">
+                            <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo2" label="Upload a video of your learning"></v-text-field>
+                            <input 
+                            type="file" 
+                            name = "sharing.s_video_dance" 
+                            style="display:none" 
+                            ref="fileInputVideo2" 
+                            accept="video/*"
+                            required
+                            @change="onFileChangeVideo2">
+                        </div>
+                        <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
+                        @click="submit">Submit</v-btn>
+                        <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
+                        @click="update">Update</v-btn>
+                    </v-col>
                 </v-row>
             </v-form>   
         </v-col>
         <v-col cols="12" md="6" class="px-sm-6 mt-6 grey lighten-4 rounded-xl">
             <v-row class="pb-6 pa-4 justify-center text-center">
-                <template v-if="typeof sharing.s_teacher== 'object'">
-                <h2> {{sharing.s_teacher.username}}</h2>
+                <template v-if="typeof sharing.teacher== 'object'">
+                <h2> {{sharing.teacher.username}}</h2>
                 </template>
                 <template v-else>
-                    <h2> {{sharing.s_teacher}}</h2>
+                    <h2> {{sharing.teacher}}</h2>
                 </template>
                 <v-spacer></v-spacer>
                 <h5>{{sharing.s_location}}</h5>
@@ -487,14 +487,15 @@ export default {
             sharing: {
                     s_teacher_name: "",
                     s_teacher_country: "",
+                    s_student_country: "",
                     s_photo: "",
                     s_appreciation: "",
                     s_video_talk: "",
                     s_video_dance: "",
                     s_date: "",
                     s_location: "",
-                    s_student: this.$store.state.auth.user.username,
-                    s_teacher: ""
+                    username: this.$store.state.auth.user.username,
+                    teacher: ""
                 },
             imageData: "",
             videoData: "",
@@ -576,20 +577,22 @@ export default {
             this.sharing.s_video_dance = ''
         },
         async submit() {
-            let t_name = typeof this.sharing.s_teacher;
-            if(t_name == 'object') //if teacher exists then changing the value of s_teacher to username 
+            let t_name = typeof this.sharing.teacher;
+            if(t_name == 'object') //if teacher exists then changing the value of teacher to username 
             {
-                this.sharing.s_teacher = this.sharing.s_teacher.username
+                this.sharing.teacher = this.sharing.teacher.username
+                this.sharing.s_teacher_name = this.sharing.teacher 
             }
-            else{
-                this.sharing.s_teacher_name = this.sharing.s_teacher 
-                this.sharing.s_teacher = "" //making null because no artists to tag.
+            else
+            {
+                this.sharing.s_teacher_name = this.sharing.teacher 
+                this.sharing.teacher = "" //making null because no artists to tag.
             }
             if(this.sharing.s_teacher_name != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
             {
                 // this.sharing.s_teacher_name = this.sharing.s_teacher;
                 const config = {
-                    headers: {"content-type": "multipart/form-data",
+                    headers: { "content-type": "multipart/form-data",
                         "Authorization": "Bearer " + this.$store.state.auth.user.access}
                 };
                 let formData = new FormData();
@@ -608,24 +611,25 @@ export default {
             }
         },
         async update() {
-            let t_name = typeof this.sharing.s_teacher;
+            let t_name = typeof this.sharing.teacher;
             if(t_name == 'object') //if teacher exists then changing the value of s_teacher to username 
             {
-                this.sharing.s_teacher = this.sharing.s_teacher.username
+                this.sharing.teacher = this.sharing.teacher.username
+                this.sharing.s_teacher_name = this.sharing.teacher 
             }
             else{
-                this.sharing.s_teacher_name = this.sharing.s_teacher 
-                this.sharing.s_teacher = "" //making null because no artists to tag.
+                this.sharing.s_teacher_name = this.sharing.teacher 
+                this.sharing.teacher = "" //making null because no artists to tag.
             }
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$store.state.auth.user.access}
             };
-            if(this.share_obj.s_teacher!=this.sharing.s_teacher) //checking if data has changed
+            if(this.share_obj.teacher!=this.sharing.teacher) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.sharing) {
-                    if(data == 's_teacher' || data == 's_student' )
+                    if(data == 's_teacher' || data == 'username' )
                     {
                         console.log("name has changed");
                         formName.append(data, this.sharing[data]);
@@ -636,7 +640,7 @@ export default {
             {
                 let formAppreciation = new FormData();
                 for (let data in this.sharing) {
-                    if(data == 's_appreciation' || data == 's_student')
+                    if(data == 's_appreciation' || data == 'username')
                     {
                         console.log("appreciation has changed");
                         formAppreciation.append(data, this.sharing[data]);
@@ -648,7 +652,7 @@ export default {
             {
                 let formCountry = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_teacher_country' || data == 's_student')
+                if(data == 's_teacher_country' || data == 'username')
                 {
                     console.log("country has changed");
                     formCountry.append(data, this.sharing[data]);
@@ -660,7 +664,7 @@ export default {
             {
                 let formPhoto = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_photo' || data == 's_student')
+                if(data == 's_photo' || data == 'username')
                 {
                     console.log("photo has changed");
                     formPhoto.append(data, this.sharing[data]);
@@ -672,7 +676,7 @@ export default {
             {
                 let formVideoTalk = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_video_talk' || data == 's_student')
+                if(data == 's_video_talk' || data == 'username')
                 {
                     console.log("video_talk has changed");
                     formVideoTalk.append(data, this.sharing[data]);
@@ -684,7 +688,7 @@ export default {
             {
                 let formVideoDance = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_video_dance' || data == 's_student')
+                if(data == 's_video_dance' || data == 'username')
                 {
                     console.log("video_dance has changed");
                     formVideoDance.append(data, this.sharing[data]);
@@ -696,7 +700,7 @@ export default {
             {
                 let formDate = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_date' || data == 's_student')
+                if(data == 's_date' || data == 'username')
                 {
                     console.log("date has changed");
                     formDate.append(data, this.sharing[data]);
@@ -708,7 +712,7 @@ export default {
             {
                 let formLocation = new FormData();
                 for (let data in this.sharing) {
-                if(data == 's_location' || data == 's_student')
+                if(data == 's_location' || data == 'username')
                 {
                     console.log("location has changed");
                     formLocation.append(data, this.sharing[data]);

@@ -18,7 +18,7 @@
                 </v-col>
                 <v-col cols="2">
                     <v-row class="justify-end mt-4 mr-8">
-                        <v-tooltip right>
+                    <v-tooltip right>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn icon v-bind="attrs" v-on="on" color="primary"><v-icon>mdi-information-outline</v-icon></v-btn>
                     </template>
@@ -98,7 +98,7 @@
                                             required
                                             @change="onFileChange">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" @click="removeImage">mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
@@ -117,7 +117,7 @@
                                             required
                                             @change="onFileChange1">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage1" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" @click="removeImage1">mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
@@ -136,7 +136,7 @@
                                             required
                                             @change="onFileChange2">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage2" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" @click="removeImage2" >mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
@@ -155,7 +155,7 @@
                                             required
                                             @change="onFileChange3">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage3" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" @click="removeImage3" >mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>

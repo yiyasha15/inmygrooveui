@@ -3,11 +3,14 @@
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
              <img src="@/assets/inmygroove.png" height="80px" width="90px">
-            </nuxt-link>
-            <v-spacer></v-spacer>
-        <div v-if="isAuthenticated"> 
-            <v-btn icon color="indigo" class="mt-4 ml-6 pl-4 text-decoration-none" dark to="/create/each1teach1"><v-icon>mdi-alien</v-icon></v-btn>
-             <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
+            </nuxt-link> 
+            <v-spacer></v-spacer> 
+            <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
+            <!-- <v-badge color="green" content="0"> -->
+            <v-icon>mdi-bell</v-icon>
+            <!-- </v-badge> -->
+            </v-btn>
+            <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
                     v-on="on">
@@ -32,7 +35,7 @@
                         alt="img"
                     >
                     </v-avatar>
-                    <v-list-item-title>@{{ loggedInUser.username }}</v-list-item-title>
+                    <v-list-item-title class="pl-2">@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     v-if="!userHasPortfolio"
@@ -48,17 +51,12 @@
                     >
                     <v-list-item-title>Edit your portfolio</v-list-item-title>
                     </v-list-item>
+                    
                     <v-list-item
                     :to="'/notifications'"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Notifications</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
-                    :to="'/write_blog'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>Write a Post</v-list-item-title>
                     </v-list-item>
                     <v-list-item
                     :to="'/settings'"
@@ -74,37 +72,15 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-        </div>
-        <div v-else>
-            <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                    <div v-bind="attrs"
-                    v-on="on">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                    </div>
-                </template>
-                <v-list>
-                    <v-list-item
-                    :to="'/login'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>Login</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
-                    :to="'/register'"
-                    class="text-decoration-none pl-6 pr-12"
-                    >
-                    <v-list-item-title>Register</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
+        <div v-if="!isAuthenticated">
+            <v-btn rounded color="yellow" class="mr-2 text-decoration-none" to="/login">Log in</v-btn>
+            <v-btn rounded color="indigo" dark class="mr-2 text-decoration-none" to="/register">Register</v-btn>
         </div>
         </v-toolbar>
     </v-container>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import store from 'vuex'
 export default {
     computed: {
         ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio','usersPortfolio'])
