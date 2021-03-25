@@ -18,10 +18,10 @@
               <h6 class="font-weight-light">1. Fill the form according to the guidelines provided on each page. All these combined make up your portfolio. </h6>
               <h6 class="font-weight-light">2. <b>About Page.</b> Give a name other artists know you by.</h6>
               <h6 class="font-weight-light">3. <b>Bio Page.</b> Share about yourself and your social presence. </h6>
-              <h6 class="font-weight-light">4. <b>Gallery Page.</b> Upload four beautiful images.</h6>
-              <h6 class="font-weight-light">5. <b>Highlights Page.</b> Share some of your profound memories.</h6>
-              <h6 class="font-weight-light">6. <b>Judging/Workshops Page.</b> Share about your workshop and judging experiences.</h6>
-              <h6 class="font-weight-light">7. <b>Events Page.</b> Share about the events you have attended.</h6>
+              <!-- <h6 class="font-weight-light">4. <b>Gallery Page.</b> Upload four beautiful images.</h6> -->
+              <!-- <h6 class="font-weight-light">5. <b>Highlights Page.</b> Share some of your profound memories.</h6> -->
+              <!-- <h6 class="font-weight-light">6. <b>Judging/Workshops Page.</b> Share about your workshop and judging experiences.</h6> -->
+              <!-- <h6 class="font-weight-light">7. <b>Events Page.</b> Share about the events you have attended.</h6> -->
               <h6 class="font-weight-light mt-8">We understand that gathering all these memories will take some time, but memories will eventually fade away 
                 but the shared ones will be here to stay. So, years down the lane we hope you have a smile on your face 
                 looking back at the journey. Okay, let's get started.
@@ -32,10 +32,10 @@
             </div>
             <div v-else class="ma-8">
               <h1 class="font-weight-light">How to edit portfolio?</h1>
-              <h5 class="mt-4 font-weight-light">Hi {{loggedInUser.username}}, <br>To edit your portfolio follow these steps.
+              <h5 class="mt-4 font-weight-light">Hi {{loggedInUser.username}},
               </h5>
-              <h6 class="font-weight-light">1. You can edit the form and preview the information.</h6>
-              <h6 class="font-weight-light">1. You can update it once you're done.</h6>
+              <h6 class="font-weight-light">1. You can edit the form to update your portfolio.</h6>
+              <h6 class="font-weight-light">2. Add highlights of your dance journey.</h6>
               <div class="mt-6" >
                 <v-btn rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Edit</v-btn>
               </div>

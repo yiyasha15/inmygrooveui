@@ -3,15 +3,13 @@
     <v-container>
     <v-row>
         <v-col cols="12" sm="4" >
-            <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}} {{artist.username}}</div>
+            <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}}</div>
         </v-col>
         <v-col cols="12" sm="8" class="px-0 d-flex align-end justify-end pr-4">
-            <div>
-                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}`">About</v-btn>
-                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/hiphop_highlight`"> Highlights</v-btn> 
-                <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
-                <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn>  -->
-            </div>
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}`">About</v-btn>
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/journey`"> Journey</v-btn> 
+            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+            <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn>  -->
         </v-col>
     </v-row>
     </v-container>

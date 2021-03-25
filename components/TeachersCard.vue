@@ -17,8 +17,11 @@
             </div>
             <v-card-title>
               <v-row class="text-decoration-none">
-              {{e1t1.s_teacher}} -> {{e1t1.s_student}}
-              <v-spacer></v-spacer>
+              <p class="body-2">{{e1t1.teacher}} <v-icon small>
+                mdi-heart-circle-outline
+              </v-icon> {{e1t1.username}}</p> 
+              <!-- <v-spacer></v-spacer> -->
+              <!-- <p class="body-2">{{e1t1.username}}</p> -->
                 <!-- <v-btn icon class="text-decoration-none" >
                   <country-flag :country= 'e1t1.s_teacher_country' />
                 </v-btn> -->
@@ -26,9 +29,10 @@
             </v-card-title>
             <v-card-text>
               <v-row>
+                <v-spacer></v-spacer>
                 <div v-if = "e1t1.likes_sharing.length">
                     <!-- <v-icon>mdi-creation</v-icon>  -->
-                    {{e1t1.likes_sharing.length}} reactions
+                    <p class="caption">{{e1t1.likes_sharing.length}} reactions</p>
                 </div>
               </v-row>
             </v-card-text>

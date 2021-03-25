@@ -9,7 +9,7 @@
         <!-- <hr> -->
         <div class="d-flex flex-wrap my-4 pl-4 ">
             <div v-for = "share in sharing" :key = "share.index">
-                <div v-if="share.s_student === artist.username">
+                <div v-if="share.username === artist.username">
                     <TeachersCard :e1t1="share" ></TeachersCard>
                 </div>
             </div>
@@ -19,7 +19,7 @@
         <!-- <hr> -->
         <div class="d-flex flex-wrap my-4 pl-4 ">
             <div v-for = "share in sharing" :key = "share.index">
-                <div v-if="share.s_teacher === artist.username">
+                <div v-if="share.teacher === artist.username">
                     <StudentsCard :share="share" ></StudentsCard>
                 </div>
             </div>

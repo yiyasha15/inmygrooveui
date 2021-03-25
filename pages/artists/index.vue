@@ -2,7 +2,10 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="8"  class="justify-center">
-        <h4 class ="pl-6 my-4 font-weight-light xs12">Our Community</h4>
+        <h4 class ="pl-6 my-4 font-weight-light xs12 d-inline">Our Community</h4>
+        <v-btn dark v-if="isAuthenticated" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/about/">
+        <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </v-col>
       <v-col cols="12" md="4" class= "pr-6 justify-end mb-2 px-6" >
           <v-text-field
@@ -29,7 +32,7 @@
 <script>
 import ArtistCard from '@/components/ArtistCard.vue'
 import EventService from '@/services/EventService.js'
-
+import { mapGetters} from 'vuex'
 export default {
   scrollToTop: true,
   head() {  //head function (a property of vue-meta), returns an object
@@ -63,7 +66,9 @@ export default {
       search: ""
     }
   },
+  layout: 'e1t1',
   computed: {
+    ...mapGetters(['isAuthenticated', 'userHasPortfolio', 'loggedInUser']),
     filteredArtists: function(){
       return this.artists.filter((artist) => {
         return artist.artist_name.toLowerCase().match(this.search.toLowerCase());

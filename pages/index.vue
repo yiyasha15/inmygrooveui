@@ -1,67 +1,95 @@
 <template>
     <v-container>
       <v-row>
-        <v-col cols="12" md="6">
-          <div align="center" justify="center" class="mx-12 my-8">
-            <img src = "~/assets/art1.jpeg"  width="90%" alt="In My Groove logo">
+        <v-col cols="12" >
+          <div align="center" justify="center">
+            <img src = "~/assets/bboys.jpeg" width="70%" alt="In My Groove logo">
           </div>
         </v-col>
-        <v-col cols="12" md="6" offset-md="-4">
-          <div align="center" justify="center" class="mx-12 mb-12" align-content="center">
-              <h1 class="my-6 font-weight-bold"> In My Groove</h1>
-              <hr><br>
-              <div class="font-weight-light text-center ma-0">
-                 <h5>for all of us, who do the hiphop culture right.</h5>
+        <v-col cols="12" >
+          <div align="end" justify="end" class="mx-12 mb-12 mt-0 pt-0" align-content="center">
+              <h1 class=" font-weight-bold"> Represent Right!</h1>
+              <div class="mt-4" >
+                <v-btn text rounded dark color="#BD3D30" class="h1 text-decoration-none elevation-none px-6 justify-end" :to= "`/artists/`">Our Community 
+                <v-icon right>
+                  mdi-arrow-right
+                </v-icon>
+              </v-btn>
               </div>
+              <hr>
           </div>
         </v-col>
       </v-row>
       <v-row align="center" justify="center" align-content="center">
         <h5 class="pa-6 font-weight-light text-center">
-          InMyGroove is a community platform <b>to celebrate the each one teach one legacy of the hiphop culture </b> in a meaningful way. 
+          At inmygroove, we... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+            culpa qui officia deserunt mollit anim id est laborum.
+          <!-- InMyGroove is a community platform <b>to celebrate the each one teach one legacy of the hiphop culture </b> in a meaningful way. 
           We all learn from some artists who passionately shared their dance and knowledge, may be in the studios, streets, clubs or cyphers. We hope, like us
           you too understand the value of their sharing along the way which made you a dope dancer today. Let's celebrate them and share your experiences with them.
           Eventually a new generation dancer will get to know them through you.<b> The cycle of the culture repeats and along the way comes your turn, to be celebrated by your students.</b>
           The past, present and future of each one teach one becomes one right here. You see it right. Let's make the culture even more meaningfully connected than it is today. 
           We feel that together we can acheive this hence the initiative <b>'Inmygroove', where you represent yourself, your journey and your teachers/friends/brothers/sisters
-          who passed a part of their groove, a part of their soul to you.</b>
+          who passed a part of their groove, a part of their soul to you.</b> -->
         </h5>
       </v-row>
       <v-row>
-        <v-col cols="6" md="4" class="pa-md-6 pa-sm-4 pa-xs-0">
+        <div class="mx-8 mt-12" align-content="center">
+          <h1 v-if="!userHasPortfolio" class=" font-weight-bold"> Create a portfolio</h1>
+          <h1 v-else class=" font-weight-bold" > Edit your portfolio 
+            <!-- <v-icon right>
+              mdi-arrow-right
+            </v-icon> -->
+          </h1>
+          <div class="mt-4" >
+            <v-btn text rounded dark color="#BD3D30" class="text-decoration-none elevation-none px-4 justify-end" :to= "`/create/`">Get Started
+            <v-icon right>
+              mdi-arrow-right
+            </v-icon>
+          </v-btn>
+          </div>
+          <hr>
+      </div>
+      </v-row>
+      <v-row class="justify-center align-center mt-4">
+        <v-col cols="12">
+          <div align="center" justify="center">
+          <img src = "~/assets/e1t11.jpeg"  width="80%" alt="portfolio logo">
+          </div></v-col>
+        <v-col cols="12">
+          <div class="mx-8" align-content="center" align="center" justify="center">
+          <h1 class=" font-weight-bold"> Each I Teach I</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+            culpa qui officia deserunt mollit anim id est laborum.</p>
+          <v-btn text rounded dark color="#35463A" class="mt-2 text-decoration-none elevation-none justify-end" :to= "`/e1t1/`">Each 1 Teach 1
+          <v-icon right>
+            mdi-arrow-right
+          </v-icon></v-btn>
+          </div>
+        </v-col>
+
+        <!-- <v-col cols="12" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }" to = '/artists'>
-                <img src = "~/assets/pencil_art2.png" width="100%" alt="portfolio logo" height="150">
-                <p class="font-weight-light text-center py-2"> Our community</p>
-                </v-card>
-            </v-hover>
-        </v-col >
-        <v-col cols="6" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
-            <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 16 : 2"
+                <v-card :elevation="hover ? 4 : 0"
                 :class="{ 'on-hover': hover }" to = '/create'>
                 <img src = "~/assets/portfolio.png"  width="100%" alt="portfolio logo" height="150">
                 <p v-if="!userHasPortfolio" class="font-weight-light text-center py-2"> Create a portfolio</p>
                 <p v-else class="font-weight-light text-center py-2"> Edit your portfolio</p>
                 </v-card>
             </v-hover>
-        </v-col>
-        <v-col cols="6" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
+        </v-col> -->
+        <!-- <v-col cols="12" md="4"  class="pa-md-6 pa-sm-4 pa-xs-0">
             <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 16 : 2"
+                <v-card :elevation="hover ? 4 : 0"
                 :class="{ 'on-hover': hover }" to = '/e1t1'>
                 <img src = "~/assets/each1teach1.jpeg"  width="100%" alt="portfolio logo" height="150">
                 <p class="font-weight-light text-center py-2"> Each one Teach one</p>
-                </v-card>
-            </v-hover>
-        </v-col>
-        <!-- <v-col cols="6" md="3"  class="pa-md-6 pa-sm-4 pa-xs-0">
-            <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }" to = '/blogs'>
-                <img src = "~/assets/blogimg.png"  width="100%" alt="portfolio logo" height="140">
-                <p class="font-weight-light text-center py-2"> Blogs</p>
                 </v-card>
             </v-hover>
         </v-col> -->

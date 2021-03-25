@@ -11,21 +11,23 @@ export const state = () => ({
   sharing:[], //e1t1 onject
   portfolio: null, //store portfolio data of the logged in user
   bio: null, //store bio data of the logged in user
-  gallery: [], //store gallery data of the logged in user
+  // gallery: [], //store gallery data of the logged in user
   highlights: [], //store Highlights data of the logged in user
   journey: [], //store Highlights data of the logged in user
-  judging: [], //store bio data of the logged in user
-  moments: [], //store bio data of the logged in user
-  events: [], //store bio data of the logged in user
+  // judging: [], //store bio data of the logged in user
+  // moments: [], //store bio data of the logged in user
+  // events: [], //store bio data of the logged in user
   list_of_artists: [],
+  personalMessages: [],
   hasHighlights: false, //if user has highlights data
   hasJourney: false, 
   hasPortfolio: false, //if user has portfolio data
   hasBio: false, //if user has bio data
-  hasGallery: false, //if user has gallery data
-  hasJudging: false, //if user has judging data
-  hasMoments: false, //if user has moments data
-  hasEvents: false, //if user has events data
+  // hasGallery: false, //if user has gallery data
+  // hasJudging: false, //if user has judging data
+  // hasMoments: false, //if user has moments data
+  // hasEvents: false, //if user has events data
+  hasPersonalMessages: false,
   img_artists: '', //no. of artist in img community
   comments_list: [],
   love: '',
@@ -48,6 +50,9 @@ export const getters = {
   },
   sharing(state) {
     return state.sharing
+  },
+  personalMessages(state){
+    return state.personalMessages
   },
   isAuthenticated(state) {
     return state.auth.loggedIn
@@ -96,6 +101,9 @@ export const getters = {
   },
   userHasMoments(state){
     return state.hasMoments
+  },
+  userHasPersonalMessages(state){
+    return state.hasPersonalMessages
   },
   usersEvents(state){
     return state.events
@@ -146,7 +154,6 @@ export const actions = {
     EventService.getArtists().then(res =>
     {
       commit('get_artists',res.data)
-      commit('get_list_of_artists',res.data)
       commit('img_community',res.data.length)
     })
     },
@@ -173,14 +180,14 @@ export const actions = {
           })
         }  
     },
-  check_user_gallery({commit, state}){
-      if(state.auth.loggedIn) {
-          EventService.getGalleries(state.auth.user.username).then(res =>
-          {
-            commit('usersGallery',res.data)
-          })
-      }
-  },
+  // check_user_gallery({commit, state}){
+  //     if(state.auth.loggedIn) {
+  //         EventService.getGalleries(state.auth.user.username).then(res =>
+  //         {
+  //           commit('usersGallery',res.data)
+  //         })
+  //     }
+  // },
   check_user_highlights({commit, state}){
     if(state.auth.loggedIn) {
       EventService.getHighlights(state.auth.user.username).then(res =>
@@ -197,27 +204,36 @@ export const actions = {
       })
     }
   },
-  check_user_judging({commit, state}){
+  // check_user_judging({commit, state}){
+  //   if(state.auth.loggedIn) {
+  //     EventService.getJudging(state.auth.user.username).then(res =>
+  //     {
+  //       commit('usersJudging',res.data)
+  //     })
+  //   }
+  // },
+  // check_user_moments({commit, state}){
+  //   if(state.auth.loggedIn) {
+  //     EventService.getMoments(state.auth.user.username).then(res =>
+  //     {
+  //       commit('usersMoments',res.data)
+  //     })
+  //   }
+  // },
+  // check_user_events({commit, state}){
+  //   if(state.auth.loggedIn) {
+  //     EventService.getEvents(state.auth.user.username).then(res =>
+  //     {
+  //       commit('usersEvents',res.data)
+  //     })
+  //   }
+  // },
+  check_personal_room({commit, state}, id)
+  {
     if(state.auth.loggedIn) {
-      EventService.getJudging(state.auth.user.username).then(res =>
+      EventService.getPersonalMessages(id).then(res =>
       {
-        commit('usersJudging',res.data)
-      })
-    }
-  },
-  check_user_moments({commit, state}){
-    if(state.auth.loggedIn) {
-      EventService.getMoments(state.auth.user.username).then(res =>
-      {
-        commit('usersMoments',res.data)
-      })
-    }
-  },
-  check_user_events({commit, state}){
-    if(state.auth.loggedIn) {
-      EventService.getEvents(state.auth.user.username).then(res =>
-      {
-        commit('usersEvents',res.data)
+        commit('get_personal_messages',res.data)
       })
     }
   },
@@ -233,12 +249,12 @@ export const actions = {
         commit('clearBio')
       }
     },
-  remove_gallery({commit, state})
-    {
-      if(state.auth.loggedIn){
-        commit('clearGallery')
-      }
-    },
+  // remove_gallery({commit, state})
+  //   {
+  //     if(state.auth.loggedIn){
+  //       commit('clearGallery')
+  //     }
+  //   },
   remove_highlights({commit, state})
   {
     if(state.auth.loggedIn){
@@ -251,24 +267,24 @@ export const actions = {
       commit('clearJourney')
     }
   },
-  remove_judging({commit, state})
-  {
-    if(state.auth.loggedIn){
-      commit('clearJudging')
-    }
-  },
-  remove_moments({commit, state})
-  {
-    if(state.auth.loggedIn){
-      commit('clearMoments')
-    }
-  },
-  remove_events({commit, state})
-  {
-    if(state.auth.loggedIn){
-      commit('clearEvents')
-    }
-  },
+  // remove_judging({commit, state})
+  // {
+  //   if(state.auth.loggedIn){
+  //     commit('clearJudging')
+  //   }
+  // },
+  // remove_moments({commit, state})
+  // {
+  //   if(state.auth.loggedIn){
+  //     commit('clearMoments')
+  //   }
+  // },
+  // remove_events({commit, state})
+  // {
+  //   if(state.auth.loggedIn){
+  //     commit('clearEvents')
+  //   }
+  // },
   remove_artists_sharing({commit, state})
   {
     if(state.auth.loggedIn){
@@ -285,6 +301,24 @@ export const actions = {
   {
     if(state.auth.loggedIn && state.editing_obj){
       commit('clear_editing_obj',state.editing_obj)
+    }
+  },
+  remove_comments({commit, state})
+  {
+    if(state.auth.loggedIn && state.comments_list){
+      commit('clear_comments',state.comments_list)
+    }
+  },
+  remove_reactions({commit, state})
+  {
+    if(state.auth.loggedIn){
+      commit('clear_reactions')
+    }
+  },
+  remove_personal_messages({commit, state})
+  {
+    if(state.auth.loggedIn && state.personalMessages){
+      commit('clear_personal_messages',state.personalMessages)
     }
   },
   
@@ -323,31 +357,14 @@ export const mutations = {
     if(editing_obj){
       state.editing_obj = null}
   },
+  clear_comments(state) //if user has portfolio change state to true
+  {
+    state.comments_list =[]
+  },
   get_artists(state, artists) 
   {
     if(artists)
     {state.artists = artists}
-  },
-  get_list_of_artists(state, artists) 
-  {
-    // if(artists)
-    // {
-    //   for (var i = 0; i < artists.length; i++) {
-    //     state.list_of_artists.push(artists[i].username)
-    //   }
-    // }
-  //   if(state.auth.loggedIn){
-  //   if(artists.length != state.list_of_artists.length)
-  //   {
-  //     console.log("4");
-  //     artists.forEach(function (artist) {
-  //       state.list_of_artists.push(artist.username)
-  //   });
-  //   //   state.list_of_artists = state.list_of_artists.filter(function(item) {
-  //   //   return item !== state.auth.user.username
-  //   // })
-  //   // state.list_of_artists.filter(item => item !== state.auth.user.username)
-  //   }
   },
   get_sharing(state, sharing) 
   {
@@ -391,26 +408,31 @@ export const mutations = {
       state.journey = journey
       state.hasJourney = true}
   },
-  usersJudging(state, judging)
+  // usersJudging(state, judging)
+  // {
+  //   if(judging.length)
+  //   {
+  //     state.judging = judging
+  //     state.hasJudging = true}
+  // },
+  // usersMoments(state, moments)
+  // {
+  //   if(moments.length)
+  //   {
+  //     state.moments = moments
+  //     state.hasMoments = true}
+  // },
+  // usersEvents(state, events)
+  // {
+  //   if(events.length)
+  //   {
+  //     state.events = events
+  //     state.hasEvents = true}
+  // },
+  get_personal_messages(state, personalMessages)
   {
-    if(judging.length)
-    {
-      state.judging = judging
-      state.hasJudging = true}
-  },
-  usersMoments(state, moments)
-  {
-    if(moments.length)
-    {
-      state.moments = moments
-      state.hasMoments = true}
-  },
-  usersEvents(state, events)
-  {
-    if(events.length)
-    {
-      state.events = events
-      state.hasEvents = true}
+    state.personalMessages = personalMessages
+    state.hasPersonalMessages = true
   },
   clearPortfolio(state) //if user has portfolio change state to true
   {
@@ -422,11 +444,11 @@ export const mutations = {
     state.bio = null
     state.hasBio = false
   },
-  clearGallery(state) //if user has portfolio change state to true
-  {
-    state.gallery =[]
-    state.hasGallery = false
-  },
+  // clearGallery(state) //if user has portfolio change state to true
+  // {
+  //   state.gallery =[]
+  //   state.hasGallery = false
+  // },
   clearHighlights(state) //if user has portfolio change state to true
   {
     state.highlights =[]
@@ -437,21 +459,21 @@ export const mutations = {
     state.journey =[]
     state.hasJourney = false
   },
-  clearJudging(state) //if user has portfolio change state to true
-  {
-    state.judging =[]
-    state.hasJudging = false
-  },
-  clearMoments(state) //if user has portfolio change state to true
-  {
-    state.moments =[]
-    state.hasMoments = false
-  },
-  clearEvents(state) //if user has portfolio change state to true
-  {
-    state.events =[]
-    state.hasEvents = false
-  },
+  // clearJudging(state) //if user has portfolio change state to true
+  // {
+  //   state.judging =[]
+  //   state.hasJudging = false
+  // },
+  // clearMoments(state) //if user has portfolio change state to true
+  // {
+  //   state.moments =[]
+  //   state.hasMoments = false
+  // },
+  // clearEvents(state) //if user has portfolio change state to true
+  // {
+  //   state.events =[]
+  //   state.hasEvents = false
+  // },
   img_community(state, length) //if user has portfolio change state to true
   {
     state.img_artists = length
@@ -462,5 +484,15 @@ export const mutations = {
     state.sharing = null
     state.list_of_artists = null
   },
-  
+  clear_personal_messages(state)
+  {
+    state.personalMessages = []
+    state.hasPersonalMessages = false
+  },
+  clear_reactions(state)
+  {
+    state.love = ''
+    state.dope = ''
+    state.info = ''
+  },
 }

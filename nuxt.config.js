@@ -15,7 +15,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans+Condensed:wght@300&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Dancing+Script&family=Merriweather:wght@300&family=Mulish:wght@200&display=swap' }
     ]
   },
   /*
@@ -64,7 +64,8 @@ export default {
           success: colors.green.accent3
         },
         light: {
-          background: '#b0bec5' ,
+          
+          background: '#f3f4f7' ,
           primary: '#3f51b5',
           secondary: '#b0bec5',
           accent: '#8c9eff',
@@ -123,8 +124,8 @@ export default {
         endpoints: {
           login: { url: '/v1/user/token/', method: 'post', propertyName: 'user' },
           // refresh: { url: '/v1/user/token/refresh', method: 'post', propertyName: false },
-          logout: { url: '/v1/user/token/', method: 'delete' },
-          user: { url: '/v1/user/token/', method: 'get', propertyName: 'user' }
+          logout: false,
+          user: { url: '/v1/user/token/', method: 'post', propertyName: 'user' }
         },
         // tokenRequired: true,
         tokenType: ''

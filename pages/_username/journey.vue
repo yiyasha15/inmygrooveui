@@ -59,15 +59,15 @@
 import EventService from '@/services/EventService.js'
 import HighlightsCard from "@/components/HighlightsCard.vue"
 import JourneyCard from "@/components/JourneyCard.vue"
-import JudgingCard from "@/components/JudgingCard.vue"
-import EventsCard from "@/components/EventsCard.vue"
+// import JudgingCard from "@/components/JudgingCard.vue"
+// import EventsCard from "@/components/EventsCard.vue"
 // import MomentsCard from "@/components/MomentsCard.vue"
 export default {
     components:{
         HighlightsCard,
-        JudgingCard,
+        // JudgingCard,
         JourneyCard,
-        EventsCard,
+        // EventsCard,
         // MomentsCard
     },
     props: ["artist"],

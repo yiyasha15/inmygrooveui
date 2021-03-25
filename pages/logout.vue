@@ -19,15 +19,19 @@ export default {
 	methods:{
 		signout(){
 			this.$store.dispatch("remove_portfolio")
-			this.$store.dispatch("remove_gallery")
+			// this.$store.dispatch("remove_gallery")
 			this.$store.dispatch("remove_bio")
 			this.$store.dispatch("remove_highlights")
-			this.$store.dispatch("remove_moments")
-			this.$store.dispatch("remove_judging")
-			this.$store.dispatch("remove_events")
+			// this.$store.dispatch("remove_moments")
+			// this.$store.dispatch("remove_judging")
+			// this.$store.dispatch("remove_events")
+			this.$store.dispatch("remove_journey")
+			this.$store.dispatch("remove_comments")
+			this.$store.dispatch("remove_reactions")
 			this.$store.dispatch("remove_share_obj")
 			this.$store.dispatch("remove_editing_obj")
 			this.$store.dispatch("remove_artists_sharing")
+			this.$store.dispatch("remove_personal_messages")
 			this.$auth.logout();
 		},
 		cancel(){

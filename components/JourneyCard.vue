@@ -1,76 +1,50 @@
 <template>
-  <v-card 
-      class="ma-2 "
-      max-width="270" >
-      <div v-if = journey.jophoto>
-        <v-img :src="journey.jophoto" class="centerImage" height="180px"/>
-        <v-card-title v-if = journey.jocontent>
-        <h6>{{journey.jocontext}}</h6>
-        </v-card-title>
-        <v-card-actions>
-        <v-overlay :z-index="2" :value="overlay" >
-          <v-container class="rounded-lg black" >
-            <v-col cols="12" align="end" justify="end">
-            <v-btn icon color="error" @click="overlay = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-            </v-col>
-            <v-row class="ma-4">
-                <v-col cols="12" md="6" align="center" justify="center">
-                    <v-img :src="journey.jophoto" class="centerImage mb-6" width="80%" max-height="480px"/>
-                </v-col>
-                <v-col cols="12" md="6" class="pl-6">
-                  <v-row class="pt-2 pr-4">
-                    <p>{{journey.jodate}}</p>
-                  </v-row>
-                  <v-row class="py-4 pr-4">
-                      <h4>{{journey.jocontext}}</h4>
-                  </v-row>
-                  <v-row class="py-4 pr-4">
-                    <p>{{journey.username}}: {{journey.jocontent}}</p>
-                  </v-row>
-                  <v-row class="py-4 pr-4">
-                    <!-- <v-btn icon color="orange" @click="snackbar = true">
-                      <v-icon>mdi-heart-outline</v-icon>
-                    </v-btn> -->
-                    <v-spacer></v-spacer>
-                    <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink">
-                      <v-icon>mdi-link</v-icon>
-                    </v-btn>
-                  </v-row>
-                </v-col>
+  <v-card @click="dialog= true" class="d-inline-block mx-auto">
+    <v-row justify="space-between">
+        <v-col cols="auto">
+          <v-img :src="journey.jophoto" height="200" width="200"/>
+        </v-col>
+    </v-row>
+    <v-dialog
+      v-model="dialog"
+      width="800px"
+    >
+      <v-container class="rounded-lg white">
+        <v-col cols="12" align="end" justify="end">
+        <v-btn icon color="error" @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        </v-col>
+        <v-row class="ma-4">
+          <v-col cols="12" md="6" align="center" justify="center">
+            <v-row>
+              <v-img :src="journey.jophoto" class="centerImage" width="80%" max-height="480px"/>
             </v-row>
-        </v-container>
-        </v-overlay>
-        <!-- <v-btn color="orange" icon @click="snackbar = true">
-            <v-icon>mdi-heart-outline</v-icon>
-          </v-btn> -->
-          <v-spacer></v-spacer>
-          <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink" >
-            <v-icon>mdi-link</v-icon>
-          </v-btn>
-          <v-btn @click="overlay = !overlay" icon>
-            <v-icon>mdi-open-in-new</v-icon>
-          </v-btn>
-          <!-- <v-btn icon @click="show = !show" v-if = journey.jocontext>
-            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-          </v-btn> -->
-        </v-card-actions>
-        <!-- <v-expand-transition>
-          <div v-show="show">
-            <v-divider></v-divider>
-            <v-card-text>
-                {{journey.jocontext}}
-            </v-card-text>
-          </div>
-        </v-expand-transition> -->
-        <!-- <div class="text font-weight-bold" v-if = journey.jocontent>
-          {{journey.jocontent}}
-        </div>
-        <div class="text font-weight-light" v-if = journey.jocontext>
-          {{journey.jocontext}}
-        </div> -->
-        
+              <v-row class="pa-4">
+              <v-spacer></v-spacer>
+              <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink">
+                <v-icon>mdi-link</v-icon>
+              </v-btn>
+            </v-row>
+          </v-col>
+          <v-col cols="12" md="6" class="pl-6">
+            <v-row class="px-4 pt-4">
+                <h4>{{journey.joevent}}</h4> 
+                <v-spacer></v-spacer>
+              <v-btn v-if="journey.jolink" icon color="indigo" @click="openlink">
+                <v-icon>mdi-link</v-icon>
+              </v-btn>
+            </v-row>
+            <v-row class="px-4">
+              <p class="caption">{{journey.jodate}}</p>
+            </v-row>
+            <v-row class="pa-4 ">
+              <p><nuxt-link :to="'/'+ journey.username"><b>{{journey.username}}</b> </nuxt-link> {{journey.jocontent}}</p>
+            </v-row>
+          </v-col>
+        </v-row>
+    </v-container>
+    </v-dialog>
     <v-snackbar v-model="snackbar">
       {{ text }}
       <template v-slot:action="{ attrs }">
@@ -84,9 +58,7 @@
         </v-btn>
       </template>
     </v-snackbar>
-      </div>  
   </v-card>
-  
 </template>
 
 <script>
@@ -103,9 +75,7 @@
     },
     data() {
       return {
-        show: false,
-        overlay: false,
-        zIndex: 0,
+        dialog: false,
         snackbar: false,
         text: `Cheers!`,
         }

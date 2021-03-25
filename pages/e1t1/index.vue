@@ -16,8 +16,10 @@
         </v-text-field>
       </v-col>
     </v-row>
-      <v-btn text color="indigo" class="mt-2 mb-6 text-decoration-none justify-end" dark @click="addteacher">
-      <v-icon class="px-2">mdi-account-multiple-plus-outline</v-icon>Share my experience</v-btn>
+      <v-btn text color="indigo" class="mt-2 mb-6 text-decoration-none justify-end"
+       dark @click="addteacher">
+      <v-icon class="px-2">mdi-account-multiple-plus-outline</v-icon>
+      Share my experience</v-btn>
     <v-layout row wrap justify-center >
       <div v-for="teacher in filteredteachers" :key ="teacher.index">
         <v-flex sm6 xs6> 
@@ -25,6 +27,34 @@
         </v-flex>
       </div>
     </v-layout>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="overline">
+          To mention your teacher, you need to make your portfolio.
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            class="ml-4 px-4" outlined rounded
+            @click="create_portfolio"
+          >
+            Okay
+          </v-btn>
+          <v-btn
+            color="error"
+            class="ml-4 px-4" outlined rounded
+            @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -60,24 +90,32 @@ export default {
   },
   data() {
     return {
-      search: ""
+      search: "",
+      dialog: false
     }
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'userHasPortfolio', 'loggedInUser']),
     filteredteachers: function(){
       return this.teachers.filter((teacher) => {
-        return teacher.s_teacher.toLowerCase().match(this.search.toLowerCase());
+        return teacher.teacher.toLowerCase().match(this.search.toLowerCase());
       });
     }
   },
   methods:{
     addteacher(){
+      if(this.userHasPortfolio){
       this.$store.dispatch("remove_share_obj")
-      // this.$router.push('/createe1t1/')
       this.$router.push('/create/each1teach1/')
+      }
+      else{
+        this.dialog = true     
+      }
+    },
+    create_portfolio(){
+      this.$router.push('/create/about/')
     }
-  }
+  },
   // layout: 'e1t1'
 }
 </script>
