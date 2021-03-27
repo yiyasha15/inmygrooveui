@@ -24,9 +24,10 @@
             {{share.username}}
             </p>
             <v-spacer></v-spacer>
-            <!-- <v-btn icon class="text-decoration-none" >
-              <country-flag :country= 'share.s_teacher_country' />
-            </v-btn> -->
+            <v-btn icon class="text-decoration-none" >
+              <!-- <country-flag :country= 'share.s_teacher_country' /> -->
+              <country-flag :country= 'share.s_student_country' />
+            </v-btn>
             </v-card-actions>
         </div>
     </v-container>

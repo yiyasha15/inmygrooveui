@@ -235,7 +235,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['artists', 'share_obj',])
+        ...mapGetters(['artists', 'share_obj','usersPortfolio'])
     },
     data(){
         return {
@@ -590,7 +590,7 @@ export default {
             }
             if(this.sharing.s_teacher_name != "" && this.sharing.s_location != "" && this.sharing.s_date != "" && this.sharing.s_photo != "" && this.sharing.s_appreciation != "")
             {
-                // this.sharing.s_teacher_name = this.sharing.s_teacher;
+                this.sharing.s_student_country = this.usersPortfolio.country;
                 const config = {
                     headers: { "content-type": "multipart/form-data",
                         "Authorization": "Bearer " + this.$store.state.auth.user.access}

@@ -9,12 +9,7 @@
                             <highlights-card :highlights = "highlights"></highlights-card>
                         </div>
                     </div>
-                </div>  
-                <!-- <div v-if="userHasPortfolio">
-                    <div v-if="usersPortfolio.artist_name == artist.username">
-                    <v-btn class="elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Add Highlights</v-btn>
-                    </div>
-                </div> -->
+                </div>
             </v-col>
         </v-row>
         <v-row>

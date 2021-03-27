@@ -13,7 +13,7 @@
                 <v-col cols="12" md="4" class="pl-6">
                     <v-row>
                         <v-col class="ma-0">
-                        <p class="font-weight-light">{{e1t1.s_date}}</p>
+                        <p class="font-weight-light caption">{{e1t1.s_date}}</p>
                         </v-col>
                         <div v-if="loggedInUser">
                         <v-col class="ma-0" v-if="loggedInUser.username == e1t1.username" >
@@ -58,9 +58,9 @@
                             <h3 class="font-weight-light text-capitalize">{{e1t1.teacher}}</h3>
                             </nuxt-link>
                         </v-col>
-                        <!-- <v-col class="mt-2">
-                            <country-flag :country= 'e1t1.teacher_country' />
-                        </v-col> -->
+                        <v-col class="mt-2">
+                            <country-flag :country= 'e1t1.s_teacher_country' />
+                        </v-col>
                     </v-row>
                     <v-row>
                         <v-col>
@@ -85,7 +85,7 @@
                                 v-if="loggedInUser.username == e1t1.username"
                                     v-bind="attrs"
                                     v-on="on">
-                                Talk to my teacher
+                                Talk to my teacher <v-icon>mdi-lock</v-icon>
                                 </v-btn>
                                 <v-btn v-else class="my-4" small outlined
                                     v-bind="attrs"

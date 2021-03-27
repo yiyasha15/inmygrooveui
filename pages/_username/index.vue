@@ -7,33 +7,30 @@
             ></v-parallax>
         </center>
     <br>
-    <v-row v-if="bio" align="center"  no-gutters>
-        <v-col align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" 
+    <v-row align="center">
+        <v-col v-if="bio.quote" align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" 
         cols="12" md="6" lg="6" xl="6">
             <h3 class="mb-5 font-weight-light font-italic">
                 <br> 
             "{{ bio.quote }}"
-            </h3>  
-            <div align="end" justify="end" class="text font-weight-thin"> 
-                <!-- -{{artist.artist_name}} <country-flag :country= 'artist.country' />   -->
-            </div>         
-            <!-- <div align="end" justify="end" class="text font-weight-thin">
+            </h3>       
+            <div align="end" justify="end" class="text font-weight-thin">
                 <country-flag class="mt-4" :country= 'artist.country' />   
-            </div> -->
+            </div>
         </v-col>
         <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}">
             <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
                 <v-layout class="flex-wrap">
-                    <v-flex xs6 md6>
+                    <v-flex v-if="bio.gallery1" xs6 md6>
                         <v-img :src="bio.gallery1" width = "270px" height = "270px"/>
                     </v-flex>
-                    <v-flex xs6 md6>
+                    <v-flex v-if="bio.gallery2" xs6 md6>
                         <v-img :src="bio.gallery2" width = "270px" height = "270px"/>
                     </v-flex>
-                    <v-flex xs6 md6>
+                    <v-flex v-if="bio.gallery3" xs6 md6>
                         <v-img :src="bio.gallery3" width = "270px" height = "270px"/>
                     </v-flex>
-                    <v-flex xs6 md6>
+                    <v-flex v-if="bio.gallery4" xs6 md6>
                         <v-img :src="bio.gallery4" width = "270px" height = "270px"/>
                     </v-flex>
                 </v-layout>
@@ -41,9 +38,9 @@
         </v-col>
     </v-row>
     <v-container>
-    <v-row no-gutters>
+    <v-row v-if="bio.introduction">
         <v-col md="6" offset-md="3">
-            <h4 v-if="bio.introduction" align="center" justify="center" class="mb-5 font-weight-light">
+            <h4 align="center" justify="center" class="mb-5 font-weight-light">
                 {{ bio.introduction }}
             </h4>
         </v-col>

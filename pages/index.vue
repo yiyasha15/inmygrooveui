@@ -22,11 +22,9 @@
       </v-row>
       <v-row align="center" justify="center" align-content="center">
         <h5 class="pa-6 font-weight-light text-center">
-          At inmygroove, we... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-            culpa qui officia deserunt mollit anim id est laborum.
+          At inmygroove, you can document your HipHop journey & stay connected
+          to some of the people who matter the most, your teachers and students in this culture,
+          the people who show you the way and the people whom you show it.
           <!-- InMyGroove is a community platform <b>to celebrate the each one teach one legacy of the hiphop culture </b> in a meaningful way. 
           We all learn from some artists who passionately shared their dance and knowledge, may be in the studios, streets, clubs or cyphers. We hope, like us
           you too understand the value of their sharing along the way which made you a dope dancer today. Let's celebrate them and share your experiences with them.
@@ -62,12 +60,10 @@
         <v-col cols="12">
           <div class="mx-8" align-content="center" align="center" justify="center">
           <h1 class=" font-weight-bold"> Each I Teach I</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-            culpa qui officia deserunt mollit anim id est laborum.</p>
-          <v-btn text rounded dark color="#35463A" class="mt-2 text-decoration-none elevation-none justify-end" :to= "`/e1t1/`">Each 1 Teach 1
+          <p>we celebrate the 'EACH 1 TEACH 1'
+            legacy of the hiphop culture and it starts with you,
+            who represents the culture right.</p>
+          <v-btn text rounded dark color="#35463A" class="mt-2 text-decoration-none elevation-none justify-end" :to= "`/e1t1/`">Get started
           <v-icon right>
             mdi-arrow-right
           </v-icon></v-btn>
@@ -93,6 +89,14 @@
                 </v-card>
             </v-hover>
         </v-col> -->
+    </v-row>
+    <v-row class="justify-center align-center mt-4">
+      <!-- <p>The vision is to document the flow of knowledge from the origin to the future so that the history stays true and the people are given due credits for their sharing and passing the knowledge. In the process, we hope that together we can strengthen our bonds with our fellow artists and empower the culture even more.</p> -->
+        <v-col cols="12">
+          <div class="caption mx-8 mt-8" align-content="center" align="center" justify="center">
+          <p>The vision is to document the flow of knowledge from the origin to the future so that the history stays true and the people are given due credits for their sharing and passing the knowledge. In the process, we hope that together we can strengthen our bonds with our fellow artists and empower the culture even more.</p>
+          </div>
+        </v-col>
     </v-row>
     </v-container>
 </template>
