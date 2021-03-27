@@ -17,14 +17,18 @@
             </div>
             <v-card-title>
               <v-row class="text-decoration-none">
-              <p class="body-2">{{e1t1.teacher}} <v-icon small>
+              <p class="body-2">{{e1t1.teacher}}
+                <!-- <v-btn v-if="e1t1.s_teacher_country" x-small class="text-decoration-none" > -->
+                  <country-flag :country= 'e1t1.s_teacher_country' size='small'/>
+                <!-- </v-btn>  -->
+                <v-icon small>
                 mdi-heart-circle-outline
-              </v-icon> {{e1t1.username}}</p> 
-              <!-- <v-spacer></v-spacer> -->
-              <!-- <p class="body-2">{{e1t1.username}}</p> -->
-                <!-- <v-btn icon class="text-decoration-none" >
-                  <country-flag :country= 'e1t1.s_teacher_country' />
-                </v-btn> -->
+              </v-icon> 
+              {{e1t1.username}}
+              <!-- <v-btn v-if="e1t1.s_student_country" x-small class="text-decoration-none" > -->
+                  <country-flag :country= 'e1t1.s_student_country' size='small'/>
+                <!-- </v-btn> -->
+              </p>
               </v-row>
             </v-card-title>
             <v-card-text>

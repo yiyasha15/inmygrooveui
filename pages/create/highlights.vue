@@ -121,8 +121,8 @@
             </v-row>
             <v-row v-if="userHasHighlights">
                 <v-col>
-                    <div class="d-inline-flex" >
-                        <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
+                    <div class="d-flex flex-wrap" >
+                        <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-2 mr-2 rounded-lg grey lighten-4">
                             <HighlightsCard :highlights = "highlights"></HighlightsCard>
                             <v-btn icon>
                                 <v-icon color="indigo" @click="edit(highlights)">mdi-circle-edit-outline</v-icon>
@@ -144,7 +144,7 @@
                                     </v-btn>
                                     </v-card-actions>
                                 </v-card>
-                                </v-dialog>
+                            </v-dialog>
                         </div>
                     </div>
                 </v-col>

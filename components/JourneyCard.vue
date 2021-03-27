@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="dialog= true" class="d-inline-block mx-auto">
+  <v-card @click="dialog= true" class="d-inline-block mx-2">
     <v-row justify="space-between">
         <v-col cols="auto">
           <v-img :src="journey.jophoto" height="200" width="200"/>

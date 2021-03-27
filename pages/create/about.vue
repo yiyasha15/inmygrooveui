@@ -38,7 +38,7 @@
                                     label="Name"
                                     :maxlength="50">
                                 </v-text-field>
-                                <v-select label="Country" v-model= "artist_data.country"
+                                <v-select label="Representing(country)" v-model= "artist_data.country"
                                     :items="countries"
                                     item-text="name"
                                     item-value="code"

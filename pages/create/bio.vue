@@ -35,7 +35,7 @@
                         <v-col cols="12" md="9">
                             <v-textarea
                                 v-model= "bio.introduction"
-                                label="Describe Yourself">
+                                label="A little background">
                             </v-textarea>
                             <v-text-field
                                 v-model= "bio.quote"
@@ -52,7 +52,7 @@
                             </v-autocomplete>
                             <v-text-field
                                 v-model= "bio.crew"
-                                label="Crew"
+                                label="Crew you represent"
                                 :maxlength="120">
                             </v-text-field>
                             <v-text-field

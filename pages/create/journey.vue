@@ -44,7 +44,7 @@
                                     :maxlength="20">
                                 </v-text-field> -->
                                 <v-text-field
-                                    v-model = "journey.jocontext"
+                                    v-model = "journey.joevent"
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
@@ -103,13 +103,13 @@
                 <v-col cols="12" md="4" class="pl-sm-6 mt-6 grey lighten-4 rounded-xl">
                         <v-col>
                         <v-row class="pb-6 justify-center text-center">
-                            <h2> {{journey.jocontent}}</h2>
+                            <h2> {{journey.joevent}}</h2>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
                             <v-img :src="imageData" height="300px" width="500px"></v-img>
                         </v-row>
                         <v-row class="pb-6 justify-center text-center">
-                            <h5 class="pb-6 text-center">{{journey.jocontext}} {{journey.jodate}}</h5>
+                            <h5 class="pb-6 text-center">{{journey.jocontent}} {{journey.jodate}}</h5>
                         </v-row>
                         <v-row v-if="journey.jolink" class="pb-6 justify-center text-center">
                             <v-btn icon color="indigo" >
@@ -121,7 +121,7 @@
             </v-row>
             <v-row v-if="userHasJourney">
                 <v-col>
-                    <div class="d-inline-flex" >
+                    <div class="d-flex flex-wrap">
                         <div v-for = "journey in usersJourney" :key = "journey.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
                             <journey-card :journey = "journey"></journey-card>
                             <v-btn icon>
@@ -194,7 +194,7 @@ export default {
             journey: {
                 username: this.$store.state.auth.user.username,
                 jocontent: "",
-                jocontext: "",
+                joevent: "",
                 jodate: "",
                 jophoto: "",
                 jolink: ""
@@ -242,7 +242,7 @@ export default {
             this.imageData = "";
             this.journey.username = this.$store.state.auth.user.username;
             this.journey.jocontent= "";
-            this.journey.jocontext= "";
+            this.journey.joevent= "";
             this.journey.jodate= "";
             this.journey.jophoto= "";
             this.journey.jolink= "";
@@ -265,7 +265,7 @@ export default {
             }
         },
         async submit() {
-            if(this.journey.jocontent != "" && this.journey.jocontext != "" && this.journey.jophoto)
+            if(this.journey.jocontent != "" && this.journey.joevent != "" && this.journey.jophoto)
             {
             const config = {
                 headers: {"content-type": "multipart/form-data",
@@ -307,13 +307,13 @@ export default {
                     }}
                 await this.$axios.$patch("/v1/artist/journey/"+this.editing_obj.id+"/", formName, config);
             }
-            if(this.editing_obj.jocontext!=this.journey.jocontext) //checking if data has changed
+            if(this.editing_obj.joevent!=this.journey.joevent) //checking if data has changed
                 {
                 let formName = new FormData();
                 for (let data in this.journey) {
-                    if(data == 'id' || data == 'jocontext' )
+                    if(data == 'id' || data == 'joevent' )
                     {
-                        console.log("context has changed");
+                        console.log("event has changed");
                         formName.append(data, this.journey[data]);
                     }}
                 await this.$axios.$patch("/v1/artist/journey/"+this.editing_obj.id+"/", formName, config);
