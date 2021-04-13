@@ -8,7 +8,7 @@
         </v-col>
         <v-col cols="12" md="6" offset-md="-4">
           <div align="center" justify="center" class="mx-12 mb-12" align-content="center">
-              <h1 class="my-6 font-weight-bold"> In My Groove</h1>
+              <h1 class="my-6 font-weight-bold"> In My Groove !!</h1>
               <hr><br>
               <div class="font-weight-light text-center ma-0">
                  <h5>for all of us, who do the hiphop culture right.</h5>

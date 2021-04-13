@@ -70,7 +70,6 @@
         <div class="text font-weight-light" v-if = judging.w_context>
           {{judging.w_context}}
         </div> -->
-        
     <v-snackbar v-model="snackbar_judge">
       {{ text }}
       <template v-slot:action="{ attrs }">

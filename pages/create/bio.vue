@@ -33,15 +33,15 @@
                     <v-row>
                         <v-col cols="12" md="9">
                             <v-textarea
-                                v-model= "bio.b_introduction"
+                                v-model= "bio.introduction"
                                 label="Describe Yourself">
                             </v-textarea>
                             <v-text-field
-                                v-model= "bio.b_quote"
+                                v-model= "bio.quote"
                                 label="Any Favourite Quote?"
                                 :maxlength="120">
                             </v-text-field>
-                            <v-autocomplete v-model= "bio.b_style" 
+                            <v-autocomplete v-model= "bio.style" 
                                 :items="items" 
                                 attach 
                                 chips 
@@ -50,24 +50,24 @@
                                 multiple>
                             </v-autocomplete>
                             <v-text-field
-                                v-model= "bio.b_crew"
+                                v-model= "bio.crew"
                                 label="Crew"
                                 :maxlength="120">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_ig"
+                                v-model= "bio.ig"
                                 label="Instagram URL">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_fb"
+                                v-model= "bio.fb"
                                 label="Facebook URL">
                             </v-text-field>
                             <v-text-field
-                                v-model= "bio.b_personal"
+                                v-model= "bio.site"
                                 label="Personal Website URL">
                             </v-text-field>
                             <v-btn v-if="!userHasBio" outlined class="text-decoration-none" rounded color="indigo" dark
-                                @click="submit">submit</v-btn>
+                                @click="submit">submits</v-btn>
                                 <v-btn v-if="userHasBio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
                                 @click="update">Update</v-btn>
                             <v-dialog v-if="userHasBio" v-model="dialog" width="500">
@@ -95,19 +95,19 @@
                 <!-- <h1 class="pb-6 text-center">Preview Your Website</h1> -->
                     <v-col>
                     <v-row class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">{{bio.b_introduction}} </h5>
+                        <h5 class="pb-6 text-center">{{bio.introduction}} </h5>
                     </v-row>
-                    <v-row v-if="bio.b_quote" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center font-italic">"{{bio.b_quote}}" </h5>
+                    <v-row v-if="bio.quote" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center font-italic">"{{bio.quote}}" </h5>
                     </v-row>
-                    <v-row v-if="bio.b_crew" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">Repping: {{bio.b_crew}} 🙏 </h5>
+                    <v-row v-if="bio.crew" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center">Repping: {{bio.crew}} 🙏 </h5>
                     </v-row>
                     <v-row class="pb-6 justify-center text-center">
-                        <v-col v-if="bio.b_ig"><v-icon>mdi-instagram</v-icon></v-col>
-                        <v-col v-if="bio.b_fb"><v-icon>mdi-facebook</v-icon></v-col>
-                        <v-col v-if="bio.b_yt"><v-icon>mdi-youtube</v-icon></v-col>
-                        <v-col v-if="bio.b_personal"><v-icon>mdi-email</v-icon></v-col>
+                        <v-col v-if="bio.ig"><v-icon>mdi-instagram</v-icon></v-col>
+                        <v-col v-if="bio.fb"><v-icon>mdi-facebook</v-icon></v-col>
+                        <v-col v-if="bio.yt"><v-icon>mdi-youtube</v-icon></v-col>
+                        <v-col v-if="bio.site"><v-icon>mdi-email</v-icon></v-col>
                     </v-row>
                     </v-col>
             </v-col>
@@ -145,14 +145,14 @@ export default {
         return {
                 // this is bio object
             bio: {
-                b_artist: this.$store.state.auth.user.username,
-                b_style: "",
-                b_introduction: "",
-                b_quote: "",
-                b_crew: "",
-                b_ig: "",
-                b_fb: "",
-                b_personal: ""
+                username: this.$store.state.auth.user.username,
+                style: "",
+                introduction: "",
+                quote: "",
+                crew: "",
+                ig: "",
+                fb: "",
+                site: ""
             },
             dialog: false,
             items: ['HipHop', 'House', 'Locking', 'Popping'],
@@ -176,7 +176,7 @@ export default {
             }
             try {
                 console.log(formData);
-                let response = await this.$axios.$post("/v1/artist/bio/", formData, config)
+                let response = await this.$axios.$post("/v1/artist/bios/", formData, config)
                 console.log("Artist website created.");
                 //update store
                 this.$store.dispatch("check_user_bio");
@@ -192,82 +192,82 @@ export default {
                     "Authorization": "Bearer " + this.$store.state.auth.user.access
                 }
             };
-            if(this.usersBio.b_style!=this.bio.b_style) //checking if data has changed
+            if(this.usersBio.style!=this.bio.style) //checking if data has changed
             {
             let formStyle = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_style' || data == 'b_artist' )
+                if(data == 'style' || data == 'username' )
                 {
                     console.log("style has changed");
                     formStyle.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formStyle, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formStyle, config)
             }
-            if(this.usersBio.b_introduction!=this.bio.b_introduction) //checking if data has changed
+            if(this.usersBio.introduction!=this.bio.introduction) //checking if data has changed
             {
             let formIntro = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_introduction' || data == 'b_artist' )
+                if(data == 'introduction' || data == 'username' )
                 {
                     console.log("style has changed");
                     formIntro.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formIntro, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formIntro, config)
             }
-            if(this.usersBio.b_quote!=this.bio.b_quote) //checking if data has changed
+            if(this.usersBio.quote!=this.bio.quote) //checking if data has changed
             {
             let formQuote = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_quote' || data == 'b_artist' )
+                if(data == 'quote' || data == 'username' )
                 {
                     console.log("quote has changed");
                     formQuote.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formQuote, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formQuote, config)
             }
-            if(this.usersBio.b_crew!=this.bio.b_crew) //checking if data has changed
+            if(this.usersBio.crew!=this.bio.crew) //checking if data has changed
             {
             let formCrew = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_crew' || data == 'b_artist' )
+                if(data == 'crew' || data == 'username' )
                 {
                     console.log("Crew has changed");
                     formCrew.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formCrew, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formCrew, config)
             }
-            if(this.usersBio.b_ig!=this.bio.b_ig) //checking if data has changed
+            if(this.usersBio.ig!=this.bio.ig) //checking if data has changed
             {
             let formIg = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_ig' || data == 'b_artist' )
+                if(data == 'ig' || data == 'username' )
                 {
                     console.log("ig has changed");
                     formIg.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formIg, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formIg, config)
             }
-            if(this.usersBio.b_fb!=this.bio.b_fb) //checking if data has changed
+            if(this.usersBio.fb!=this.bio.fb) //checking if data has changed
             {
             let formfb = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_fb' || data == 'b_artist' )
+                if(data == 'fb' || data == 'username' )
                 {
                     console.log("fb has changed");
                     formfb.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formfb, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formfb, config)
             }
-            if(this.usersBio.b_personal!=this.bio.b_personal) //checking if data has changed
+            if(this.usersBio.site!=this.bio.site) //checking if data has changed
             {
             let formPersonal = new FormData();
             for (let data in this.bio) {
-                if(data == 'b_personal' || data == 'b_artist' )
+                if(data == 'site' || data == 'username' )
                 {
                     console.log("personal has changed");
                     formPersonal.append(data, this.bio[data]);
                 }}
-            await this.$axios.$patch("/v1/artist/bio/"+this.usersBio.b_artist + '/', formPersonal, config)
+            await this.$axios.$patch("/v1/artist/bios/"+this.usersBio.username + '/', formPersonal, config)
             }
         this.$store.dispatch("check_user_bio");
         this.snackbar = true;
@@ -280,7 +280,7 @@ export default {
                 }
             };
             try {
-                let response = await this.$axios.$delete("/v1/artist/bio/"+this.usersBio.b_artist, config)
+                let response = await this.$axios.$delete("/v1/artist/bios/"+this.usersBio.username, config)
                 console.log("Artist Bio deleted.");
                 //update store
                 this.$store.dispatch("remove_bio")

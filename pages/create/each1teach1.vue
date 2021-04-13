@@ -206,7 +206,7 @@
 </template>
 <script>
 import CountryFlag from 'vue-country-flag'
-import EventService from '@/services/EventService.js'
+// import EventService from '@/services/EventService.js'
 import { mapGetters } from 'vuex'
 import vuex from 'vuex'
 export default {

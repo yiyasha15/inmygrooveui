@@ -7,7 +7,9 @@ import EventService from '@/services/EventService.js'
 export const state = () => ({
   artists: [], //array of artists in img community
   share_obj: null, //object to edit e1t1 data
-  sharing:[], //e1t1 onject
+  myhood_obj: null,
+  myhood: [],
+  sharing:[], //e1t1 object
   portfolio: null, //store portfolio data of the logged in user
   bio: null, //store bio data of the logged in user
   gallery: [], //store gallery data of the logged in user
@@ -39,6 +41,9 @@ export const getters = {
   },
   share_obj(state){
     return state.share_obj
+  },
+  myhood_obj(state){
+    return state.myhood_obj
   },
   sharing(state) {
     return state.sharing
@@ -125,6 +130,11 @@ export const actions = {
     commit('check_share_obj', share_obj)
     }
   },
+  check_myhood_obj({commit, state}, myhood_obj){
+    if(state.auth.loggedIn) {
+    commit('check_myhood_obj', myhood_obj)
+    }
+  },
   check_artists({commit}){
     EventService.getArtists().then(res =>
     {
@@ -135,8 +145,9 @@ export const actions = {
     },
   check_sharing({commit, state}){
     if(state.auth.loggedIn) {
-      EventService.getEach1Teach1_user(state.auth.user.username).then(res =>
+      EventService.getEach1Teach1s().then(res =>
       {
+        console.log(res.data);
         commit('get_sharing',res.data)
       })}
       },
@@ -249,6 +260,12 @@ export const actions = {
     if(state.auth.loggedIn && state.share_obj){
       commit('clear_share_obj',state.share_obj)
     }
+  },
+  remove_myhood_obj({commit, state})
+  {
+    if(state.auth.loggedIn && state.myhood_obj){
+      commit('clear_myhood_obj',state.myhood_obj)
+    }
   }
 }
     // Define Mutations
@@ -274,6 +291,16 @@ export const mutations = {
   clear_share_obj(state, share_obj){
     if(share_obj){
       state.share_obj = null}
+  },
+  check_myhood_obj(state, myhood_obj){
+    if(myhood_obj){
+      state.myhood_obj = null
+      state.myhood_obj = myhood_obj
+    }
+  },
+  clear_myhood_obj(state, myhood_obj){
+    if(myhood_obj){
+      state.myhood_obj = null}
   },
   get_artists(state, artists) 
   {

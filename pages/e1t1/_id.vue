@@ -76,7 +76,6 @@
                         </v-btn>
                         <v-btn icon color="green" @click="react_info">
                         <v-icon>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
-                        
                         </v-btn>
                         <!-- <v-btn icon color="indigo" class="ml-2" >
                         <v-icon>mdi-comment-outline</v-icon> 
@@ -132,12 +131,23 @@
                     </v-card>
                 </v-col>
             </v-row>
+            <!-- <v-row class="mx-2 px-4 mb-4">
+            <v-btn icon color="orange" @click="react_love">
+            <v-icon>mdi-rocket-launch-outline</v-icon><div v-if="love.length">{{love.length}}</div>
+            </v-btn>
+            <v-btn icon color="indigo" @click="react_dope">
+            <v-icon>mdi-hand-peace</v-icon><div v-if="dope.length">{{dope.length}}</div>
+            </v-btn>
+            <v-btn icon color="green" @click="react_info">
+            <v-icon>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
+            </v-btn>
+            </v-row> -->
             <v-row v-if="comments_list.length" class="mx-2 px-4">
                 <h5 class="font-weight-light">Comments {{comments_list.length}}
                 </h5>
             </v-row>
             <v-row v-if="comments_list.length">
-                <comment :comments = "comments_list"></comment>
+                <comments-card :comments = "comments_list"></comments-card>
                 <!-- <div v-for = "comments in comments" :key = "comments.index" > -->
                     <!-- <comments-card :comments = "comments_list"></comments-card> -->
                 <!-- </div> -->
@@ -210,7 +220,6 @@ import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
 import vuex from 'vuex'
 import CommentsCard from '~/components/CommentsCard.vue'
-import Comment from '~/components/Comment.vue'
 export default {
     head() {
         return {
@@ -226,8 +235,7 @@ export default {
     },
     components:{
         CountryFlag,
-        CommentsCard,
-        Comment
+        CommentsCard
     },
     data(){
         return {
