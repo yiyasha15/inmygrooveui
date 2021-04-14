@@ -1,10 +1,14 @@
 <template>
-  <v-card @click="dialog= true" class="d-inline-block mx-2">
-    <v-row justify="space-between">
-        <v-col cols="auto">
-          <v-img :src="journey.jophoto" height="200" width="200"/>
-        </v-col>
-    </v-row>
+<v-hover>
+  <template v-slot="{ hover }" >
+  <v-card @click="dialog= true" :elevation="hover ? 8 : 2" 
+   class="d-inline-block mx-2" max-width="200">
+    <v-img :src="journey.jophoto" height="200" />
+    <!-- <v-row justify="space-between">
+      <v-col>
+        <v-img :src="journey.jophoto" height="200" width="200"/>
+      </v-col>
+    </v-row> -->
     <v-dialog
       v-model="dialog"
       width="800px"
@@ -43,22 +47,11 @@
             </v-row>
           </v-col>
         </v-row>
-    </v-container>
+      </v-container>
     </v-dialog>
-    <v-snackbar v-model="snackbar">
-      {{ text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="error"
-          icon
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-card>
+  </template>
+</v-hover>
 </template>
 
 <script>
@@ -75,9 +68,7 @@
     },
     data() {
       return {
-        dialog: false,
-        snackbar: false,
-        text: `Cheers!`,
+        dialog: false
         }
     },
     mounted(){

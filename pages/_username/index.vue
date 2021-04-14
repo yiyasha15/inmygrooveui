@@ -18,7 +18,7 @@
                 <country-flag class="mt-4" :country= 'artist.country' />   
             </div>
         </v-col>
-        <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}">
+        <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-4': $vuetify.breakpoint.mdAndUp}">
             <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
                 <v-layout class="flex-wrap">
                     <v-flex v-if="bio.gallery1" xs6 md6>
@@ -39,7 +39,8 @@
     </v-row>
     <v-container>
     <v-row v-if="bio.introduction">
-        <v-col md="6" offset-md="3">
+        <v-col cols="12">
+            <h2 align="center" justify="center" >About</h2><br>
             <h4 align="center" justify="center" class="mb-5 font-weight-light">
                 {{ bio.introduction }}
             </h4>

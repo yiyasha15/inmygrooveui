@@ -128,7 +128,7 @@ export default {
 					this.$store.dispatch("check_user_portfolio");
 					// this.$store.dispatch("check_user_gallery");
 					// this.$store.dispatch("check_user_highlights");
-					this.$router.push('/');
+					this.$router.push('/create/');
 				
 			}
 		} catch {

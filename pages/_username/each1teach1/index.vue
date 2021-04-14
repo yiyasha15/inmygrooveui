@@ -5,7 +5,7 @@
         <v-icon>mdi-arrow-left</v-icon>
         </v-btn> -->
         <nuxt-child :sharing="sharing"/>
-        <h5 class="font-weight-light mt-4 pl-4 ">My Teachers</h5>
+        <h4 class="font-weight-light mt-4 pl-4 ">My Teachers</h4>
         <!-- <hr> -->
         <div class="d-flex flex-wrap my-4 pl-4 ">
             <div v-for = "share in sharing" :key = "share.index">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <hr>
-        <h5 class="font-weight-light mt-8 pl-4 ">My Students</h5>
+        <h4 class="font-weight-light mt-8 pl-4 ">My Students</h4>
         <!-- <hr> -->
         <div class="d-flex flex-wrap my-4 pl-4 ">
             <div v-for = "share in sharing" :key = "share.index">

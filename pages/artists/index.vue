@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="8"  class="justify-center">
-        <h4 class ="pl-6 my-4 font-weight-light xs12 d-inline">Our Community</h4>
+        <h2 class ="pl-6 my-4 font-weight-bold xs12 d-inline">Our Community</h2>
         <v-btn dark v-if="isAuthenticated" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/about/">
         <v-icon>mdi-plus</v-icon>
         </v-btn>

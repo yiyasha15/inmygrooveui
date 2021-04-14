@@ -4,8 +4,8 @@
           <div v-for="(comment, i) in comments" :key="i" class="d-flex align-start">
               <div v-for="artist in artists" :key ="artist.index">
                 <nuxt-link :to="'/'+ comment.c_commenter">
-                    <v-list-item-avatar v-if=" comment.c_commenter == artist.username">
-                            <img :src = "artist.thumb" alt="img">
+                    <v-list-item-avatar size="36" v-if=" comment.c_commenter == artist.username">
+                      <img :src = "artist.thumb" alt="img">
                     </v-list-item-avatar>
                 </nuxt-link>
               </div>
@@ -15,31 +15,40 @@
                 </nuxt-link>
                 <p class="commentFormat">{{comment.c_comment}}</p></div>
             <v-spacer></v-spacer>
-        <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
-            <template v-slot:activator="{ on, attrs }">
-                <div v-bind="attrs"
-                v-on="on">
-                <v-icon>mdi-dots-vertical</v-icon>
-                </div>
-            </template>
-            <v-list>
-                <v-list-item
-                v-if="comment.c_commenter == loggedInUser.username"
-                class="text-decoration-none pl-6 pr-12"
+            <!-- {{check_month(comment.c_time)}} -->
+            <v-btn
                 color="error"
-                @click="deleted(comment)"
-                >
-                <v-list-item-title>Delete</v-list-item-title>
-                </v-list-item>
-                <v-list-item
-                v-else
-                class="text-decoration-none pl-6 pr-12"
-                @click="reported(comment)"
-                >
-                <v-list-item-title>Report</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
+                icon
+                @click="check_month(comment.c_time)"
+            >
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <!-- <p>{{comment.c_time.slice(0,11)}}</p> -->
+            <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                    <div v-bind="attrs"
+                    v-on="on">
+                    <v-icon>mdi-dots-vertical</v-icon>
+                    </div>
+                </template>
+                <v-list>
+                    <v-list-item
+                    v-if="comment.c_commenter == loggedInUser.username"
+                    class="text-decoration-none pl-6 pr-12"
+                    color="error"
+                    @click="deleted(comment)"
+                    >
+                    <v-list-item-title>Delete</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                    v-else
+                    class="text-decoration-none pl-6 pr-12"
+                    @click="reported(comment)"
+                    >
+                    <v-list-item-title>Report</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
             <!-- <v-divider v-if="i + 1 < comments.length"></v-divider> -->
         </div>
          </section>
@@ -67,13 +76,14 @@
         >
             <v-icon>mdi-close</v-icon>
         </v-btn>
+        {{this.check_month}}
         </template>
     </v-snackbar>
   </v-container>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import store from 'vuex'
+import moment from 'moment'
   export default {
     props: {
       comments: Array,
@@ -86,10 +96,28 @@ import store from 'vuex'
         }
     },
     mounted(){
+      // check_month(date) 
+      // {
+      //   var date_str = date.slice(9,11);
+      //   var month_str = moment().month(date.slice(5,7)-1).format("MMMM")
+      //   var res = date_str+ month_str;
+      //   console.log(month_str);
+      //   console.log(date_str);
+      //   console.log(res);
+      //   return res
+      // }
       // console.log(this.events);
     },
     computed: {
-        ...mapGetters(['loggedInUser', 'artists' ,'isAuthenticated']),
+      ...mapGetters(['loggedInUser', 'artists' ,'isAuthenticated']),
+      check_month() // function to format date
+      {
+        var date_str = this.comments.c_time.slice(9,11);
+        var month_str = moment().month(this.comments.c_time.slice(5,7)-1).format("MMMM")
+        var res = date_str+ month_str;
+        console.log(res);
+        return res
+      }
     },
     methods:{
       async deleted(comments){

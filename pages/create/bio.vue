@@ -4,7 +4,7 @@
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
@@ -14,7 +14,7 @@
             <v-col cols="12" md="6" class="pl-sm-6">
                 <v-row>
                 <v-col cols="8">
-                    <h5 class="font-weight-light mt-4">Build your Bio</h5>
+                    <h3 class="mt-4">Build your bio</h3>
                 </v-col>
                 <v-col cols="2">
                     <v-row class="justify-end mt-4 mr-8">
@@ -58,12 +58,12 @@
                             <v-text-field
                             prepend-icon="mdi-instagram"
                                 v-model= "bio.ig"
-                                label="Instagram URL">
+                                label="Instagram ID">
                             </v-text-field>
                             <v-text-field
                             prepend-icon="mdi-facebook"
                                 v-model= "bio.fb"
-                                label="Facebook URL">
+                                label="Facebook ID">
                             </v-text-field>
                             <v-text-field
                             prepend-icon="mdi-email"
@@ -360,6 +360,12 @@ export default {
             };
             let formData = new FormData();
             for (let data in this.bio) {
+                if(data == 'ig' && this.bio[data]){
+                    this.bio[data] =  encodeURI('https://www.instagram.com/'+this.bio[data]+'/')
+                }
+                if(data == 'fb' && this.bio[data]){
+                    this.bio[data] =  encodeURI('https://www.facebook.com/'+this.bio[data]+'/')
+                }
                 formData.append(data, this.bio[data]);
             }
             try {

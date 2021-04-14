@@ -2,8 +2,9 @@
    <v-container>
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
+            <!-- <h4 class="text-decoration-none">inmymgroove</h4> -->
              <img src="@/assets/inmygroove.png" height="80px" width="90px">
-            </nuxt-link> <v-spacer></v-spacer> 
+            </nuxt-link> <v-spacer></v-spacer>
             <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
             <!-- <v-badge color="green" content="0"> -->
             <v-icon>mdi-bell</v-icon>
@@ -80,7 +81,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+// var track = new Audio('@/assets/ride.mp3')
 export default {
+    methods:{
+
+    },
     computed: {
         ...mapGetters(['isAuthenticated', 'loggedInUser', 'userHasPortfolio','usersPortfolio'])
     },

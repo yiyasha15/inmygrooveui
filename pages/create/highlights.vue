@@ -48,17 +48,15 @@
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
-                                <div class = "form-group">
-                                        <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
-                                        <input 
-                                        type="file" 
-                                        name = "highlights.hiphoto" 
-                                        style="display:none" 
-                                        ref="fileInput" 
-                                        accept="image/*"
-                                        required
-                                        @change="onFileChange">
-                                    </div>
+                                <v-file-input
+                                    show-size
+                                    type="file"
+                                    v-model = "highlights.hiphoto" 
+                                    label="Upload image" 
+                                    accept="image/*"
+                                    prepend-icon="mdi-image"
+                                    @change="toShowImage"
+                                ></v-file-input>
                                 <v-textarea
                                     v-model = "highlights.hicontent"
                                     label= "Share your experience">
@@ -122,8 +120,8 @@
             <v-row v-if="userHasHighlights">
                 <v-col>
                     <div class="d-flex flex-wrap" >
-                        <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-2 mr-2 rounded-lg grey lighten-4">
-                            <HighlightsCard :highlights = "highlights"></HighlightsCard>
+                        <div v-for = "highlights in usersHighlights" :key = "highlights.index" class="pa-2 ma-2 rounded-lg grey lighten-4">
+                            <HighlightsCard :highlights = "highlights"></HighlightsCard><br>
                             <v-btn icon>
                                 <v-icon color="indigo" @click="edit(highlights)">mdi-circle-edit-outline</v-icon>
                             </v-btn>
@@ -196,8 +194,9 @@ export default {
                 hicontent: "",
                 hicontext: "",
                 hidate: "",
-                hiphoto: "",
+                hiphoto: null,
                 hilink: ""
+                
             }
         }
     },
@@ -244,25 +243,12 @@ export default {
             this.highlights.hicontent= "";
             this.highlights.hicontext= "";
             this.highlights.hidate= "";
-            this.highlights.hiphoto= "";
+            this.highlights.hiphoto= null;
             this.highlights.hilink= "";
         },
-        onPick() //changing the click from button to input using refs
-        {
-            this.$refs.fileInput.click()
-        },
-        onFileChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            if (files) {
-            const fileReader = new FileReader()
-            fileReader.onload = (e) => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
-                }
-                fileReader.readAsDataURL(files[0]);
-                this.highlights.hiphoto = files[0];
-            }
+        toShowImage(){
+            if(this.highlights.hiphoto)
+	        this.imageData = URL.createObjectURL(this.highlights.hiphoto);
         },
         async submit() {
             if(this.highlights.hicontent != "" && this.highlights.hicontext != "" && this.highlights.hiphoto)

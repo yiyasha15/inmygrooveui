@@ -32,9 +32,9 @@ export default {
     // getGalleries(username) {
     //     return apiClient1.get('/artist/gallery/?search=' + username)
     // },
-    getHighlights(username) {
-        return apiClient1.get('/artist/highlights/?username=' + username)
-    },
+    // getHighlights(username) {
+    //     return apiClient1.get('/artist/highlights/?username=' + username)
+    // },
     getJourney(username) {
         return apiClient1.get('/artist/journey/?username=' + username)
     },

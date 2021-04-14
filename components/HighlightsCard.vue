@@ -1,15 +1,20 @@
 <template>
-  <v-card @click="dialog= true" class="d-inline-block mx-2">
-    <v-row justify="space-between">
+<v-hover>
+  <template v-slot="{ hover }" >
+  <v-card @click="dialog= true" :elevation="hover ? 8 : 2" 
+    class="d-inline-block mx-2" 
+    max-width="200">
+    <v-img :src="highlights.hiphoto" height="200" />
+    <!-- <v-row justify="space-between">
       <v-col cols="auto">
         <v-img :src="highlights.hiphoto" height="200" width="200"/>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-dialog
-        v-model="dialog"
-        width="800px"
-      >
-        <v-container class="rounded-lg white">
+      v-model="dialog"
+      width="800px"
+    >
+      <v-container class="rounded-lg white">
           <v-col cols="12" align="end" justify="end">
           <v-btn icon color="error" @click="dialog = false">
             <v-icon>mdi-close</v-icon>
@@ -31,9 +36,9 @@
                 <v-row class="px-4 pt-4">
                     <h4>{{highlights.hicontext}}</h4> 
                     <v-spacer></v-spacer>
-                  <v-btn v-if="highlights.hilink" icon color="indigo" @click="openlink">
+                  <!-- <v-btn v-if="highlights.hilink" icon color="indigo" @click="openlink">
                     <v-icon>mdi-link</v-icon>
-                  </v-btn>
+                  </v-btn> -->
                 </v-row>
                 <v-row class="px-4">
                   <p class="caption">{{highlights.hidate}}</p>
@@ -45,19 +50,9 @@
           </v-row>
       </v-container>
     </v-dialog>
-    <v-snackbar v-model="snackbar">
-      {{ text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="error"
-          icon
-          v-bind="attrs"
-          @click="snackbar = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-card>
+  </template>
+</v-hover>
 </template>
 
 <script>
@@ -74,9 +69,7 @@
     },
     data() {
       return {
-        dialog: false,
-        snackbar: false,
-        text: `Cheers!`,
+        dialog: false
         }
     },
     mounted(){
