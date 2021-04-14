@@ -5,7 +5,7 @@
                 <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
+                <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
                 <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
@@ -15,7 +15,7 @@
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <v-row>
                     <v-col cols="8">
-                        <h5 class="font-weight-light mt-4">Build your portfolio</h5>
+                        <h3 class=" mt-4">Build your portfolio</h3>
                     </v-col>
                     <v-col cols="2">
                         <v-row class="justify-end mt-4 mr-8">
@@ -36,14 +36,23 @@
                                 <v-text-field
                                     v-model = "artist_data.artist_name"
                                     label="Name"
-                                    :maxlength="50">
+                                    :maxlength="22">
                                 </v-text-field>
                                 <v-select label="Representing(country)" v-model= "artist_data.country"
                                     :items="countries"
                                     item-text="name"
                                     item-value="code"
                                 ></v-select>
-                                <div class = "form-group">
+                                <v-file-input
+                                    show-size
+                                    type="file"
+                                    v-model = "artist_data.cover" 
+                                    label="Upload a landscape image" 
+                                    accept="image/*"
+                                    prepend-icon="mdi-image"
+                                    @change="toShowImage"
+                                ></v-file-input>
+                                <!-- <div class = "form-group">
                                     <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload a landscape image"></v-text-field>
                                     <input 
                                     type="file" 
@@ -53,43 +62,7 @@
                                     accept="image/*"
                                     required
                                     @change="onFileChange">
-                                </div>
-                                <!-- <v-select v-model= "artist_data.style" 
-                                    :items="items" 
-                                    attach 
-                                    chips 
-                                    label="Style" 
-                                    multiple>
-                                </v-select>
-                                <v-textarea
-                                    v-model= "artist_data.introduction"
-                                    label="Introduction">
-                                </v-textarea>
-                                <v-text-field
-                                    v-model= "artist_data.quote"
-                                    label="Favourite quote"
-                                    :maxlength="120">
-                                </v-text-field>
-                                <v-text-field
-                                    v-model= "artist_data.crew"
-                                    label="Crew"
-                                    :maxlength="120">
-                                </v-text-field>
-                                <v-text-field
-                                    v-model= "artist_data.ig"
-                                    label="Instagram"
-                                    :maxlength="120">
-                                </v-text-field>
-                                <v-text-field
-                                    v-model= "artist_data.fb"
-                                    label="Facebook"
-                                    :maxlength="120">
-                                </v-text-field>
-                                <v-text-field
-                                    v-model= "artist_data.personal"
-                                    label="Personal website"
-                                    :maxlength="120">
-                                </v-text-field> -->
+                                </div> -->
                                 <v-btn v-if="!userHasPortfolio" outlined class="text-decoration-none" rounded color="indigo" dark
                                  @click="submit">submit</v-btn>
                                  <v-btn v-if="userHasPortfolio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
@@ -127,21 +100,6 @@
                     <v-row class="pb-6 justify-center text-center">
                         <v-img :src="imageData" height="300px" width="500px"></v-img>
                     </v-row>
-                    <!-- <v-row v-if="artist_data.quote" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center font-italic">"{{artist_data.quote}}" </h5>
-                    </v-row>
-                    <v-row class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">{{artist_data.introduction}} </h5>
-                    </v-row>
-                    <v-row v-if="artist_data.crew" class="pb-6 justify-center text-center">
-                        <h5 class="pb-6 text-center">Repping: {{artist_data.crew}} 🙏 </h5>
-                    </v-row>
-                    <v-row class="pb-6 justify-center text-center">
-                        <v-col v-if="artist_data.ig"><v-icon>mdi-instagram</v-icon></v-col>
-                        <v-col v-if="artist_data.fb"><v-icon>mdi-facebook</v-icon></v-col>
-                        <v-col v-if="artist_data.yt"><v-icon>mdi-youtube</v-icon></v-col>
-                        <v-col v-if="artist_data.personal"><v-icon>mdi-email</v-icon></v-col>
-                    </v-row> -->
                     </v-col>
                 </v-col>
             </v-row>
@@ -185,7 +143,7 @@ export default {
         ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'loggedInUser'])
     },
     mounted() {
-    // this.$store.dispatch("check_user_portfolio");
+    this.$store.dispatch("check_user_portfolio");
     },
     created(){
         if(this.$store.state.hasPortfolio)
@@ -446,14 +404,7 @@ export default {
                 artist_name: "",
                 username: this.$store.state.auth.user.username,
                 country: "",
-                cover: "",
-                // style: "",
-                // introduction: "",
-                // quote: "",
-                // crew: "",
-                // ig: "",
-                // fb: "",
-                // personal: ""
+                cover: null,
             },
             dialog: false,
             items: ['HipHop', 'House', 'Locking', 'Popping'],
@@ -466,24 +417,9 @@ export default {
     },
     methods: {
         ...mapActions(['check_user_portfolio']),
-        onPick() //changing the click from button to input using refs
-        {
-            this.$refs.fileInput.click()
-        },
-        onFileChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            if (files) {
-            const fileReader = new FileReader()
-            fileReader.onload = (e) => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
-                }
-                fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
-                this.artist_data.cover = files[0];
-                console.log(this.artist_data);
-            }
+        toShowImage(){
+            if(this.artist_data.cover)
+	        this.imageData = URL.createObjectURL(this.artist_data.cover);
         },
         async submit() {
             if(this.artist_data.artist_name != "" && this.artist_data.country != "" && this.artist_data.cover != "" )

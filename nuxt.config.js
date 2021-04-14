@@ -15,7 +15,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Dancing+Script&family=Merriweather:wght@300&family=Mulish:wght@200&display=swap' }
+      { rel: 'stylesheet', href: 
+      'https://fonts.googleapis.com/css2?family=Poiret+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,900&family=Sacramento&display=swap' }
     ]
   },
   /*
@@ -76,7 +77,6 @@ export default {
   },
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module

@@ -1,53 +1,44 @@
 <template>
-<v-hover>
-  <template v-slot="{ hover }" >
-    <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" 
-    :to="'/e1t1/' + e1t1.id" min-width="260" max-height="240" >
-    
-    <!-- <v-card class = "ma-1 pa-1 grey lighten-5" :elevation="hover ? 6 : 1" 
-    :to="'/' + artist.username + '/each1teach1/' + e1t1.id"
-    min-width="180" max-height="260">  -->
-      <v-container align="center">
-          <div>
-            <div v-if = "e1t1.s_photo">
+<v-hover v-slot:default="{ hover }">
+    <v-card
+      class="ma-2"
+      data-view
+      :to="'/e1t1/' + e1t1.id"
+      :elevation="hover ? 12 : 0"
+      outlined
+      min-width="220" 
+      max-height="260">
+        <div v-if = "e1t1.s_photo">
                 <v-img :src = "e1t1.s_photo" width="220px" height="160px"></v-img>
             </div>
             <div v-else>
                 <v-img :src = "artist.artist_image" width="220px" height="160px"></v-img>
             </div>
-            <v-card-title>
-              <v-row class="text-decoration-none">
-              <p class="body-2">{{e1t1.teacher}}
-                <!-- <v-btn v-if="e1t1.s_teacher_country" x-small class="text-decoration-none" > -->
-                  <country-flag :country= 'e1t1.s_teacher_country' size='small'/>
-                <!-- </v-btn>  -->
-                <v-icon small>
-                mdi-heart-circle-outline
-              </v-icon> 
-              {{e1t1.username}}
-              <!-- <v-btn v-if="e1t1.s_student_country" x-small class="text-decoration-none" > -->
-                  <country-flag :country= 'e1t1.s_student_country' size='small'/>
-                <!-- </v-btn> -->
-              </p>
-              </v-row>
-            </v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-spacer></v-spacer>
-                <div v-if = "e1t1.likes_sharing.length">
-                    <!-- <v-icon>mdi-creation</v-icon>  -->
-                    <p class="caption">{{e1t1.likes_sharing.length}} reactions</p>
-                </div>
-              </v-row>
-            </v-card-text>
-            
-            <v-card-actions>
-              </v-card-actions>
-          </div>
-      </v-container>
+        <v-card-title>
+          <p class="body-2">{{e1t1.teacher}}
+            <!-- <v-btn v-if="e1t1.s_teacher_country" x-small class="text-decoration-none" > -->
+              <country-flag :country= 'e1t1.s_teacher_country' size='small'/>
+            <!-- </v-btn>  -->
+            <v-icon small>
+            mdi-heart-circle-outline
+          </v-icon> 
+          {{e1t1.username}}
+          <!-- <v-btn v-if="e1t1.s_student_country" x-small class="text-decoration-none" > -->
+              <country-flag :country= 'e1t1.s_student_country' size='small'/>
+            <!-- </v-btn> -->
+          </p>
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-spacer></v-spacer>
+            <div v-if = "e1t1.likes_sharing.length">
+                <!-- <v-icon>mdi-creation</v-icon>  -->
+                <p class="caption">{{e1t1.likes_sharing.length}} reactions</p>
+            </div>
+          </v-row>
+        </v-card-text>
     </v-card>
-  </template>
-</v-hover>
+  </v-hover>
 </template>
 
 <script>

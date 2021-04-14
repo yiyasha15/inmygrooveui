@@ -44,26 +44,9 @@ export default {
 			this.$auth.setRefreshToken('local', res.data.refresh);
 			this.$store.dispatch("check_user_portfolio");
 			this.$store.dispatch("check_user_bio");
-			// this.$store.dispatch("check_user_highlights");
-			
-			// this.$store.commit('SET_USER',res.data)
-			this.$router.push('/')
+			let redirect_url = this.$route.query.redirect || '/'
+			this.$router.push(redirect_url)
 		})
-        // try {
-        //   let res = await this.$auth.loginWith('local', {
-        //     data: userInfo
-		//   })
-		//   if(res.data){
-		// 	console.log(res.data);
-		// 	this.$auth.setUser(res.data)
-		// 	this.$auth.setUserToken(res.data.access)
-		// 	this.$auth.setRefreshToken('local', res.data.refresh);
-		// 		// this.$store.commit('SET_USER',res.data)
-		// 	this.$router.push('/')
-		// }
-        // } catch {
-		// 	alert('Hey sorry, but your credentials are incorrect. -Goku')
-        // }
 		}
 	},
 	data() {

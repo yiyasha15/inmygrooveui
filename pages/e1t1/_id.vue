@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <v-container class="ma-24">
-        <!-- <h3 class="font-weight-light mt-6 mb-2">Each 1 Teach 1</h3> -->
+    <v-container>
         <v-container class="rounded-lg grey lighten-5 my-4">
             <v-btn icon class="elevation-0 white text-decoration-none" @click="goback()">
             <v-icon>mdi-arrow-left</v-icon>
@@ -13,7 +12,7 @@
                 <v-col cols="12" md="4" class="pl-6">
                     <v-row>
                         <v-col class="ma-0">
-                        <p class="font-weight-light caption">{{e1t1.s_date}}</p>
+                        <h5 class="caption">{{e1t1.s_date}}</h5>
                         </v-col>
                         <div v-if="loggedInUser">
                         <v-col class="ma-0" v-if="loggedInUser.username == e1t1.username" >
@@ -55,7 +54,7 @@
                     <v-row class="rounded-lg grey lighten-2 d-inline-flex mb-2">
                         <v-col class="ma-0">
                             <nuxt-link :to="'/'+ e1t1.teacher">
-                            <h3 class="font-weight-light text-capitalize">{{e1t1.teacher}}</h3>
+                            <h2 class="font-weight-light text-capitalize">{{e1t1.teacher}}</h2>
                             </nuxt-link>
                         </v-col>
                         <v-col class="mt-2">
@@ -65,18 +64,20 @@
                     <v-row>
                         <v-col>
                         <nuxt-link :to="'/'+ e1t1.username">
-                        <h5 class="font-weight-light text-capitalize">{{e1t1.username}}</h5>
+                        <h3 class="font-weight-light text-capitalize">{{e1t1.username}}</h3>
                         </nuxt-link>
-                        <h6 class="font-weight-light">{{e1t1.s_appreciation}}</h6>
-                        <v-btn icon @click="react_love">
+                        <h4 class="font-weight-light">{{e1t1.s_appreciation}}</h4>
+                        <div class="my-4">
+                        <v-btn icon @click="react_love" class="mx-1">
                         <v-icon>mdi-rocket-launch-outline</v-icon><div v-if="love.length">{{love.length}}</div>
                         </v-btn>
-                        <v-btn icon @click="react_dope">
+                        <v-btn icon @click="react_dope" class="mx-1">
                         <v-icon>mdi-hand-peace</v-icon><div v-if="dope.length">{{dope.length}}</div>
                         </v-btn>
-                        <v-btn icon @click="react_info">
+                        <v-btn icon @click="react_info" class="mx-1">
                         <v-icon>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
                         </v-btn>
+                        </div>
                         </v-col>
                     </v-row>
                         <v-dialog v-model="personalDialog" width="800px" v-if="isAuthenticated && userHasPortfolio && isYourRoom">
@@ -85,12 +86,12 @@
                                 v-if="loggedInUser.username == e1t1.username"
                                     v-bind="attrs"
                                     v-on="on">
-                                Talk to my teacher <v-icon>mdi-lock</v-icon>
+                                <h3>Talk to my teacher </h3><v-icon class="pl-2" x-small>mdi-lock</v-icon>
                                 </v-btn>
                                 <v-btn v-else class="my-4" small outlined
                                     v-bind="attrs"
                                     v-on="on">
-                                Talk to my student
+                                <h3>Talk to my student</h3> <v-icon class="pl-2" x-small>mdi-lock</v-icon>
                                 </v-btn>
                             </template>
                             <v-container class="rounded-lg grey lighten-5 my-4" >
@@ -101,10 +102,10 @@
                                 </v-col> -->
                             <!-- <v-divider></v-divider> -->
                                     <v-row class="mx-4 mt-4 pa-4">
-                                        <h5 v-if="loggedInUser.username == e1t1.username"
-                                         class="font-weight-light text-uppercase">{{e1t1.teacher}}</h5>
-                                         <h5 v-else
-                                         class="font-weight-light text-uppercase">{{e1t1.username}}</h5>
+                                        <h3 v-if="loggedInUser.username == e1t1.username"
+                                         class="font-weight-light text-uppercase">{{e1t1.teacher}}</h3>
+                                         <h3 v-else
+                                         class="font-weight-light text-uppercase">{{e1t1.username}}</h3>
                                          <v-spacer></v-spacer>
                                          <v-btn icon color="error" @click="personalDialog = false">
                                 <v-icon>mdi-close</v-icon>
@@ -143,96 +144,98 @@
                 </v-col>
             </v-row>
             <v-row class="mt-4 pa-4">
-                <v-col cols="12" md="6" v-if="e1t1.s_video_talk">
-                    <v-card
-                        class="mx-auto"
-                        max-width="400">
-                        <video max-width="400" height="240" controls>
-                            <source :src="e1t1.s_video_talk" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <v-card-title>
-                        Appreciation
-                        </v-card-title>
-                        <!-- <v-card-actions>
-                            <v-spacer></v-spacer>
-                        <v-btn color="orange" icon @click="snackbar = true">
-                        <v-icon>mdi-creation</v-icon>
-                        </v-btn>
-                        <v-btn color="blue" icon @click="snackbar = true">
-                        <v-icon>mdi-comment-outline</v-icon>
-                        </v-btn>
-                        </v-card-actions> -->
-                    </v-card>
+                <v-col cols="12" md="6" class="mt-2" v-if="e1t1.s_video_talk">
+                    <!-- <v-card @click="video1Dialog= true" class="d-inline-block mx-2"> -->
+                        <v-row justify="center" align="center">
+                            <video width="240" height="240" @click="video1Dialog= true" >
+                                <source :src="e1t1.s_video_talk" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </v-row>
+                        <v-dialog
+                            v-model="video1Dialog"
+                            width="600px"
+                            @click:outside="closeDialog1"
+                        >
+                            <v-container class="rounded-lg white">
+                            <v-col cols="12" align="end" justify="end">
+                            <v-btn icon color="error" @click="video1Dialog = false">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                            </v-col>
+                            <v-col cols="12" align="center" justify="center" >
+                            <video id="video1" max-width="300px" height="300px" controls autoplay>
+                                <source :src="e1t1.s_video_talk" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            </v-col>
+                        </v-container>
+                        </v-dialog>
+                    <!-- </v-card> -->
                 </v-col>
-                <v-col cols="12" md="6" v-if="e1t1.s_video_dance">
-                    <v-card
-                        class="mx-auto"
-                        max-width="400"
-                    >
-                        <video width="400" height="240" controls>
+                <v-col cols="12" md="6" class="mt-2" v-if="e1t1.s_video_dance">
+                    <!-- <v-card @click="video1Dialog= true" class="d-inline-block mx-2"> -->
+                        <v-row justify="center" align="center">
+                            <video width="240" height="240" @click="video2Dialog= true" >
                             <source :src="e1t1.s_video_dance" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                        <v-card-title>
-                        Freestyling with lessons learnt
-                        </v-card-title>
-                        <!-- <v-card-actions>
-                            <v-spacer></v-spacer>
-                        <v-btn color="orange" icon @click="snackbar = true">
-                        <v-icon>mdi-creation</v-icon>
-                        </v-btn>
-                        <v-btn color="blue" icon @click="snackbar = true">
-                        <v-icon>mdi-comment-outline</v-icon>
-                        </v-btn>
-                        </v-card-actions> -->
-                    </v-card>
+                        </v-row>
+                        <v-dialog
+                            v-model="video2Dialog"
+                            width="600px"
+                            @click:outside="closeDialog2"
+                        >
+                            <v-container class="rounded-lg white">
+                            <v-col cols="12" align="end" justify="end">
+                            <v-btn icon color="error" @click="video2Dialog = false">
+                                <v-icon>mdi-close</v-icon>
+                            </v-btn>
+                            </v-col>
+                            <v-col cols="12" align="center" justify="center" >
+                            <video id="video2"  max-width="300px" height="300px" controls autoplay>
+                                <source :src="e1t1.s_video_dance" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            </v-col>
+                        </v-container>
+                        </v-dialog>
+                    <!-- </v-card> -->
                 </v-col>
             </v-row>
         </v-container>
         <v-container class="rounded-lg grey lighten-5 pa-4">
-            <!-- <v-virtual-scroll
-            v-if="isAuthenticated && userHasPortfolio && isYourRoom && !isShowing "
-            :items="personalMessages"
-            :item-height="this.dynamic_height"
-            height="300">
-            <template v-slot:default="{ item }">
-                <v-list-item>
-                    <div v-for="artist in artists" :key ="artist.index">
-                        <nuxt-link :to="'/'+ item.username">
-                            <v-list-item-avatar v-if=" item.username == artist.username">
-                                    <img :src = "artist.thumb" alt="img">
-                            </v-list-item-avatar>
-                        </nuxt-link>
-                    </div>
-                <v-list-item-content>
-                    <nuxt-link :to="'/'+ item.username">
-                        <div class="subtitle grey--text">{{item.username}}</div>
-                    </nuxt-link>
-                    <p>{{ item.messagetext }}</p>
-                </v-list-item-content>
-
-                <v-list-item-action>
-                </v-list-item-action>
-                </v-list-item>
-            </template>
-            </v-virtual-scroll> -->
-            <v-row v-if="comments_list.length" class="mx-4 pa-4">
-                <h5 class="font-weight-light">Comments {{comments_list.length}}
-                </h5>
+            <v-row class="ma-md-4 ma-2" v-if="comments_list.length">
+                <h3 class="font-weight-light">
+                    Comments {{comments_list.length}}
+                </h3>
             </v-row>
-            <v-row class="mx-4 pa-4">
-                <v-avatar v-if="isAuthenticated && userHasPortfolio" size="36">
+            <v-row
+            no-gutters
+            style="flex-wrap: nowrap;"
+            >
+            <v-col
+                align="end"
+                cols="1"
+                class="flex-grow-0 flex-shrink-0"
+            >
+                <v-avatar size="36" v-if="isAuthenticated && userHasPortfolio" >
                 <img
                     :src = "usersPortfolio.thumb" 
                     alt="img"
                 >
                 </v-avatar>
-                <v-avatar color="indigo" v-else size="36">
+                <v-avatar size="36" color="indigo" v-else >
                 <v-icon dark>
                     mdi-account-circle
                 </v-icon>
                 </v-avatar>
+            </v-col>
+            <v-col
+                cols="5"
+                style="min-width: 100px; max-width: 100%;"
+                class="flex-grow-1 flex-shrink-0"
+            >
                 <v-textarea v-if="isAuthenticated && userHasPortfolio" class="mx-4"
                     v-model= "comments.c_comment"
                     outlined
@@ -243,28 +246,27 @@
                     label="Share your thoughts">
                 </v-textarea>
                 <v-textarea v-else class="mx-4"
-                    @click="dialog=true"
+                    @click="logindialog=true"
                     outlined
                     rows="1"
                     row-height="15"
                     max-width= "200"
                     label="Share your thoughts">
                 </v-textarea>
+            </v-col>
+            <v-col
+                cols="3"
+                style="min-width: 100px;"
+                class="flex-grow-0 flex-shrink-1"
+            >
                 <v-btn v-if="isAuthenticated && userHasPortfolio"
                  small class="text-decoration-none mr-2 ml-12 ml-sm-2" 
                     @click="post_comment"
                     rounded color="indigo" dark >Post
                 </v-btn>
+            </v-col>
             </v-row>
-            <!-- <v-row v-else class="mt-8 ml-md-8 ml-2">
-                <v-btn
-                    color="primary"
-                    class="ml-4 px-4" outlined rounded
-                    @click="dialog=true"
-                        >
-                    Add Comment
-                </v-btn>
-            </v-row> -->
+            
             <v-row class="px-4" v-if="comments_list.length">
                 <!-- <div v-for = "comments in comments" :key = "comments.index" > -->
                     <comments-card :comments = "comments_list"></comments-card>
@@ -273,7 +275,7 @@
         </v-container>
     </v-container>
     <v-dialog
-      v-model="dialog"
+      v-model="logindialog"
       width="500"
     >
       <v-card class="pa-4">
@@ -288,37 +290,18 @@
             class="ml-4 px-4" text rounded
             @click="create_portfolio"
           >
-            Let's go!
+            Okay!
           </v-btn>
           <v-btn
             color="error"
             class="ml-4 px-4" text rounded
-            @click="dialog = false"
+            @click="logindialog = false"
           >
             Nope!
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-     <!-- <DynamicScroller
-        :items="items"
-        :min-item-size="54"
-        class="scroller"
-    >
-        <template v-slot="{ item, index, active }">
-        <DynamicScrollerItem
-            :item="item"
-            :active="active"
-            :key="item.shareid"
-            :size-dependencies="[
-            item.messagetext,
-            ]"
-            :data-index="index"
-        >
-            <div class="text">{{ item.messagetext }}</div>
-        </DynamicScrollerItem>
-        </template>
-    </DynamicScroller> -->
     <v-snackbar v-model="valid_snackbar">
                 Write something to post.
                 <template v-slot:action="{ attrs }">
@@ -365,9 +348,6 @@
 import EventService from '@/services/EventService.js'
 import CountryFlag from 'vue-country-flag'
 import { mapGetters } from 'vuex'
-import VueVirtualScroller from 'vue-virtual-scroller'
-import { DynamicScroller } from 'vue-virtual-scroller'
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import CommentsCard from '~/components/CommentsCard.vue'
 import PersonalMessagesCard from '~/components/PersonalMessagesCard.vue'
 export default {
@@ -387,12 +367,13 @@ export default {
         CountryFlag,
         CommentsCard,
         PersonalMessagesCard,
-        DynamicScroller,
-        VueVirtualScroller
     },
     data(){
         return {
+            video1Dialog: false,
+            video2Dialog: false,
             dialog: false,
+            logindialog: false,
             personalDialog: false,
             valid_snackbar: false,
             login_snackbar: false,
@@ -400,7 +381,8 @@ export default {
             comments : {
                 c_shareid : "",
                 c_commenter: "",
-                c_comment: ""
+                c_comment: "",
+                c_time: ""
             },
             likes:{
                 l_shareid: "",
@@ -425,6 +407,7 @@ export default {
         this.$store.dispatch("check_artists");
         this.$store.dispatch("check_likes", this.e1t1.id)
         this.$store.dispatch("check_comments", this.e1t1.id)
+        if(this.loggedInUser)
         if(this.$store.state.auth.user.username == this.e1t1.teacher || this.$store.state.auth.user.username ==this.e1t1.username){
             this.isYourRoom = true
             this.$store.dispatch("check_personal_room", this.e1t1.id);
@@ -462,7 +445,29 @@ export default {
         }
     },   
     methods:{
-        create_portfolio(){
+        formatTime() {
+      const options = {
+        month: '2-digit',
+        day: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute:'2-digit'
+      };
+      let now = new Date().toLocaleString('en-US', options);
+      return now;
+    },
+        closeDialog1() //pressing outside dialog pauses video
+        {
+            var vid = document.getElementById("video1"); 
+            vid.pause();
+        },
+        closeDialog2() //pressing outside dialog pauses video
+        {
+            var vid = document.getElementById("video2"); 
+            vid.pause();
+        },
+        create_portfolio()
+        {
             this.$router.push("/create/about");
         },
         goback(){
@@ -561,6 +566,7 @@ export default {
 
         },
         async post_comment() {
+            console.log("hii",this.formatTime());
             if(this.isAuthenticated){
             if(this.comments.c_comment != "" )
             {

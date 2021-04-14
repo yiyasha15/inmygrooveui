@@ -3,12 +3,12 @@
     <v-container>
     <v-row>
         <v-col cols="12" sm="4" >
-            <div class="font-weight-light display-1 xs12 pl-4">{{artist.artist_name}}</div>
+            <h1 class=" xs12 pl-4">{{artist.artist_name}}</h1>
         </v-col>
-        <v-col cols="12" sm="8" class="px-0 d-flex align-end justify-end pr-4">
-            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}`">About</v-btn>
-            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/journey`"> Journey</v-btn> 
-            <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
+        <v-col cols="12" sm="8" class="px-2 d-flex align-end justify-end">
+            <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}`">About</v-btn>
+            <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/journey`"> Journey</v-btn> 
+            <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>
             <!-- <v-btn dark rounded color="indigo" class="elevation-0 text-decoration-none" :to= "`/${artist.username}/myhood`"> My hood</v-btn>  -->
         </v-col>
     </v-row>

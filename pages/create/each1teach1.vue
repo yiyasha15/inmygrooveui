@@ -3,7 +3,7 @@
     <v-row>
         <v-col>
             <v-container>
-                <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/e1t1`"><v-icon>mdi-arrow-left</v-icon></v-btn>
+                <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/`"><v-icon>mdi-arrow-left</v-icon></v-btn>
                 <h2 align="center" justify="center">Each One Teach One</h2>
                 <div class="text-xs-center ma-6" align = "center">
                     Here we can acknowledge all those HipHop artists who passed their knowledge,
@@ -17,9 +17,9 @@
     </v-row>      
     <v-row>
         <v-col cols="12" md="6" class="pl-sm-6">
-            <h5>
+            <h3 class="my-4">
                 Share your experience
-            </h5>
+            </h3>
             <v-form v-on:submit.prevent="submit">
                 <v-row>
                     <v-col cols="12" md="9">
@@ -145,7 +145,7 @@
                 </v-row>
             </v-form>   
         </v-col>
-        <v-col cols="12" md="6" class="px-sm-6 mt-6 grey lighten-4 rounded-xl">
+        <v-col cols="12" md="6" class="px-sm-8 my-6 grey lighten-4 rounded-xl">
             <v-row class="pb-6 pa-4 justify-center text-center">
                 <template v-if="typeof sharing.teacher== 'object'">
                 <h2> {{sharing.teacher.username}}</h2>
@@ -505,7 +505,7 @@ export default {
             snackbar: false,
             uploaded_snackbar: false,
             mention_teacher_snackbar: false,
-            text: `Max. video upload size is 5K KB! :)`,
+            text: `Max. video upload size is 5MB! :)`,
             uploaded_text: `Video uploaded! :)`,
         }
     },

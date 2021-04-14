@@ -5,7 +5,7 @@
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
             <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn>
+            <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
             <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
@@ -15,7 +15,7 @@
                 <v-col cols="12" md="6" class="pl-sm-6">
                     <v-row>
                     <v-col cols="8">
-                        <h5 class="font-weight-light mt-4">Share your dance journey.</h5>
+                        <h3 class="mt-4">Share your dance journey</h3>
                     </v-col>
                     <v-col cols="2">
                         <v-row class="justify-end mt-4 mr-8">
@@ -48,17 +48,14 @@
                                     label= "Title"
                                     :maxlength="30">
                                 </v-text-field>
-                                <div class = "form-group">
-                                        <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
-                                        <input 
-                                        type="file" 
-                                        name = "journey.jophoto" 
-                                        style="display:none" 
-                                        ref="fileInput" 
-                                        accept="image/*"
-                                        required
-                                        @change="onFileChange">
-                                    </div>
+                                <v-file-input 
+                                    type="file"
+                                    v-model = "journey.jophoto" 
+                                    label="Upload image" 
+                                    accept="image/*"
+                                    prepend-icon="mdi-image"
+                                    @change="toShowImage"
+                                ></v-file-input>
                                 <v-textarea
                                     v-model = "journey.jocontent"
                                     label= "Share your experience">
@@ -92,6 +89,20 @@
                                         label= "Link"
                                         :maxlength="50">
                                     </v-text-field>
+                                    <h4 class="font-weight-light">Add to highlights</h4>
+                                    <v-radio-group
+                                        v-model="journey.ishighlight"
+                                        row
+                                        >
+                                        <v-radio
+                                            label="Yes"
+                                            value="true"
+                                        ></v-radio>
+                                        <v-radio
+                                            label="No"
+                                            value="false"
+                                        ></v-radio>
+                                        </v-radio-group>
                                     <v-btn v-if="editing_obj == null" class="text-decoration-none" rounded color="indigo" dark outlined
                                     @click="submit">Submit</v-btn>
                                     <v-btn v-else class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
@@ -122,7 +133,7 @@
             <v-row v-if="userHasJourney">
                 <v-col>
                     <div class="d-flex flex-wrap">
-                        <div v-for = "journey in usersJourney" :key = "journey.index" class="pa-4 mr-4 rounded-lg grey lighten-4">
+                        <div v-for = "journey in usersJourney" :key = "journey.index" class="pa-2 ma-2 rounded-lg grey lighten-4">
                             <journey-card :journey = "journey"></journey-card>
                             <v-btn icon>
                                 <v-icon color="indigo" @click="edit(journey)">mdi-circle-edit-outline</v-icon>
@@ -196,8 +207,9 @@ export default {
                 jocontent: "",
                 joevent: "",
                 jodate: "",
-                jophoto: "",
-                jolink: ""
+                jophoto: null,
+                jolink: "",
+                ishighlight: false
             }
         }
     },
@@ -244,25 +256,13 @@ export default {
             this.journey.jocontent= "";
             this.journey.joevent= "";
             this.journey.jodate= "";
-            this.journey.jophoto= "";
+            this.journey.jophoto= null;
             this.journey.jolink= "";
+            this.journey.ishighlight= false;
         },
-        onPick() //changing the click from button to input using refs
-        {
-            this.$refs.fileInput.click()
-        },
-        onFileChange(e) {
-            let files = e.target.files || e.dataTransfer.files;
-            if (files) {
-            const fileReader = new FileReader()
-            fileReader.onload = (e) => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
-                }
-                fileReader.readAsDataURL(files[0]);
-                this.journey.jophoto = files[0];
-            }
+        toShowImage(){
+            if(this.journey.jophoto)
+	        this.imageData = URL.createObjectURL(this.journey.jophoto);
         },
         async submit() {
             if(this.journey.jocontent != "" && this.journey.joevent != "" && this.journey.jophoto)

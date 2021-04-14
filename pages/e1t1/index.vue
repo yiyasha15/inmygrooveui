@@ -1,8 +1,12 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="8"  class="justify-center">
-        <h4 class ="pl-6 my-4 font-weight-light xs12">Our Community</h4>
+      <v-col cols="12" md="8" class="justify-center">
+        <h2 class ="pl-6 my-2 font-weight-bold xs12 d-inline">Each 1 Teach 1</h2>
+        <v-btn dark v-if="isAuthenticated" x-small fab color="indigo" 
+            class="text-decoration-none mb-2 ml-2" @click="addteacher">
+        <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </v-col>
       <v-col cols="12" md="4"  class= "pr-6 justify-end mb-2 px-6" >
         <v-text-field
@@ -16,10 +20,10 @@
         </v-text-field>
       </v-col>
     </v-row>
-      <v-btn text color="indigo" class="mt-2 mb-6 text-decoration-none justify-end"
+      <!-- <v-btn color="indigo" rounded outlined class="mx-2 mt-2 mb-6 text-decoration-none justify-end"
        dark @click="addteacher">
       <v-icon class="px-2">mdi-account-multiple-plus-outline</v-icon>
-      Share my experience</v-btn>
+      Share my experience</v-btn> -->
     <v-layout row wrap justify-center >
       <div v-for="teacher in filteredteachers" :key ="teacher.index">
         <v-flex sm6 xs6> 

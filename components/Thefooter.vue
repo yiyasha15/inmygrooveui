@@ -1,4 +1,31 @@
 <template>
+  <!-- <v-footer class="white" height="auto">
+    <v-container>
+      <v-card flat class="flex white">
+        <hr class="my-4">
+        <v-card-title>
+          <v-col class="pa-0">
+          <v-row class="justify-center align-center my-2">
+          <v-btn class="mx-2" plain small text :to= "`/about_us/`">About</v-btn>
+          <v-btn class="mx-2" plain small text :to= "`/team/`">Team</v-btn>
+          <v-btn class="mx-2" plain small text :to= "`/contact/`">Contact Us</v-btn>
+          </v-row>
+          <v-row class="justify-center align-center my-4">
+          <v-btn small icon class="text-decoration-none mx-2"  @click="openig" >
+              <v-icon>mdi-instagram</v-icon>
+          </v-btn>
+          <v-btn small icon class="text-decoration-none mx-2"  @click="openig" >
+              <v-icon>mdi-facebook</v-icon>
+          </v-btn>
+          </v-row>
+          <v-row class="justify-center align-center my-4">
+          <h6 >&copy; InMyGroove {{ new Date().getFullYear() }}</h6><br>
+          </v-row>
+          </v-col>
+        </v-card-title>
+      </v-card>
+      </v-container>
+  </v-footer> -->
   <v-footer class="ma-6 white">
     <v-container>
       <v-divider set="inset"></v-divider>
@@ -13,17 +40,11 @@
         </v-col>
       <v-spacer></v-spacer>
       <v-col cols="12" sm="6">
-        <v-row class="mx-4 justify-end">
-        <v-btn plain small text :to= "`/about_us/`">About</v-btn>
-        </v-row>
-        <v-row class="mx-4 justify-end">
-          <v-btn plain small text :to= "`/team/`">Team</v-btn>
-        </v-row>
-        <v-row class="mx-4 justify-end">
-          <v-btn plain small text :to= "`/contact/`">Contact Us</v-btn>
-        </v-row>
         <v-row class="justify-end mb-2">
-          <v-btn small icon class="text-decoration-none mt-2 mx-4 mr-10"  @click="openig" >
+        <v-btn plain small text :to= "`/about_us/`">About</v-btn>
+          <v-btn plain small text :to= "`/team/`">Team</v-btn>
+          <v-btn plain small text :to= "`/contact/`">Contact Us</v-btn>
+          <v-btn small icon class="text-decoration-none"  @click="openig" >
             <v-icon>mdi-instagram</v-icon>
         </v-btn>
         </v-row>
