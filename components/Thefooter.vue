@@ -28,8 +28,10 @@
   </v-footer> -->
   <v-footer class="ma-6 white">
     <v-container>
+      <!-- <img src="@/assets/vivi.png"  width="100px"> -->
       <v-divider set="inset"></v-divider>
-      <v-row class="mt-8">
+      <!-- <img class="mt-4" src="@/assets/vivi.png"  width="100px"> -->
+      <v-row class="mt-2">
         <v-col cols="12" sm="6">
           <v-row>
             <div class="mb-2">&copy; InMyGroove {{ new Date().getFullYear() }}</div><br>

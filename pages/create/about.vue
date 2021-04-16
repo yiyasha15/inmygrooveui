@@ -582,7 +582,10 @@ export default {
                 console.log("Artist portfolio deleted.");
                 //update store
                 this.$store.dispatch("remove_portfolio")
-                this.artist_data = ''
+                this.artist_data.artist_name = ''
+                this.artist_data.country = ''
+                this.artist_data.cover = null
+                this.artist_data.username= this.$store.state.auth.user.username,
                 this.imageData = ''
                 this.snackbar = true;
                 this.$router.push("/create/about");

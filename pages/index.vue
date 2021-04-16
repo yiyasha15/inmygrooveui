@@ -76,7 +76,8 @@
           who passed a part of their groove, a part of their soul to you.</b> -->
         </h3>
       </v-row>
-      <v-row>
+      <v-row class="justify-center align-center my-6">
+        <h1>Take a tour!</h1>
         <v-sheet 
             class="mt-5 mx-auto"
             min-width="50"
@@ -130,9 +131,11 @@
         </v-sheet>
       </v-row>
       <v-row class="justify-center align-center mt-12">
-        <h2 v-if="!userHasPortfolio">Ready to start?</h2>
-      </v-row>
-        <v-row class="justify-center align-center my-6" mb-6>
+        <h2 class="mt-12" v-if="!userHasPortfolio">Let's build a portfolio, first.</h2></v-row>
+        <v-row class="justify-center align-center my-6">
+        <p> Make a beautiful porfolio and showcase your hiphop journey.</p>
+        </v-row>
+        <v-row class="justify-center align-center my-6">
             <v-btn v-if="!userHasPortfolio" large rounded dark color="#BD3D30" 
             class="text-decoration-none elevation-none px-4 justify-end" 
             :to= "`/create/`"><h4>Create a portfolio</h4>
