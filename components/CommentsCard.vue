@@ -16,13 +16,13 @@
                 <p class="commentFormat">{{comment.c_comment}}</p></div>
             <v-spacer></v-spacer>
             <!-- {{check_month(comment.c_time)}} -->
-            <v-btn
+            <!-- <v-btn
                 color="error"
                 icon
                 @click="check_month(comment.c_time)"
             >
                 <v-icon>mdi-close</v-icon>
-            </v-btn>
+            </v-btn> -->
             <!-- <p>{{comment.c_time.slice(0,11)}}</p> -->
             <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -76,7 +76,7 @@
         >
             <v-icon>mdi-close</v-icon>
         </v-btn>
-        {{this.check_month}}
+        <!-- {{this.check_month}} -->
         </template>
     </v-snackbar>
   </v-container>
@@ -110,14 +110,14 @@ import moment from 'moment'
     },
     computed: {
       ...mapGetters(['loggedInUser', 'artists' ,'isAuthenticated']),
-      check_month() // function to format date
-      {
-        var date_str = this.comments.c_time.slice(9,11);
-        var month_str = moment().month(this.comments.c_time.slice(5,7)-1).format("MMMM")
-        var res = date_str+ month_str;
-        console.log(res);
-        return res
-      }
+      // check_month() 
+      // {
+      //   var date_str = this.comments.c_time.slice(9,11);
+      //   var month_str = moment().month(this.comments.c_time.slice(5,7)-1).format("MMMM")
+      //   var res = date_str+ month_str;
+      //   console.log(res);
+      //   return res
+      // }
     },
     methods:{
       async deleted(comments){

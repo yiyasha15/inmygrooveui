@@ -34,7 +34,7 @@
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
 		<v-divider></v-divider>
-		<p class="text-center">Inmygroove is currently a community of {{img_artists}} dancers.</p>
+		<p class="text-center pa-4">Inmygroove is currently a community of {{img_artists}} dancers.</p>
 		<v-dialog v-model="terms" width="70%">
 		<v-card>
         <v-card-title class="title">
@@ -149,6 +149,6 @@ export default {
         )
 	  }
 	},
-	
+	layout: 'login'
 }
 </script>

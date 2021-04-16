@@ -2,7 +2,7 @@
     <div>
         <center>
             <v-parallax
-                height="600"
+                height="800"
                 :src = "artist.cover"
             ></v-parallax>
         </center>
@@ -12,15 +12,15 @@
         cols="12" md="6" lg="6" xl="6">
             <h3 class="mb-5 font-weight-light font-italic">
                 <br> 
-            "{{ bio.quote }}"
+            "{{ bio.quote }}" - {{artist.artist_name }} <country-flag class="mt-4" :country= 'artist.country' /> 
             </h3>       
-            <div align="end" justify="end" class="text font-weight-thin">
+            <!-- <div align="end" justify="end" class="text font-weight-thin">
                 <country-flag class="mt-4" :country= 'artist.country' />   
-            </div>
+            </div> -->
         </v-col>
-        <v-col :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-4': $vuetify.breakpoint.mdAndUp}">
+        <v-col v-if="bio.gallery1" :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-4': $vuetify.breakpoint.mdAndUp}">
             <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
-                <v-layout class="flex-wrap">
+                <v-layout class="flex-wrap" >
                     <v-flex v-if="bio.gallery1" xs6 md6>
                         <v-img :src="bio.gallery1" width = "270px" height = "270px"/>
                     </v-flex>

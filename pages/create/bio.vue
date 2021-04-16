@@ -522,7 +522,17 @@ export default {
                 console.log("Artist Bio deleted.");
                 //update store
                 this.$store.dispatch("remove_bio")
-                this.bio = ''
+                this.bio.style = ''
+                this.bio.introduction = ''
+                this.bio.quote = ''
+                this.bio.crew = ''
+                this.bio.ig = ''
+                this.bio.fb = ''
+                this.bio.site = ''
+                this.bio.gallery1 = ''
+                this.bio.gallery2 = ''
+                this.bio.gallery3 = ''
+                this.bio.gallery4 = ''
                 this.imageData = ''
                 this.imageData2 = ''
                 this.imageData1 = ''

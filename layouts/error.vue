@@ -1,16 +1,17 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-      <img src="@/assets/error_kids.png" height="80px" width="90px">
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
-  </v-app>
+  <v-container>
+    <v-col align="center" justify="center">
+      <h1 v-if="error.statusCode === 404">
+        Oops! Sorry. {{ pageNotFound }}
+        <img src="@/assets/vivi.png" width="150px">
+      </h1>
+      <h1 v-else>
+        Oops! Sorry. {{ otherError }}
+        <img src="@/assets/vivi.png"  width="150px">
+      </h1>
+      <h1> <NuxtLink to="/">Let's return to the home page.</NuxtLink></h1>
+    </v-col>
+  </v-container>
 </template>
 
 <script>
