@@ -40,7 +40,7 @@
                     </v-list-item>
                     <v-list-item
                     v-if="userHasPortfolio"
-                    :to="'/create/about'"
+                    :to="'/create'"
                     class="text-decoration-none pl-6 pr-12"
                     >
                     <v-list-item-title>Edit your portfolio</v-list-item-title>

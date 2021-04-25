@@ -1,15 +1,7 @@
-FROM node:10.16.3
-RUN mkdir /frontend
-WORKDIR /frontend
-
-COPY . /frontend/
-RUN npm install
-RUN npm run dev
-
-EXPOSE 3000
-
-#ENV HOST  0.0.0.0
-#ENV PORT  3000
-
-#CMD ["npm", "start"]
-CMD ["npm" "run" "dev"]
+ # syntax=docker/dockerfile:1
+ FROM node:12-alpine
+ RUN apk add --no-cache python g++ make
+ WORKDIR /app
+ COPY . .
+ RUN yarn install --production
+ CMD ["node", "src/index.js"]
