@@ -1,7 +1,7 @@
 {
   "name": "img",
   "version": "1.0.0",
-  "description": "lets try the simple parent child relationship as of nuxt standard example (events/_id.vue)",
+  "description": "img",
   "author": "River-r",
   "private": true,
   "scripts": {

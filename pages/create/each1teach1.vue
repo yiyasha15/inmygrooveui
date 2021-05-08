@@ -78,6 +78,11 @@
                             item-text="name"
                             item-value="code">
                         </v-select>
+                        <v-text-field
+                            v-model = "sharing.s_link"
+                            label= "Link"
+                            :maxlength="100">
+                        </v-text-field>
                         <v-menu
                             ref="menu"
                             v-model="menu"
@@ -114,7 +119,7 @@
                             required
                             @change="onFileChange">
                         </div>
-                        <div class = "form-group">
+                        <!-- <div class = "form-group">
                             <v-text-field clearable prepend-icon="mdi-video" @click= "onPickVideo" label="Upload an appreciation video"></v-text-field>
                             <input 
                             type="file" 
@@ -136,7 +141,7 @@
                             accept="video/*"
                             required
                             @change="onFileChangeVideo2">
-                        </div>
+                        </div> -->
                         <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
                         @click="submit">Submit</v-btn>
                         <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
