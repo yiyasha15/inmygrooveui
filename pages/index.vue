@@ -12,9 +12,9 @@
         <div align="end" justify="end" >
             <h2 > Represent Right!</h2>
             <div class="mt-2" >
-              <v-btn large rounded dark color="#BD3D30" 
+              <v-btn rounded dark color="#BD3D30" 
               class="text-decoration-none elevation-none px-4 justify-end" 
-              :to= "`/artists/`"><h4>Our Community </h4>
+              :to= "`/artists/`"><h4>Community </h4>
               <v-icon right>
                 mdi-arrow-right
               </v-icon>
@@ -38,7 +38,7 @@
         <h1 class=" font-weight-bold"> Represent Right!</h1></v-row>
         <v-row class="align-center
         justify-end">  
-          <v-btn large rounded dark color="#BD3D30" class="text-decoration-none elevation-none px-6" :to= "`/artists/`"><h3>Our Community </h3>
+          <v-btn rounded dark color="#BD3D30" class="text-decoration-none elevation-none px-6" :to= "`/artists/`"><h3>Community </h3>
           <v-icon right>
             mdi-arrow-right
           </v-icon>
@@ -130,20 +130,23 @@
           </v-expand-transition>
         </v-sheet>
       </v-row>
+      <div class="mx-8" align="left" justify="left">
       <v-row class="justify-center align-center mt-12">
-        <h2 class="mt-12" v-if="!userHasPortfolio">Let's build a portfolio, first.</h2></v-row>
+        <h2 v-if="!userHasPortfolio">Let's build a portfolio, first.</h2>
+        </v-row>
         <v-row class="justify-center align-center my-6">
         <p> Make a beautiful porfolio and showcase your hiphop journey.</p>
         </v-row>
+      </div>
         <v-row class="justify-center align-center my-6">
-            <v-btn v-if="!userHasPortfolio" large rounded dark color="#BD3D30" 
+            <v-btn v-if="!userHasPortfolio" rounded dark color="#BD3D30" 
             class="text-decoration-none elevation-none px-4 justify-end" 
             :to= "`/create/`"><h4>Create a portfolio</h4>
             <v-icon right>
               mdi-arrow-right
             </v-icon>
           </v-btn>
-          <v-btn v-else large rounded dark color="#BD3D30" 
+          <v-btn v-else rounded dark color="#BD3D30" 
             class="text-decoration-none elevation-none px-4 justify-end" 
             :to= "`/create/`"><h4>Edit your portfolio</h4>
             <v-icon right>
@@ -162,7 +165,7 @@
           <h4 class="font-weight-light mt-2">we celebrate the 'EACH 1 TEACH 1'
             legacy of the hiphop culture and it starts with you,
             who represents the culture right.</h4>
-          <v-btn large dark rounded color="#35463A" class="mt-4 text-decoration-none elevation-none" :to= "`/create/each1teach1/`"><h4>Get started</h4>
+          <v-btn dark rounded color="#35463A" class="mt-4 text-decoration-none elevation-none" :to= "`/create/each1teach1/`"><h4>Get started</h4>
           <v-icon right>
             mdi-arrow-right
           </v-icon></v-btn>
@@ -212,7 +215,7 @@ import vuex from 'vuex'
 export default {
   head() {  //head function (a property of vue-meta), returns an object
     return {
-        title: 'InMyGroove Community',
+        title: 'InMyGroove',
         }
       },
   // mounted() {

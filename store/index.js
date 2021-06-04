@@ -198,7 +198,11 @@ export const actions = {
   },
   check_user_journey({commit, state}){
     if(state.auth.loggedIn) {
-      EventService.getJourney(state.auth.user.username).then(res =>
+      const config = {
+        headers: {"content-type": "multipart/form-data",
+            "Authorization": "Bearer " + state.auth.user.access}
+        };
+      EventService.getJourney(state.auth.user.username,config).then(res =>
       {
         commit('usersJourney',res.data)
       })

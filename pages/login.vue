@@ -18,8 +18,8 @@
 			</v-form>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="submitForm(userInfo)" class="px-4" rounded color="yellow">Log in</v-btn>
-			<v-btn to='/register' class="ml-4 px-4 text-decoration-none" rounded color="primary" >Register</v-btn>
+			<v-btn @click="submitForm(userInfo)" class="px-4" small rounded color="yellow">Log in</v-btn>
+			<v-btn to='/register' class="ml-4 px-4 text-decoration-none" small rounded color="primary" >Register</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -38,13 +38,14 @@ export default {
           let res = await this.$auth.loginWith('local', {
             data: userInfo
 		  }).then(res => {
-			console.log(res.data);
 			this.$auth.setUser(res.data)
 			this.$auth.setUserToken(res.data.access)
 			this.$auth.setRefreshToken('local', res.data.refresh);
 			this.$store.dispatch("check_user_portfolio");
 			this.$store.dispatch("check_user_bio");
-			let redirect_url = this.$route.query.redirect || '/'
+			
+			let redirect_url = this.$route.query.redirect || '/'+res.data.username+'/'
+			console.log('url is ',redirect_url);
 			this.$router.push(redirect_url)
 		})
 		}

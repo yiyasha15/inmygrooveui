@@ -2,11 +2,11 @@
     <v-app>
         <v-container class="ma-24 ">
             <div class="text-xs-center mb-6" align = "center">
-                <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
+                <v-btn dark small rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+                <v-btn outlined small rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
-                <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+                <v-btn outlined small rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
             </div>
@@ -36,7 +36,7 @@
                                 <v-text-field
                                     v-model = "artist_data.artist_name"
                                     label="Name"
-                                    :maxlength="22">
+                                    :maxlength="30">
                                 </v-text-field>
                                 <v-select label="Representing(country)" v-model= "artist_data.country"
                                     :items="countries"
@@ -63,21 +63,21 @@
                                     required
                                     @change="onFileChange">
                                 </div> -->
-                                <v-btn v-if="!userHasPortfolio" outlined class="text-decoration-none" rounded color="indigo" dark
+                                <v-btn v-if="!userHasPortfolio" small outlined class="text-decoration-none" rounded color="indigo" dark
                                  @click="submit">submit</v-btn>
-                                 <v-btn v-if="userHasPortfolio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
+                                 <v-btn v-if="userHasPortfolio" small class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
                                  @click="update">Update</v-btn>
                                 <v-dialog v-if="userHasPortfolio" v-model="dialog" width="500">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn dark rounded color="error" class="mt-2 mr-2 text-decoration-none" v-bind="attrs" v-on="on">Delete my portfolio</v-btn>
+                                    <v-btn dark small rounded color="error" class="mt-2 mr-2 text-decoration-none" v-bind="attrs" v-on="on">Delete my portfolio</v-btn>
                                 </template>
                                 <v-card class="pa-4">
-                                    Are you sure you want to delete your portfolio?
+                                    <p>Are you sure you want to delete your portfolio?</p>
                                     <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn class="px-4 text-decoration-none" rounded color="error" dark
+                                    <v-btn class="px-4 text-decoration-none" small rounded color="error" dark
                                         @click="deleted">Delete</v-btn>
-                                    <v-btn color="indigo" class="px-4 text-decoration-none" rounded dark outlined  @click="dialog = false">
+                                    <v-btn color="indigo" class="px-4 text-decoration-none" small rounded dark outlined  @click="dialog = false">
                                         Cancel
                                     </v-btn>
                                     </v-card-actions>

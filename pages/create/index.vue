@@ -22,22 +22,22 @@
               <!-- <h4 class="font-weight-light">5. <b>Highlights Page.</b> Share some of your profound memories.</h4> -->
               <!-- <h4 class="font-weight-light">6. <b>Judging/Workshops Page.</b> Share about your workshop and judging experiences.</h4> -->
               <!-- <h4 class="font-weight-light">7. <b>Events Page.</b> Share about the events you have attended.</h4> -->
-              <h4 class="font-weight-light mt-8">We understand that gathering all these memories will take some time, but memories will eventually fade away 
+              <h5 class="font-weight-light mt-8">We understand that gathering all these memories will take some time, but memories will eventually fade away 
                 but the shared ones will be here to stay. So, years down the lane we hope you have a smile on your face 
                 looking back at the journey. Okay, let's get started.
-              </h4>
+              </h5>
               <div class="mt-6" >
-                <v-btn rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Get Started</v-btn>
+                <v-btn small rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Get Started</v-btn>
               </div>
             </div>
             <div v-else class="ma-8">
-              <h1 >How to edit portfolio?</h1>
-              <h3 class="mt-md-12 mt-8 font-weight-light">Hi {{loggedInUser.username}},
-              </h3>
-              <h3 class="mt-4 font-weight-light" >1. You can edit the form to update your portfolio.</h3>
-              <h3 class="font-weight-light" >2. Add highlights of your dance journey.</h3>
+              <h2 >How to edit portfolio?</h2>
+              <h4 class="mt-md-10 mt-4 font-weight-light">Hi {{loggedInUser.username}},
+              </h4>
+              <h4 class="mt-4 font-weight-light" >1. You can edit the form to update your portfolio.</h4>
+              <h4 class="font-weight-light" >2. Add highlights of your dance journey.</h4>
               <div class="mt-6 font-weight-light" >
-                <v-btn rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Edit</v-btn>
+                <v-btn small rounded dark color="indigo" class="text-decoration-none" :to= "`/create/about/`">Edit</v-btn>
               </div>
             </div>
             

@@ -9,11 +9,11 @@
 import axios from 'axios'
 
 const apiClient1 = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',  //3000 earlier
+    baseURL: 'https://imgapiv1.herokuapp.com/api/v1',  //3000 earlier
     withCredentials: false,
     headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json' // double quote and single quotes r 
+        'Content-Type': 'application/json', // double quote and single quotes r 
         //important in json 
     }
 })
@@ -35,8 +35,8 @@ export default {
     // getHighlights(username) {
     //     return apiClient1.get('/artist/highlights/?username=' + username)
     // },
-    getJourney(username) {
-        return apiClient1.get('/artist/journey/?username=' + username)
+    getJourney(username,config) {
+        return apiClient1.get('/artist/journey/?username=' + username, config)
     },
     // getJudging(username) {
     //     return apiClient1.get('/artist/jw/?search=' + username)

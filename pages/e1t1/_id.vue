@@ -18,9 +18,9 @@
                         <v-col class="ma-0" v-if="loggedInUser.username == e1t1.username" >
                         <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon v-bind="attrs"
+                            <v-btn small icon v-bind="attrs"
                             v-on="on">
-                            <v-icon color="indigo" @click="edit">mdi-circle-edit-outline</v-icon>
+                            <v-icon small color="indigo" @click="edit">mdi-circle-edit-outline</v-icon>
                         </v-btn>
                         </template>
                         <span>Edit</span>
@@ -29,20 +29,20 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-tooltip top v-bind="attrs" v-on="on">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn icon >
-                                <v-icon color="error" @click="dialog = true" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                <v-btn small icon >
+                                <v-icon small color="error" @click="dialog = true" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
                                 </v-btn>
                             </template>
                             <span>Delete</span>
                             </v-tooltip>
                         </template>
                         <v-card class="pa-4">
-                            Are you sure you want to delete this experience?
+                            <p>Are you sure you want to delete this experience?</p>
                             <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn  class="px-4 text-decoration-none" rounded color="error" dark
+                            <v-btn small class="px-4 text-decoration-none" rounded color="error" dark
                                 @click="deleted">Delete</v-btn>
-                            <v-btn color="indigo" class="px-4text-decoration-none" rounded outlined  @click="dialog = false">
+                            <v-btn small color="indigo" class="px-4text-decoration-none" rounded outlined  @click="dialog = false">
                                 Cancel
                             </v-btn>
                             </v-card-actions>
@@ -51,10 +51,10 @@
                         </v-col>
                         </div>
                     </v-row>
-                    <v-row class="rounded-lg grey lighten-2 d-inline-flex mb-2">
+                    <v-row class="rounded-lg lighten-2 d-inline-flex mb-2">
                         <v-col class="ma-0">
                             <nuxt-link :to="'/'+ e1t1.teacher">
-                            <h2 class="font-weight-light text-capitalize">{{e1t1.teacher}}</h2>
+                            <h2 class="font-weight-light text-decoration-none">{{e1t1.teacher}}</h2> 
                             </nuxt-link>
                         </v-col>
                         <v-col class="mt-2">
@@ -67,31 +67,31 @@
                         <h3 class="font-weight-light text-capitalize">{{e1t1.username}}</h3>
                         </nuxt-link>
                         <h4 class="font-weight-light">{{e1t1.s_appreciation}}</h4>
-                        <div class="my-4">
-                        <v-btn icon @click="react_love" class="mx-1">
-                        <v-icon>mdi-rocket-launch-outline</v-icon><div v-if="love.length">{{love.length}}</div>
+                        <div class="my-2">
+                        <v-btn small icon @click="react_love" class="mx-1">
+                        <v-icon small>mdi-rocket-launch-outline</v-icon><div v-if="love.length">{{love.length}}</div>
                         </v-btn>
-                        <v-btn icon @click="react_dope" class="mx-1">
-                        <v-icon>mdi-hand-peace</v-icon><div v-if="dope.length">{{dope.length}}</div>
+                        <v-btn small icon @click="react_dope" class="mx-1">
+                        <v-icon small>mdi-hand-peace</v-icon><div v-if="dope.length">{{dope.length}}</div>
                         </v-btn>
-                        <v-btn icon @click="react_info" class="mx-1">
-                        <v-icon>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
+                        <v-btn small icon @click="react_info" class="mx-1">
+                        <v-icon small>mdi-head-flash-outline</v-icon><div v-if="info.length">{{info.length}}</div>
                         </v-btn>
                         </div>
                         </v-col>
                     </v-row>
                         <v-dialog v-model="personalDialog" width="800px" v-if="isAuthenticated && userHasPortfolio && isYourRoom">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn class="my-4" small outlined
+                                <v-btn class="my-2" small outlined 
                                 v-if="loggedInUser.username == e1t1.username"
                                     v-bind="attrs"
                                     v-on="on">
-                                <h3>Talk to my teacher </h3><v-icon class="pl-2" x-small>mdi-lock</v-icon>
+                                <h5 class="caption">Talk to my teacher </h5><v-icon class="pl-2" x-small>mdi-lock</v-icon>
                                 </v-btn>
                                 <v-btn v-else class="my-4" small outlined
                                     v-bind="attrs"
                                     v-on="on">
-                                <h3>Talk to my student</h3> <v-icon class="pl-2" x-small>mdi-lock</v-icon>
+                                <p class="caption">Talk to my student</p> <v-icon class="pl-2" x-small>mdi-lock</v-icon>
                                 </v-btn>
                             </template>
                             <v-container class="rounded-lg grey lighten-5 my-4" >
@@ -101,18 +101,18 @@
                                 </v-btn>
                                 </v-col> -->
                             <!-- <v-divider></v-divider> -->
-                                    <v-row class="mx-4 mt-4 pa-4">
+                                    <v-row class="ma-4">
                                         <h3 v-if="loggedInUser.username == e1t1.username"
                                          class="font-weight-light text-uppercase">{{e1t1.teacher}}</h3>
                                          <h3 v-else
                                          class="font-weight-light text-uppercase">{{e1t1.username}}</h3>
                                          <v-spacer></v-spacer>
                                          <v-btn icon color="error" @click="personalDialog = false">
-                                <v-icon>mdi-close</v-icon>
-                                </v-btn>
+                                            <v-icon>mdi-close</v-icon>
+                                        </v-btn>
                                     </v-row>
                                     <v-row 
-                                    class="ma-4 pa-4">
+                                    class="ma-2">
                                         <v-avatar size="36">
                                         <img
                                             :src = "usersPortfolio.thumb" 
@@ -143,10 +143,9 @@
                         </v-btn> -->
                 </v-col>
             </v-row>
-            <v-row class="mt-4 pa-4">
+            <!-- <v-row class="mt-4 pa-4">
                 <v-col cols="12" md="6" class="mt-2" v-if="e1t1.s_video_talk">
-                    <!-- <v-card @click="video1Dialog= true" class="d-inline-block mx-2"> -->
-                        <v-row justify="center" align="center">
+                       <v-row justify="center" align="center">
                             <video width="240" height="240" @click="video1Dialog= true" >
                                 <source :src="e1t1.s_video_talk" type="video/mp4">
                                 Your browser does not support the video tag.
@@ -171,11 +170,9 @@
                             </v-col>
                         </v-container>
                         </v-dialog>
-                    <!-- </v-card> -->
                 </v-col>
                 <v-col cols="12" md="6" class="mt-2" v-if="e1t1.s_video_dance">
-                    <!-- <v-card @click="video1Dialog= true" class="d-inline-block mx-2"> -->
-                        <v-row justify="center" align="center">
+                     <v-row justify="center" align="center">
                             <video width="240" height="240" @click="video2Dialog= true" >
                             <source :src="e1t1.s_video_dance" type="video/mp4">
                             Your browser does not support the video tag.
@@ -200,9 +197,8 @@
                             </v-col>
                         </v-container>
                         </v-dialog>
-                    <!-- </v-card> -->
                 </v-col>
-            </v-row>
+            </v-row> -->
         </v-container>
         <v-container class="rounded-lg grey lighten-5 pa-4">
             <v-row class="ma-md-4 ma-2" v-if="comments_list.length">
@@ -217,7 +213,7 @@
             <v-col
                 align="end"
                 cols="1"
-                class="flex-grow-0 flex-shrink-0"
+                class="flex-grow-0 flex-shrink-0 mt-2"
             >
                 <v-avatar size="36" v-if="isAuthenticated && userHasPortfolio" >
                 <img
@@ -260,7 +256,7 @@
                 class="flex-grow-0 flex-shrink-1"
             >
                 <v-btn v-if="isAuthenticated && userHasPortfolio"
-                 small class="text-decoration-none mr-2 ml-12 ml-sm-2" 
+                 small class="text-decoration-none mt-2" 
                     @click="post_comment"
                     rounded color="indigo" dark >Post
                 </v-btn>
