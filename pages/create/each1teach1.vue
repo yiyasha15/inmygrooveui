@@ -142,9 +142,9 @@
                             required
                             @change="onFileChangeVideo2">
                         </div> -->
-                        <v-btn v-if="!share_obj" outlined class="text-decoration-none" rounded color="indigo" dark
+                        <v-btn v-if="!share_obj" outlined small class="text-decoration-none" rounded color="indigo" dark
                         @click="submit">Submit</v-btn>
-                        <v-btn v-else class="text-decoration-none" outlined rounded color="indigo" dark
+                        <v-btn v-else small class="text-decoration-none" outlined rounded color="indigo" dark
                         @click="update">Update</v-btn>
                     </v-col>
                 </v-row>
@@ -606,7 +606,7 @@ export default {
                 }
                 try {
                     let response = await this.$axios.$post("/v1/e1t1/sharing/", formData, config);
-                    this.$router.push("/e1t1/");
+                    this.$router.push("/"+this.sharing.username+"/each1teach1/");
                 } catch (e) {
                     console.log("cant post!",e);
                 }

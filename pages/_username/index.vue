@@ -2,18 +2,25 @@
     <div>
         <center>
             <v-parallax
-                height="800"
+                class="hidden-md-and-up "
+                height="400"
+                :src = "artist.cover"
+            ></v-parallax>
+            <v-parallax
+                class="hidden-sm-and-down"
+                height="600"
                 :src = "artist.cover"
             ></v-parallax>
         </center>
     <br>
     <v-row align="center">
-        <v-col v-if="bio.quote" align="center" justify="center" :class="{'my-6': $vuetify.breakpoint.smAndDown, 'ma-8': $vuetify.breakpoint.mdAndUp}" 
+        <v-col v-if="bio.quote" align="center" justify="center" 
         cols="12" md="6" lg="6" xl="6">
-            <h3 class="mb-5 font-weight-light font-italic">
-                <br> 
-            "{{ bio.quote }}" - {{artist.artist_name }} <country-flag class="mt-4" :country= 'artist.country' /> 
-            </h3>       
+        <v-container>
+            <h4 class="font-weight-light font-italic">
+            "{{ bio.quote }}" - {{artist.artist_name }} <country-flag class="pt-4" :country= 'artist.country' /> 
+            </h4>    
+        </v-container>   
             <!-- <div align="end" justify="end" class="text font-weight-thin">
                 <country-flag class="mt-4" :country= 'artist.country' />   
             </div> -->
@@ -39,7 +46,7 @@
     </v-row>
     <v-container>
     <v-row v-if="bio.introduction">
-        <v-col cols="12">
+        <v-col cols="12" style="margin:auto; max-width:650px">
             <h2 align="center" justify="center" >About</h2><br>
             <h4 align="center" justify="center" class="mb-5 font-weight-light">
                 {{ bio.introduction }}
@@ -182,3 +189,8 @@ export default {
     
 }
 </script>
+<style scoped>
+.ab_width{
+    width: 50%;
+}
+</style>

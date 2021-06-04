@@ -2,11 +2,11 @@
     <v-app>
         <v-container class="ma-24" >
         <div class="text-xs-center mb-6" align = "center">
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
+            <v-btn small outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn small outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
-            <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+            <v-btn small dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
                 <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
         </div>
@@ -46,7 +46,7 @@
                                 <v-text-field
                                     v-model = "journey.joevent"
                                     label= "Title"
-                                    :maxlength="30">
+                                    :maxlength="50">
                                 </v-text-field>
                                 <v-file-input 
                                     type="file"
@@ -103,9 +103,23 @@
                                             value="false"
                                         ></v-radio>
                                         </v-radio-group>
-                                    <v-btn v-if="editing_obj == null" class="text-decoration-none" rounded color="indigo" dark outlined
+                                        <h4 class="font-weight-light">Do you want to keep it private?</h4>
+                                    <v-radio-group
+                                        v-model="journey.isprivate"
+                                        row
+                                        >
+                                        <v-radio
+                                            label="Yes"
+                                            value="true"
+                                        ></v-radio>
+                                        <v-radio
+                                            label="No"
+                                            value="false"
+                                        ></v-radio>
+                                        </v-radio-group>
+                                    <v-btn v-if="editing_obj == null" small class="text-decoration-none" rounded color="indigo" dark outlined
                                     @click="submit">Submit</v-btn>
-                                    <v-btn v-else class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
+                                    <v-btn v-else small class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
                                     @click="update">Update</v-btn>
                             </v-col>
                         </v-row>
@@ -135,22 +149,22 @@
                     <div class="d-flex flex-wrap">
                         <div v-for = "journey in usersJourney" :key = "journey.index" class="pa-2 ma-2 rounded-lg grey lighten-4">
                             <journey-card :journey = "journey"></journey-card>
-                            <v-btn icon>
-                                <v-icon color="indigo" @click="edit(journey)">mdi-circle-edit-outline</v-icon>
+                            <v-btn icon small>
+                                <v-icon color="indigo" small @click="edit(journey)">mdi-circle-edit-outline</v-icon>
                             </v-btn>
                             <v-dialog v-if="userHasJourney" v-model="dialog" width="500">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn icon>
-                                        <v-icon color="error" @click="func(journey.id)" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
+                                    <v-btn small icon>
+                                        <v-icon color="error" small  @click="func(journey.id)" v-bind="attrs" v-on="on">mdi-delete-outline</v-icon>
                                     </v-btn>
                                 </template>
                                 <v-card class="pa-4">
-                                    Are you sure you want to delete this journey?
+                                   <p> Are you sure you want to delete this journey?</p>
                                     <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn class="px-4 text-decoration-none" rounded color="error" dark
+                                    <v-btn class="px-4 text-decoration-none" small rounded color="error" dark
                                         @click="remove(rm)">Delete</v-btn>
-                                    <v-btn color="indigo" class="px-4 text-decoration-none" rounded outlined  @click="dialog = false">
+                                    <v-btn color="indigo" class="px-4 text-decoration-none" small rounded outlined  @click="dialog = false">
                                         Cancel
                                     </v-btn>
                                     </v-card-actions>
@@ -209,7 +223,8 @@ export default {
                 jodate: "",
                 jophoto: null,
                 jolink: "",
-                ishighlight: false
+                ishighlight: false,
+                isprivate: false,
             }
         }
     },
@@ -259,6 +274,7 @@ export default {
             this.journey.jophoto= null;
             this.journey.jolink= "";
             this.journey.ishighlight= false;
+            this.journey.isprivate = false;
         },
         toShowImage(){
             if(this.journey.jophoto)

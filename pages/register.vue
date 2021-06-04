@@ -5,7 +5,7 @@
 		</v-card-title>
 		<v-card-text>
 			<v-form>
-                <v-text-field :maxlength="27" :rules="rules" v-model="registrationInfo.name" label="Username" prepend-icon="mdi-account-circle" />
+                <v-text-field :maxlength="30" :rules="rules" v-model="registrationInfo.name" label="Username" prepend-icon="mdi-account-circle" />
 				<v-text-field v-model="registrationInfo.email" label="Email" prepend-icon="mdi-account-circle"  autocomplete="email"/>
 				<v-text-field       
                     v-model="registrationInfo.password"
@@ -28,8 +28,8 @@
             </v-checkbox>
 		</v-card-text>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn @click="registerUser(registrationInfo)" rounded class="px-4" color="yellow" :disabled="!formIsValid">Join the community</v-btn>
-			<v-btn to='/login' class="ml-4 text-decoration-none px-4" rounded color="primary" >Already registered</v-btn>
+			<v-btn @click="registerUser(registrationInfo)" small rounded class="px-4" color="yellow" :disabled="!formIsValid">Log in</v-btn>
+			<v-btn to='/login' class="ml-4 text-decoration-none px-4" small rounded color="primary" >Already registered</v-btn>
 			<!-- <v-spacer></v-spacer>
 			<v-btn class="mr-4" color="info">Login</v-btn> -->
 		</v-card-actions>
@@ -128,7 +128,7 @@ export default {
 					this.$store.dispatch("check_user_portfolio");
 					// this.$store.dispatch("check_user_gallery");
 					// this.$store.dispatch("check_user_highlights");
-					this.$router.push('/create/');
+					this.$router.push('/create/about/');
 				
 			}
 		} catch {

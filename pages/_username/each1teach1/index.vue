@@ -5,9 +5,12 @@
         <v-icon>mdi-arrow-left</v-icon>
         </v-btn> -->
         <nuxt-child :sharing="sharing"/>
-        <h4 class="font-weight-light mt-4 pl-4 ">My Teachers</h4>
+        <h4 class="font-weight-light mt-4 pl-4 d-inline">My Teachers</h4>
+        <v-btn dark v-if="isAuthenticated && loggedInUser.username==artist.username" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/each1teach1/">
+        <v-icon>mdi-plus</v-icon>
+        </v-btn>
         <!-- <hr> -->
-        <div class="d-flex flex-wrap my-4 pl-4 ">
+        <div class="d-flex flex-wrap my-4 ">
             <div v-for = "share in sharing" :key = "share.index">
                 <div v-if="share.username === artist.username">
                     <TeachersCard :e1t1="share" ></TeachersCard>
@@ -17,11 +20,9 @@
         <hr>
         <h4 class="font-weight-light mt-8 pl-4 ">My Students</h4>
         <!-- <hr> -->
-        <div class="d-flex flex-wrap my-4 pl-4 ">
+        <div class="d-flex flex-wrap my-4 ">
             <div v-for = "share in sharing" :key = "share.index">
-                <div v-if="share.teacher === artist.username">
-                    <StudentsCard :share="share" ></StudentsCard>
-                </div>
+                <StudentsCard v-if="share.teacher === artist.username" :share="share" ></StudentsCard>
             </div>
         </div>
         </v-container>
@@ -32,13 +33,16 @@
 import EventService from '@/services/EventService.js'
 import StudentsCard from '@/components/StudentsCard.vue'
 import TeachersCard from '@/components/TeachersCard.vue'
-
+import { mapGetters} from 'vuex'
 
 export default {
     props: ['artist'],
     components: {
         StudentsCard,
         TeachersCard
+    }, 
+    computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
     },
     head() {
         return {

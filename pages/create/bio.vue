@@ -1,11 +1,11 @@
 <template>
     <v-container class="ma-24">
         <div class="text-xs-center mb-6" align = "center">
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
-            <v-btn dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
+            <v-btn small outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/about/`">About</v-btn>
+            <v-btn small dark rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/bio/`">Bio</v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/gallery/`">Gallery</v-btn> -->
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/highlights/`"> Highlights </v-btn> -->
-            <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
+            <v-btn small outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/journey/`"> Journey </v-btn>
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/judging/`"> Judging and Workshop </v-btn> -->
             <!-- <v-btn outlined rounded color="indigo" class="mr-2 elevation-0 text-decoration-none" :to= "`/create/events/`"> Events </v-btn> -->
         </div>
@@ -84,10 +84,10 @@
                             <v-container grid-list-md :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
                                 <v-layout class="flex-wrap">
                                     <v-flex xs6 md6>
-                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                        <div class=" rounded-lg grey lighten-4">
                                             <v-img :src="imageData" height="200px" width="200px"></v-img>
                                             <v-btn icon>
-                                                <v-icon color="indigo" @click="onPick">mdi-image-plus</v-icon>
+                                                <v-icon color="indigo" small @click="onPick">mdi-image-plus</v-icon>
                                             </v-btn>
                                             <input 
                                             type="file" 
@@ -98,15 +98,15 @@
                                             required
                                             @change="onFileChange">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" small @click="removeImage">mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
                                     <v-flex xs6 md6>
-                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                        <div class="rounded-lg grey lighten-4">
                                             <v-img :src="imageData1" height="200px" width="200px"></v-img>
                                             <v-btn icon>
-                                                <v-icon color="indigo" @click="onPick1">mdi-image-plus</v-icon>
+                                                <v-icon color="indigo" small @click="onPick1">mdi-image-plus</v-icon>
                                             </v-btn>
                                             <input 
                                             type="file" 
@@ -117,15 +117,15 @@
                                             required
                                             @change="onFileChange1">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage1">mdi-delete-outline</v-icon>
+                                                <v-icon color="error" small @click="removeImage1">mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
                                     <v-flex xs6 md6>
-                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                        <div class="rounded-lg grey lighten-4">
                                             <v-img :src="imageData2" height="200px" width="200px"></v-img>
                                             <v-btn icon>
-                                                <v-icon color="indigo" @click="onPick2">mdi-image-plus</v-icon>
+                                                <v-icon color="indigo" small @click="onPick2">mdi-image-plus</v-icon>
                                             </v-btn>
                                             <input 
                                             type="file" 
@@ -136,15 +136,15 @@
                                             required
                                             @change="onFileChange2">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage2" >mdi-delete-outline</v-icon>
+                                                <v-icon color="error" small @click="removeImage2" >mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
                                     <v-flex xs6 md6>
-                                        <div class="pa-4 rounded-lg grey lighten-4">
+                                        <div class="rounded-lg grey lighten-4">
                                             <v-img :src="imageData3" height="200px" width="200px"></v-img>
                                             <v-btn icon>
-                                                <v-icon color="indigo" @click="onPick3">mdi-image-plus</v-icon>
+                                                <v-icon color="indigo" small @click="onPick3">mdi-image-plus</v-icon>
                                             </v-btn>
                                             <input 
                                             type="file" 
@@ -155,28 +155,28 @@
                                             required
                                             @change="onFileChange3">
                                             <v-btn icon>
-                                                <v-icon color="error" @click="removeImage3" >mdi-delete-outline</v-icon>
+                                                <v-icon color="error" small @click="removeImage3" >mdi-delete-outline</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-flex>
                                 </v-layout>
                             </v-container> 
-                            <v-btn v-if="!userHasBio" outlined class="text-decoration-none" rounded color="indigo" dark
+                            <v-btn v-if="!userHasBio" outlined small class="text-decoration-none" rounded color="indigo" dark
                                 @click="submit">submit</v-btn>
-                                <v-btn v-if="userHasBio" class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
+                                <v-btn v-if="userHasBio" small class="mt-2 mr-2 text-decoration-none" outlined rounded color="indigo" dark
                                 @click="update">Update</v-btn>
                             <v-dialog v-if="userHasBio" v-model="dialog" width="500">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn dark rounded color="error" class="mt-2 mr-2 text-decoration-none" 
+                                <v-btn dark small rounded color="error" class="mt-2 mr-2 text-decoration-none" 
                                 v-bind="attrs" v-on="on">Delete my Bio</v-btn>
                             </template>
                             <v-card class="pa-4">
-                                Are you sure you want to delete your Bio?
+                                <p>Are you sure you want to delete your Bio?</p>
                                 <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn class="px-4 text-decoration-none" rounded color="error" dark
+                                <v-btn small class="px-4 text-decoration-none" rounded color="error" dark
                                     @click="deleted">Delete</v-btn>
-                                <v-btn color="indigo" class="px-4 text-decoration-none" rounded dark outlined  @click="dialog = false">
+                                <v-btn color="indigo" small class="px-4 text-decoration-none" rounded dark outlined  @click="dialog = false">
                                     Cancel
                                 </v-btn>
                                 </v-card-actions>
@@ -212,7 +212,7 @@
             Changes saved.
         </div>
         <template v-slot:action="{ attrs }">
-            <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+            <v-btn small color="blue" text v-bind="attrs" @click="snackbar = false">
                 Okay.
             </v-btn>
         </template>
@@ -280,7 +280,7 @@ export default {
                     this.imageData = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
+                // console.log(files[0]);
                 this.bio.gallery1 = files[0];
             }
         },
@@ -292,7 +292,7 @@ export default {
                     this.imageData1 = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
+                // console.log(files[0]);
                 this.bio.gallery2 = files[0];
             }
         },
@@ -304,7 +304,7 @@ export default {
                     this.imageData2 = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
+                // console.log(files[0]);
                 this.bio.gallery3 = files[0];
             }
         },
@@ -316,7 +316,7 @@ export default {
                     this.imageData3 = e.target.result;
                 }
                 fileReader.readAsDataURL(files[0]);
-                console.log(files[0]);
+                // console.log(files[0]);
                 this.bio.gallery4 = files[0];
             }
         },
@@ -375,7 +375,7 @@ export default {
                 //update store
                 this.$store.dispatch("check_user_bio");
                 this.snackbar = true;
-                // this.$router.push("/create/gallery");
+                this.$router.push("/"+this.bio.username);
             } catch (e) {
                 console.log(e);
             }

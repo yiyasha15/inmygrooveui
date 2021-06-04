@@ -2,10 +2,10 @@
   <v-app>
     <v-container>
     <v-row>
-        <v-col cols="12" sm="4" >
-            <h1 class=" xs12 pl-4">{{artist.artist_name}}</h1>
+        <v-col cols="12" sm="6" >
+            <h2 class="xs12 pl-4">{{artist.artist_name}}</h2>
         </v-col>
-        <v-col cols="12" sm="8" class="px-2 d-flex align-end justify-end">
+        <v-col cols="12" sm="6" :class="{'align-center justify-center': $vuetify.breakpoint.xs, 'px-2 d-flex align-end justify-end': $vuetify.breakpoint.smAndUp}">
             <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}`">About</v-btn>
             <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/journey`"> Journey</v-btn> 
             <v-btn dark small rounded color="indigo" class="elevation-0 text-decoration-none mx-1" :to= "`/${artist.username}/each1teach1`">Each 1 Teach 1 </v-btn>

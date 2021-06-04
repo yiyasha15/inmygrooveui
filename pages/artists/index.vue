@@ -4,7 +4,7 @@
       <v-col cols="12" md="8"  class="justify-center">
         <h2 class ="pl-6 my-4 font-weight-bold xs12 d-inline">Our Community</h2>
         <v-btn dark v-if="isAuthenticated" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/about/">
-        <v-icon>mdi-plus</v-icon>
+        <v-icon small>mdi-plus</v-icon>
         </v-btn>
       </v-col>
       <v-col cols="12" md="4" class= "pr-6 justify-end mb-2 px-6" >
@@ -37,7 +37,7 @@ export default {
   scrollToTop: true,
   head() {  //head function (a property of vue-meta), returns an object
     return {
-      title: 'Artistlist -InMyGroove',
+      title: 'Artists -InMyGroove',
       meta: [ 
         {
           hid: 'description',

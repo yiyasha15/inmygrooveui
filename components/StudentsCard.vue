@@ -1,27 +1,25 @@
 <template>
 <v-hover v-slot:default="{ hover }">
     <v-card
-      class="ma-2"
+      class="ma-1"
       data-view
       :to="'/e1t1/' + share.id" 
       :elevation="hover ? 12 : 0"
       outlined
-      min-width="220" 
-      max-height="200">
+      min-width="160" 
+      max-height="160">
           <div v-for = "artist in artists" :key = "artist.index">
-              <div v-if="share.username === artist.username">
-                  <v-img :src = "artist.thumb" aspect-ratio="1.5"/>
-              </div>
+            <v-img v-if="share.username === artist.username"
+              :src = "artist.thumb"
+              height="100" width="160"/>
           </div>
-          <v-card-title>
-          <p class="text-decoration-none body-2">
-          {{share.username}}
-          </p>
-          <v-spacer></v-spacer>
-          <v-btn icon class="text-decoration-none pb-4" >
-            <country-flag :country= 'share.s_student_country' />
-          </v-btn>
-        </v-card-title>
+          <v-card-actions>
+        <div width="100" class="text-decoration-none caption">
+        {{share.username}}
+        </div>
+        <v-spacer></v-spacer>
+        <country-flag size=small :country= 'share.s_student_country' />
+          </v-card-actions>
     </v-card>
   </v-hover>
 </template>

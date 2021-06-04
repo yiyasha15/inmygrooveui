@@ -1,35 +1,47 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
-    class="ma-2"
+      class="ma-1"
       data-view
       :to="'/' + artist.username" 
       :elevation="hover ? 12 : 0"
       outlined
-      min-width="220" 
-        max-height="200"
+      min-width="160" 
+      max-height="160"
     >
       <v-img
         v-if = artist.thumb :src = "artist.thumb" 
         :lazy-src= "artist.thumb" 
         class="grey lighten-2 white--text"
-        aspect-ratio="1.5"
+        height="100"
+        width="160"
       />
-      <v-card-actions>
-            <div class="text-decoration-none body-2 font-weight-bold" width="70px">
-            {{ artist.artist_name }}
-            </div>
-            <v-spacer></v-spacer>
-            <v-btn icon class="text-decoration-none" >
-              <country-flag  :country= 'artist.country' />
-            </v-btn>
-          </v-card-actions>
+    <!-- <v-card-subtitle>
+      {{ artist.artist_name }} <country-flag size=small :country= 'artist.country' />
+    </v-card-subtitle> -->
+      <v-card-actions height="32px">
+        <div width="100" class="text-decoration-none caption" style="max-width: fit-content; height: 1em;
+    line-height: initial;
+    overflow: hidden">
+        {{ artist.artist_name }} 
+        </div>
+        <v-spacer></v-spacer>
+        <country-flag size=small  :country= 'artist.country' />
+        <!-- <v-btn icon class="text-decoration-none" >
+          <country-flag size=small  :country= 'artist.country' />
+        </v-btn> -->
+      </v-card-actions>
     </v-card>
   </v-hover>
 </template>
 <script>
 import CountryFlag from 'vue-country-flag'
     export default {
+      head() {  //head function (a property of vue-meta), returns an object
+    return {
+        title: 'InMyGroove Community',
+        }
+      },
       name: 'ArtistCard',
       props: {
         artist: Object

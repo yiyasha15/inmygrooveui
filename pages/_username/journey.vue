@@ -3,9 +3,14 @@
         <v-row>
             <v-col cols="12" > 
                 <!-- <div v-if="highlights"> -->
-                    <h3 class=" ml-2 mb-8 mt-4 font-weight-light ">Highlights</h3>
+                    <h4 class="font-weight-light mb-8 mt-4 pl-4 d-inline">Highlights</h4>
+                    <!-- <h3 class=" mb-8 mt-4 font-weight-light d-inline ">Highlights</h3>  -->
+                    <v-btn dark v-if="isAuthenticated && loggedInUser.username==artist.username" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/journey/">
+                        <v-icon>mdi-plus</v-icon>
+                    </v-btn>
                     <div class="d-flex flex-wrap" >
                         <div v-for = "journey in journey" :key = "journey.index" >
+                            <!-- <jouney-card-2 :journey = "journey" v-if="journey.ishighlight"></jouney-card-2> -->
                             <journey-card :journey = "journey" v-if="journey.ishighlight"></journey-card>
                         </div>
                         <!-- <div v-for = "highlights in highlights" :key = "highlights.index" >
@@ -18,7 +23,8 @@
         <v-row>
             <v-col cols="12" > 
                 <div v-if="journey">
-                    <h3 class=" ml-2 mb-8 mt-4 font-weight-light">Journey</h3>
+                    <h4 class="font-weight-light mb-8 mt-4 pl-4 d-inline">Journey</h4>
+                    <!-- <h3 class=" ml-2 mb-8 mt-4 font-weight-light">Journey</h3> -->
                     <div class="d-flex flex-wrap" >
                         <div v-for = "journey in journey" :key = "journey.index" >
                             <journey-card :journey = "journey" v-if="!journey.ishighlight"></journey-card>
@@ -54,6 +60,7 @@
     </v-container>
 </template>
 <script>
+import { mapGetters} from 'vuex'
 import EventService from '@/services/EventService.js'
 // import HighlightsCard from "@/components/HighlightsCard.vue"
 import JourneyCard from "@/components/JourneyCard.vue"
@@ -68,11 +75,18 @@ export default {
         // EventsCard,
         // MomentsCard
     },
+    computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    },
     props: ["artist"],
-    async asyncData({error, params}) {
+    async asyncData({error, params, store}) {
       try {
+        const config = {
+            headers: {"content-type": "multipart/form-data",
+                "Authorization": "Bearer " + store.state.auth.user.access}
+            };
         // let highlights_response = await EventService.getHighlights(params.username)
-        let journey_response = await EventService.getJourney(params.username)
+        let journey_response = await EventService.getJourney(params.username, config)
         // let judging_response = await EventService.getJudging(params.username)
         // let events_response = await EventService.getEvents(params.username)
         // let moments_response = await EventService.getMoments(params.username)
@@ -84,6 +98,7 @@ export default {
             //  moments: moments_response.data
         }
       } catch (err) {
+          console.log(err);
         error({statusCode:503,  message: err.message})
         }
     },
