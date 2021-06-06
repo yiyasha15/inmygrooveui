@@ -16,14 +16,25 @@
         height="100"
         width="160"
       />
+      <v-img
+        v-else :src="require('@/assets/each1teach1.jpeg')"
+        class="grey lighten-2 white--text"
+        height="100"
+        width="160"
+      />
     <!-- <v-card-subtitle>
       {{ artist.artist_name }} <country-flag size=small :country= 'artist.country' />
     </v-card-subtitle> -->
       <v-card-actions height="32px">
-        <div width="100" class="text-decoration-none caption" style="max-width: fit-content; height: 1em;
-    line-height: initial;
-    overflow: hidden">
+        <div v-if="artist.artist_name" width="100" class="text-decoration-none caption" style="max-width: fit-content; height: 1.2em;
+          line-height: initial;
+          overflow: hidden">
         {{ artist.artist_name }} 
+        </div>
+        <div v-else width="100" class="text-decoration-none caption" style="max-width: fit-content; height: 1.2em;
+          line-height: initial;
+          overflow: hidden">
+        {{ artist.username }} 
         </div>
         <v-spacer></v-spacer>
         <country-flag size=small  :country= 'artist.country' />

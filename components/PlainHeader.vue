@@ -2,7 +2,7 @@
    <v-container>
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
-             <img src="@/assets/inmygroove.png" height="80px" width="90px">
+             <img src="@/assets/inmygroove.png" height="60px" width="70px">
             </nuxt-link><v-spacer></v-spacer>
         <div v-if="isAuthenticated"> <v-menu transition="slide-y-transition" open-on-hover offset-y bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -77,7 +77,7 @@
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs"
                     v-on="on">
-                    <v-icon>mdi-dots-vertical</v-icon>
+                    <v-icon >mdi-dots-vertical</v-icon>
                     </div>
                 </template>
                 <v-list>

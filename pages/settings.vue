@@ -6,11 +6,10 @@
             <div class="ma-6">
                 <h3 class="my-6">User</h3>
                 <v-form>
-                    <v-text-field v-model="info.name" label="Name" prepend-icon="mdi-account-circle" />
                     <v-text-field v-model="info.email" label="Email" prepend-icon="mdi-account-circle" />
                     <v-text-field v-model="info.username" label="Username" prepend-icon="mdi-account-circle" />
                 </v-form>
-            <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
+            <v-btn small class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="save_information">Save Information</v-btn>
             <v-snackbar v-model="snackbar"> Changes saved.
             <template v-slot:action="{ attrs }">
@@ -25,10 +24,10 @@
             <div class="ma-6">
                 <h3 class="my-6">Account</h3>
                 <v-form>
-                    <v-text-field v-model="info.password" label="Set new password"  />
-                    <v-text-field v-model="info.password" label="Confirm password"  />
+                    <v-text-field type="password" v-model="info.password" label="Set new password"  />
+                    <v-text-field type="password"   v-model="info.password" label="Confirm password"  />
                 </v-form>
-            <v-btn class="text-decoration-none" outlined rounded color="indigo" dark
+            <v-btn small class="text-decoration-none" outlined rounded color="indigo" dark
                 @click="set_new_password">Set New Password</v-btn>
             </div>
             </v-card>
@@ -37,7 +36,7 @@
                 <h3 class="my-6">Delete Account</h3>
                 <!-- <ul>Deleting your account will make you loose all your data.</ul>
                 <ul>Your username will be available yo anyone.</ul> -->
-            <v-btn class="text-decoration-none mt-2" outlined rounded color="error" dark
+            <v-btn small class="text-decoration-none mt-2" outlined rounded color="error" dark
                 @click="delete_account">Delete Account</v-btn>
             </div>
             </v-card>
@@ -53,7 +52,6 @@ export default {
         showPassword: false,
 		hasName: false,
         info: {
-            name:'',
             email: '',
             password: ''
         },
@@ -90,7 +88,6 @@ export default {
             };
             try {
                 let formPassword = new FormData();
-                formPassword.append('name', this.$store.state.auth.user.username);
                 formPassword.append('password', this.info.password)
                 formPassword.append('email', this.info.email)
                 await this.$axios.$put("/v1/user/update/", formPassword, config)

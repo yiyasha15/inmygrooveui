@@ -3,11 +3,11 @@
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
             <!-- <h4 class="text-decoration-none">inmymgroove</h4> -->
-             <img src="@/assets/inmygroove.png" height="80px" width="90px">
+             <img src="@/assets/inmygroove.png" height="60px" width="70px">
             </nuxt-link> <v-spacer></v-spacer>
-            <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
+            <v-btn small v-if="isAuthenticated" icon dark color="indigo" class="mr-2 text-decoration-none" to="/notifications">
             <!-- <v-badge color="green" content="0"> -->
-            <v-icon>mdi-bell</v-icon>
+            <v-icon >mdi-bell</v-icon>
             <!-- </v-badge> -->
             </v-btn>
             <v-menu v-if="isAuthenticated" transition="slide-y-transition" open-on-hover offset-y bottom left>
@@ -29,11 +29,16 @@
                     :to="'/'+ loggedInUser.username"
                     class="text-decoration-none pl-6 pr-12"
                     >
-                    <v-avatar size="36">
+                    <v-avatar size="36" v-if="usersPortfolio.thumb">
                     <img
                         :src = "usersPortfolio.thumb" 
                         alt="img"
                     >
+                    </v-avatar>
+                    <v-avatar size="36" color="indigo" v-else >
+                        <v-icon dark>
+                            mdi-account-circle
+                        </v-icon>
                     </v-avatar>
                     <v-list-item-title class="pl-2">@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>

@@ -42,7 +42,7 @@
                                 label="Any Favourite Quote?"
                                 :maxlength="120">
                             </v-text-field>
-                            <v-autocomplete v-model= "bio.style" 
+                            <v-autocomplete v-model= "dummy_style" 
                                 :items="items" 
                                 attach 
                                 chips 
@@ -55,20 +55,74 @@
                                 label="Crew you represent"
                                 :maxlength="120">
                             </v-text-field>
+                            <v-btn v-show="!inputInsta &&!bio.ig" icon color=pink @click="inputInsta=true"><v-icon>mdi-instagram</v-icon></v-btn>
                             <v-text-field
-                            prepend-icon="mdi-instagram"
+                                v-show="inputInsta || bio.ig"
+                                color="pink"
+                                prepend-icon="mdi-instagram"
                                 v-model= "bio.ig"
-                                label="Instagram ID">
+                                append-icon="mdi-close"
+                                label="Instagram ID"
+                                @click:append="inputInsta=!inputInsta">
                             </v-text-field>
+                            <v-btn v-show="!inputFace &&!bio.fb" icon color=pink @click="inputFace=true"><v-icon>mdi-facebook</v-icon></v-btn>
                             <v-text-field
-                            prepend-icon="mdi-facebook"
+                                v-show="inputFace || bio.fb"
+                                prepend-icon="mdi-facebook"
                                 v-model= "bio.fb"
-                                label="Facebook ID">
+                                append-icon="mdi-close"
+                                label="Facebook ID"
+                                @click:append="inputFace=!inputFace">
+                            </v-text-field>
+                            <v-btn v-show="!inputMail &&!bio.site" icon color=blue @click="inputMail=true"><v-icon>mdi-mail</v-icon></v-btn>
+                            <v-text-field
+                                v-show="inputMail ||bio.site"
+                                prepend-icon="mdi-email"
+                                v-model= "bio.site"
+                                append-icon="mdi-close"
+                                label="Personal Website URL"
+                                @click:append="inputMail=!inputMail"
+                                >
+                            </v-text-field>
+                            <v-btn v-show="!bio.vid1 && !yt" icon color=red @click="yt=true"><v-icon>mdi-youtube</v-icon></v-btn>
+                            <v-text-field
+                                v-show="yt || bio.vid1"
+                                color="red"
+                                v-model= "bio.vid1"
+                                label="Youtube link"
+                                prepend-icon="mdi-plus"
+                                append-icon="mdi-close"
+                                @click:append="yt=!yt"
+                                @click:prepend="yt1=true"
+                                >
                             </v-text-field>
                             <v-text-field
-                            prepend-icon="mdi-email"
-                                v-model= "bio.site"
-                                label="Personal Website URL">
+                                v-show="yt1 || bio.vid2"
+                                color="red"
+                                v-model= "bio.vid2"
+                                label="Youtube link"
+                                prepend-icon="mdi-plus"
+                                append-icon="mdi-close"
+                                @click:append="yt1=!yt1"
+                                @click:prepend="yt2=true">
+                            </v-text-field>
+                            <v-text-field
+                                v-show="yt2 || bio.vid3"
+                                color="red"
+                                v-model= "bio.vid3"
+                                label="Youtube link"
+                                prepend-icon="mdi-plus"
+                                append-icon="mdi-close"
+                                @click:append="yt2=!yt2"
+                                @click:prepend="yt3=true">
+                            </v-text-field>
+                            <v-text-field
+                            v-show="yt3 || bio.vid3"
+                                color="red"
+                                v-model= "bio.vid4"
+                                label="Youtube link"
+                                append-icon="mdi-close"
+                                @click:append="yt3=!yt3">
                             </v-text-field>
                             <!-- <div class = "form-group">
                                 <v-text-field prepend-icon="mdi-image" @click= "onPick" label="Upload image"></v-text-field>
@@ -195,6 +249,9 @@
                     <v-row v-if="bio.quote" class="pb-6 justify-center text-center">
                         <h5 class="pb-6 text-center font-italic">"{{bio.quote}}" </h5>
                     </v-row>
+                    <v-row v-if="dummy_style" class="pb-6 justify-center text-center">
+                        <h5 class="pb-6 text-center font-italic">{{dummy_style}} </h5>
+                    </v-row>
                     <v-row v-if="bio.crew" class="pb-6 justify-center text-center">
                         <h5 class="pb-6 text-center">Repping: {{bio.crew}} 🙏 </h5>
                     </v-row>
@@ -231,9 +288,10 @@ export default {
         this.$store.dispatch("check_user_bio");
     },
     created(){
-        if(this.$store.state.hasBio)
+        if(this.$store.state.hasBio) 
         {
             this.bio = Object.assign({}, this.$store.getters.usersBio);
+            //assigning the bio from store if it exists
             this.imageData = this.bio.gallery1
             this.imageData1 = this.bio.gallery2
             this.imageData2 = this.bio.gallery3
@@ -256,14 +314,26 @@ export default {
                 gallery2 : "",
                 gallery3 : "",
                 gallery4 : "",
+                vid1:"",
+                vid2:"",
+                vid3:"",
+                vid4:""
             },
+            dummy_style:[],
             rm:"",
             dialog: false,
-            items: ['HipHop', 'House', 'Locking', 'Popping'],
+            items: ['Breaking','HipHop', 'House', 'Locking', 'Popping','Experimental','Other', 'Still Exploring'],
             imageData: "",
             imageData1: "",
             imageData2: "",
             imageData3: "",
+            yt:false,
+            yt1:false,
+            yt2:false,
+            yt3:false,
+            inputInsta:false,
+            inputFace:false,
+            inputMail:false,
             snackbar: false,
             update_text: 'Website updated successfully.',
             text: 'Website created successfully.',
@@ -353,6 +423,9 @@ export default {
             this.bio.gallery4 =''
         },
         async submit() {
+            let arr = this.dummy_style;
+            this.bio.style= arr.join(); // style is taken as array and made into a string
+            console.log(this.bio);
             const config = {
                 headers: {"content-type": "multipart/form-data",
                     "Authorization": "Bearer " + this.$store.state.auth.user.access
@@ -369,7 +442,7 @@ export default {
                 formData.append(data, this.bio[data]);
             }
             try {
-                console.log(formData);
+                console.log(this.bio);
                 let response = await this.$axios.$post("/v1/artist/bios/", formData, config)
                 console.log("Artist website created.");
                 //update store

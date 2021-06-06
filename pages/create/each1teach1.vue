@@ -3,7 +3,7 @@
     <v-row>
         <v-col>
             <v-container>
-                <v-btn icon class="elevation-0 white text-decoration-none" :to= "`/`"><v-icon>mdi-arrow-left</v-icon></v-btn>
+                <v-btn icon class="elevation-0 white text-decoration-none" @click="goback()"><v-icon>mdi-arrow-left</v-icon></v-btn>
                 <h2 align="center" justify="center">Each One Teach One</h2>
                 <div class="text-xs-center ma-6" align = "center">
                     Here we can acknowledge all those HipHop artists who passed their knowledge,
@@ -515,6 +515,10 @@ export default {
         }
     },
     methods: {
+        goback(){
+            this.$store.dispatch("remove_share_obj")
+            window.history.back();
+        },
         onPick() //changing the click from button to input using refs
         {
             this.$refs.fileInput.click()

@@ -6,7 +6,7 @@
         </v-btn> -->
         <nuxt-child :sharing="sharing"/>
         <h4 class="font-weight-light mt-4 pl-4 d-inline">My Teachers</h4>
-        <v-btn dark v-if="isAuthenticated && loggedInUser.username==artist.username" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/each1teach1/">
+        <v-btn x-small v-if="isAuthenticated && loggedInUser.username==artist.username" icon outlined color="indigo" class="ml-2" to="/create/each1teach1/">
         <v-icon>mdi-plus</v-icon>
         </v-btn>
         <!-- <hr> -->

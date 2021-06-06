@@ -53,6 +53,42 @@
             </h4>
         </v-col>
     </v-row>
+     <v-row v-if="bio.introduction">
+        <v-col cols="12" style="margin:auto; text-align:center">
+            <v-container grid-list-xl :class="{'pa-1': $vuetify.breakpoint.smAndDown, 'ma-1': $vuetify.breakpoint.mdAndUp}">
+                <v-layout class="flex-wrap" >
+                    <v-flex xs6 md6 v-if="bio.vid1">
+                        <iframe width="420" height="300" 
+                        :src="bio.vid1">
+                        </iframe>
+                    </v-flex>
+                    <v-flex xs6 md6 v-if="bio.vid2">
+                        <iframe width="420" height="300" 
+                        :src="bio.vid2">
+                        </iframe>
+                    </v-flex>
+                    <v-flex  xs6 md6 v-if="bio.vid3">
+                        <iframe width="420" height="300" 
+                        :src="bio.vid3">
+                        </iframe>
+                    </v-flex>
+                    <v-flex  xs6 md6 v-if="bio.vid4">
+                        <iframe width="420" height="300" 
+                        :src="bio.vid4">
+                        </iframe>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-col>
+    </v-row>
+    <v-row v-if="bio.introduction">
+        <v-col cols="12" style="margin:auto; max-width:650px">
+            <h2 align="center" justify="center" >contact</h2><br>
+            <h4 align="center" justify="center" class="mb-5 font-weight-light">
+                
+            </h4>
+        </v-col>
+    </v-row>
     <v-row class="mt-4" align="center" justify="center">
         <v-btn v-if="bio.ig" icon class="text-decoration-none mx-4" color="indigo"  @click="openig" >
             <v-icon>mdi-instagram</v-icon>
@@ -67,6 +103,13 @@
             <v-icon>mdi-email</v-icon>
         </v-btn>
     </v-row>
+    <!-- <v-row>
+        <v-col>
+            <iframe width="420" height="345" 
+            src="https://www.youtube.com/embed/tgbNymZ7vqY">
+            </iframe>
+        </v-col>
+    </v-row> -->
     <!-- <v-row>
         <v-col cols="12" > 
             <div class="mb-5" v-if="highlights.length > 0">
@@ -131,7 +174,7 @@ export default {
       }
     },
     computed: {
-        ...mapGetters(['usersPortfolio', 'userHasPortfolio'])
+        ...mapGetters(['usersPortfolio', 'userHasPortfolio', 'usersBio'])
     },
     // layout: 'username',
     props: ["artist", "bio"],

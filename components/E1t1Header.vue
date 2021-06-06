@@ -2,7 +2,7 @@
    <v-container>
         <v-toolbar flat class="mt-6">
             <nuxt-link :to="'/'" >
-             <img src="@/assets/inmygroove.png" height="80px" width="90px">
+             <img src="@/assets/inmygroove.png" height="60px" width="70px">
             </nuxt-link> 
             <v-spacer></v-spacer> 
             <v-btn v-if="isAuthenticated" icon color="indigo" class="mr-2 text-decoration-none" to="/notifications">
@@ -29,11 +29,16 @@
                     :to="'/'+ loggedInUser.username"
                     class="text-decoration-none pl-6 pr-12"
                     >
-                    <v-avatar size="36">
+                    <v-avatar size="36" v-if="usersPortfolio.thumb">
                     <img
                         :src = "usersPortfolio.thumb" 
                         alt="img"
                     >
+                    </v-avatar>
+                    <v-avatar size="36" color="indigo" v-else >
+                        <v-icon dark>
+                            mdi-account-circle
+                        </v-icon>
                     </v-avatar>
                     <v-list-item-title class="pl-2">@{{ loggedInUser.username }}</v-list-item-title>
                     </v-list-item>

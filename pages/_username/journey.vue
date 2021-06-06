@@ -3,13 +3,13 @@
         <v-row>
             <v-col cols="12" > 
                 <!-- <div v-if="highlights"> -->
-                    <h4 class="font-weight-light mb-8 mt-4 pl-4 d-inline">Highlights</h4>
+                    <h4 class="font-weight-light mb-4 pl-4 mt-4 d-inline">Highlights</h4>
                     <!-- <h3 class=" mb-8 mt-4 font-weight-light d-inline ">Highlights</h3>  -->
-                    <v-btn dark v-if="isAuthenticated && loggedInUser.username==artist.username" x-small fab color="indigo" class="text-decoration-none mb-2 ml-2" to="/create/journey/">
-                        <v-icon>mdi-plus</v-icon>
+                    <v-btn x-small v-if="isAuthenticated && loggedInUser.username==artist.username" icon outlined color="indigo" class="ml-2" to="/create/journey/">
+                        <v-icon >mdi-plus</v-icon>
                     </v-btn>
-                    <div class="d-flex flex-wrap" >
-                        <div v-for = "journey in journey" :key = "journey.index" >
+                    <div class="d-flex flex-wrap pa-0" >
+                        <div v-for = "journey in journey" :key = "journey.index" class="pa-0">
                             <!-- <jouney-card-2 :journey = "journey" v-if="journey.ishighlight"></jouney-card-2> -->
                             <journey-card :journey = "journey" v-if="journey.ishighlight"></journey-card>
                         </div>
@@ -23,7 +23,7 @@
         <v-row>
             <v-col cols="12" > 
                 <div v-if="journey">
-                    <h4 class="font-weight-light mb-8 mt-4 pl-4 d-inline">Journey</h4>
+                    <h4 class="font-weight-light mb-4 pl-4 mt-4 d-inline">Journey</h4>
                     <!-- <h3 class=" ml-2 mb-8 mt-4 font-weight-light">Journey</h3> -->
                     <div class="d-flex flex-wrap" >
                         <div v-for = "journey in journey" :key = "journey.index" >

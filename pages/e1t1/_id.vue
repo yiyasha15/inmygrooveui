@@ -299,17 +299,17 @@
       </v-card>
     </v-dialog>
     <v-snackbar v-model="valid_snackbar">
-                Write something to post.
-                <template v-slot:action="{ attrs }">
-                    <v-btn
-                    color="error"
-                    icon
-                    v-bind="attrs"
-                    @click="valid_snackbar = false"
-                    >
-                    <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                </template>
+        Write something to post.
+        <template v-slot:action="{ attrs }">
+            <v-btn
+            color="error"
+            icon
+            v-bind="attrs"
+            @click="valid_snackbar = false"
+            >
+            <v-icon>mdi-close</v-icon>
+            </v-btn>
+        </template>
     </v-snackbar>
     <v-snackbar v-model="login_snackbar">
         Please login first.
@@ -467,6 +467,7 @@ export default {
             this.$router.push("/create/about");
         },
         goback(){
+            this.$store.dispatch("remove_share_obj")
             window.history.back();
         },
         async deleted(){

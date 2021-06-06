@@ -6,8 +6,8 @@
 				</h3>
 		</v-card-title>
 		<v-card-actions class="mb-3 justify-center">
-			<v-btn class="ml-4 px-4" dark rounded color="error" @click="signout">Sign Out</v-btn>
-			<v-btn class="ml-4 px-4" outlined rounded color="indigo" @click="cancel">Cancel</v-btn>
+			<v-btn class="ml-4 px-4" small dark rounded color="error" @click="signout">Sign Out</v-btn>
+			<v-btn class="ml-4 px-4" small outlined rounded color="indigo" @click="cancel">Cancel</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>
